@@ -130,7 +130,7 @@
         .sidebar-nav-item i { color: #a5b4fc; }
         .sidebar-nav-item:hover i { color: white; }
 
-        #landingPage { min-height: calc(100vh - 4rem - 3.5rem); }
+        #landingPage { min-height: calc(100vh - 4rem); }
         .page-container { flex-grow: 1; }
         .content-wrapper { flex-grow: 1; }
         .input-field {
@@ -158,10 +158,9 @@
 
     </style>
 </head>
-<body class="flex min-h-screen bg-gray-100">
+<body class="bg-gray-100">
 
-    <!-- Sidebar -->
-    <nav id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col overflow-y-auto bg-indigo-700 text-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 -translate-x-full">
+    <nav id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col overflow-y-auto bg-indigo-700 text-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 hidden">
         <div class="p-4 border-b border-indigo-600">
             <a href="#" id="sidebarLogoLink" class="flex items-center text-2xl font-semibold">
                 <i class="ph ph-scroll text-3xl mr-2 text-indigo-300"></i> Subh Paper Co.
@@ -171,17 +170,17 @@
             <li><a href="#" id="sidebarNavDashboard" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-gauge mr-3 text-lg"></i>Dashboard</a></li>
             <li><a href="#" id="sidebarNavInventory" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-list-bullets mr-3 text-lg"></i>Inventory</a></li>
             <li><a href="#" id="sidebarNavSuppliers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-users-three mr-3 text-lg"></i>Suppliers</a></li>
+            <li><a href="#" id="sidebarNavTransactions" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-arrow-left-right mr-3 text-lg"></i>Transactions</a></li>
             <li id="sidebarNavUsersListItem" class="hidden"><a href="#" id="sidebarNavUsers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-users-four mr-3 text-lg"></i>Manage Users</a></li>
         </ul>
         <div class="p-4 mt-auto border-t border-indigo-600">
-            <button id="sidebarLogoutBtn" class="w-full btn btn-danger btn-sm flex items-center justify-center">
+            <button id="sidebarLogoutBtn" class="w-full btn btn-danger btn-sm flex items-center justify-center hidden">
                 <i class="ph ph-sign-out mr-2"></i> Logout
             </button>
         </div>
     </nav>
 
-    <!-- Main content wrapper -->
-    <div id="mainContentWrapper" class="flex flex-1 flex-col w-full lg:ml-64">
+    <div id="mainContentWrapper" class="flex flex-1 flex-col w-full">
         <header class="sticky top-0 z-20 h-16 bg-white shadow-md">
             <div class="mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div class="lg:hidden">
@@ -210,18 +209,92 @@
         </header>
 
         <main id="pageDisplayArea" class="flex-grow overflow-y-auto bg-gray-100 p-4 md:p-6 lg:p-8">
-            <!-- Landing Page -->
             <div id="landingPage" class="flex h-full flex-col items-center justify-center p-8 text-center">
                 <div class="max-w-2xl"><i class="ph-bold ph-scroll mb-6 text-6xl opacity-80 md:text-8xl"></i><h1 class="mb-6 text-4xl font-bold md:text-6xl">Welcome to Subh Paper Company</h1><p class="mb-10 leading-relaxed text-lg md:text-xl">Efficiently manage your paper company's inventory.</p><button id="enterAppBtn" class="transform text-lg font-bold text-sky-600 shadow-lg transition-transform hover:scale-105 hover:bg-sky-50 rounded-lg bg-white py-3 px-8"><i class="ph ph-arrow-circle-right mr-2"></i>Get Started</button><p class="mt-12 text-sm opacity-70">Streamlined stock management.</p></div>
             </div>
 
-            <!-- Overview Page -->
-            <div id="overviewPage" class="page-container hidden"><div class="container mx-auto"><section class="mb-8"><div class="grid grid-cols-1 gap-6 md:grid-cols-3"><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-archive-box stat-icon text-sky-500"></i><div id="totalItemsStat" class="stat-value">0</div><div class="stat-label">Total Unique Items</div></div><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-warning-octagon stat-icon text-amber-500"></i><div id="lowStockItemsStat" class="stat-value">0</div><div class="stat-label">Items Low on Stock</div></div><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-stack-overflow-logo stat-icon text-indigo-500"></i><div id="totalQuantityStat" class="stat-value">0</div><div class="stat-label">Total Stock Quantity</div></div></div></section><section class="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6"><div><div id="recentActivitySection" class="dashboard-section p-6 mb-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Recent Activity</h3><div id="recentActivityFeed" class="max-h-64 overflow-y-auto text-sm space-y-2"><p class="text-gray-400">Loading...</p></div></div><div id="lowStockAlertsSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Low Stock Alerts</h3><div id="lowStockAlertsList" class="max-h-64 overflow-y-auto text-sm space-y-1"><p class="text-gray-400">Loading...</p></div></div></div><div><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"><div id="importantAnnouncementSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-red-600 mb-3 flex items-center"><i class="ph ph-warning-circle mr-2"></i>Announcements</h3><div id="importantAnnouncementList" class="max-h-48 overflow-y-auto text-sm space-y-2"><p class="text-gray-400">Loading...</p></div></div><div id="totalStockValueSection" class="dashboard-section p-6 text-center flex flex-col justify-center"><h3 class="text-lg font-semibold text-gray-700 mb-2">Total Stock Value</h3><div id="totalStockValueDisplay" class="text-3xl font-bold text-green-600">₹0.00</div></div></div><div id="topMoversSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Top Movers (Last 30 Days)</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><h4 class="text-md font-medium text-gray-600 mb-2">Top Inward</h4><ul id="topInwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto"><li class="text-gray-400">Loading...</li></ul></div><div><h4 class="text-md font-medium text-gray-600 mb-2">Top Outward</h4><ul id="topOutwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto"><li class="text-gray-400">Loading...</li></ul></div></div></div></div></section><section><div class="grid grid-cols-1 gap-6 lg:grid-cols-2"><div class="chart-container p-4"><div id="stockChartDiv"></div></div><div class="chart-container p-4"><div id="pieChartDiv"></div></div><div class="chart-container p-4 lg:col-span-2"><div id="barChartDiv"></div></div></div></section></div></div>
+            <div id="overviewPage" class="page-container hidden">
+                <div class="container mx-auto space-y-8">
+                    <section>
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-archive-box stat-icon text-sky-500"></i>
+                                <div id="totalItemsStat" class="stat-value">0</div>
+                                <div class="stat-label">Total Unique Items</div>
+                            </div>
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-warning-octagon stat-icon text-amber-500"></i>
+                                <div id="lowStockItemsStat" class="stat-value">0</div>
+                                <div class="stat-label">Items Low on Stock</div>
+                            </div>
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-stack-overflow-logo stat-icon text-indigo-500"></i>
+                                <div id="totalQuantityStat" class="stat-value">0</div>
+                                <div class="stat-label">Total Stock Quantity</div>
+                            </div>
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-currency-inr stat-icon text-green-500"></i>
+                                <div id="totalStockValueDisplay" class="stat-value">₹0.00</div>
+                                <div class="stat-label">Total Stock Value</div>
+                            </div>
+                        </div>
+                    </section>
 
-            <!-- Inventory Page -->
-            <div id="inventoryApp" class="page-container content-wrapper hidden"><div class="container mx-auto"><div id="inventoryLoadingIndicator" class="my-4 hidden"><div class="loader"></div><p>Loading...</p></div><section id="inventoryTableSection" class="inventory-section-bg"><div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="table-header"><tr><th class="px-2 py-3 text-center"><input type="checkbox" id="bulkSelectAll"/></th><th class="sortable px-4 py-3 text-left text-xs" data-key="ItemName">Name <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="openingStock">Opening Stock <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="openingStockDate">Opening Date <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="StockQuantity">Current Stock <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="ReorderLevel">Reorder Lvl <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-right text-xs" data-key="Price">Price <span class="sort-indicator"></span></th><th class="px-4 py-3 text-right text-xs">Stock Price</th><th class="sortable px-4 py-3 text-left text-xs" data-key="SupplierID">Supplier <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-left text-xs" data-key="LastUpdated">Last Updated <span class="sort-indicator"></span></th><th class="px-4 py-3 text-center text-xs">Actions</th></tr></thead><tbody id="inventoryTableBody"></tbody></table></div><div id="paginationControls" class="mt-4 flex justify-center"></div></section></div></div>
+                    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-1 space-y-6">
+                            <div id="recentActivitySection" class="dashboard-section p-6 h-full">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-700">Recent Transaction Activity</h3>
+                                    <a href="#" id="viewAllTransactionsLink" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">View all &rarr;</a>
+                                </div>
+                                <div id="recentActivityFeed" class="max-h-96 overflow-y-auto text-sm space-y-2">
+                                    <p class="text-gray-400">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2 space-y-6">
+                             <div id="importantAnnouncementSection" class="dashboard-section p-6">
+                                <h3 class="text-lg font-semibold text-red-600 mb-3 flex items-center">
+                                    <i class="ph ph-warning-circle mr-2"></i>Announcements
+                                </h3>
+                                <div id="importantAnnouncementList" class="max-h-48 overflow-y-auto text-sm space-y-2">
+                                    <p class="text-gray-400">Loading...</p>
+                                </div>
+                            </div>
+                            <div id="topMoversSection" class="dashboard-section p-6">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-3">Top Movers (Last 30 Days)</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="text-md font-medium text-gray-600 mb-2">Top Inward</h4>
+                                        <ul id="topInwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto">
+                                            <li class="text-gray-400">Loading...</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-md font-medium text-gray-600 mb-2">Top Outward</h4>
+                                        <ul id="topOutwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto">
+                                            <li class="text-gray-400">Loading...</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
-            <!-- Suppliers Page (now just for the list) -->
+                    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="chart-container p-4">
+                            <div id="stockChartDiv"></div>
+                        </div>
+                        <div class="chart-container p-4">
+                            <div id="pieChartDiv"></div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="inventoryApp" class="page-container content-wrapper hidden"><div class="container mx-auto"><div id="inventoryLoadingIndicator" class="my-4 hidden"><div class="loader"></div><p>Loading...</p></div><section id="inventoryTableSection" class="inventory-section-bg"><div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="table-header"><tr><th class="px-2 py-3 text-center"><input type="checkbox" id="bulkSelectAll"/></th><th class="px-4 py-3 text-left text-xs" data-key="ItemName">Name</th><th class="px-4 py-3 text-center text-xs" data-key="openingStock">Opening Stock</th><th class="px-4 py-3 text-center text-xs" data-key="openingStockDate">Opening Date</th><th class="px-4 py-3 text-center text-xs" data-key="StockQuantity">Current Stock</th><th class="px-4 py-3 text-center text-xs" data-key="ReorderLevel">Reorder Lvl</th><th class="px-4 py-3 text-right text-xs" data-key="Price">Price</th><th class="px-4 py-3 text-right text-xs">Stock Price</th><th class="px-4 py-3 text-left text-xs" data-key="SupplierID">Supplier</th><th class="px-4 py-3 text-left text-xs" data-key="LastUpdated">Last Updated</th><th class="px-4 py-3 text-center text-xs">Actions</th></tr></thead><tbody id="inventoryTableBody"></tbody></table></div><div id="paginationControls" class="mt-4 flex justify-center"></div></section></div></div>
+
             <div id="suppliersPage" class="page-container content-wrapper hidden">
                 <div class="container mx-auto">
                     <section id="supplierListSection" class="suppliers-section-bg">
@@ -237,7 +310,6 @@
                 </div>
             </div>
 
-            <!-- User Management Page (now just for the list) -->
             <div id="userManagementPage" class="page-container content-wrapper hidden">
                 <div class="container mx-auto">
                     <section id="userListSection" class="users-section-bg">
@@ -262,25 +334,56 @@
                     </section>
                 </div>
             </div>
+            
+            <div id="transactionsPage" class="page-container content-wrapper hidden">
+                <div class="container mx-auto">
+                    <section class="users-section-bg p-6">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">All Inventory Transactions</h3>
+                        <div id="transactionTableContainer" class="overflow-x-auto border rounded-md">
+                            <table class="min-w-full">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Item Name</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Type</th>
+                                        <th class="py-2 px-3 text-center text-xs font-medium uppercase tracking-wider">Quantity</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Remarks</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">User</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionTableBody" class="bg-white divide-y divide-gray-200">
+                                    <!-- Rows will be injected by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
         </main>
-        <footer class="mt-auto bg-gray-200 py-6 text-center text-gray-600"><p class="text-sm">&copy; <span id="currentYear"></span> Subh Paper Company.</p></footer>
     </div>
 
-    <!-- MODALS START HERE -->
-    <!-- Message Modal -->
     <div id="messageModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold text-gray-700">Notification</h3><p id="messageText" class="mb-4 text-sm text-gray-600"></p><button id="closeMessageButton" class="btn btn-primary w-full">OK</button></div></div>
-    <!-- Login Modal -->
     <div id="loginModal" class="fixed inset-0 z-[80] hidden flex items-center justify-center modal-backdrop"><div class="login-modal mx-4 w-full max-w-md p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 class="text-xl font-semibold text-indigo-600 md:text-2xl">Login Required</h2><button id="closeLoginModalBtn"><i class="ph ph-x text-2xl"></i></button></div><form id="loginForm" class="space-y-4"><div><label for="loginIdInput" class="mb-1 block text-sm font-medium">Email ID</label><input type="email" id="loginIdInput" required class="w-full input-field" placeholder="Enter your Email ID"></div><div><label for="loginPasswordInput" class="mb-1 block text-sm font-medium">Password</label><input type="password" id="loginPasswordInput" required class="w-full input-field" placeholder="Password"></div><p id="loginErrorText" class="hidden text-sm text-red-600"></p><div id="loginLoadingIndicator" class="my-2 hidden"><div class="loader"></div><p>Authenticating...</p></div><div class="flex items-center justify-end pt-2"><button type="submit" id="loginSubmitBtn" class="btn btn-primary">Login</button></div></form></div></div>
-    <!-- Item Form Modal -->
     <div id="itemFormModal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-backdrop"><div class="form-modal mx-4 w-full max-w-2xl p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 id="formTitle" class="text-xl font-semibold">Add Item</h2><button id="closeFormModalBtn"><i class="ph ph-x text-2xl"></i></button></div><form id="itemForm" class="space-y-4"><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="itemName">Name</label><input type="text" id="itemName" required class="input-field"></div><div><label for="stockQuantity">Stock Qty</label><input type="number" id="stockQuantity" required min="0" class="input-field"></div></div><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="openingStock">Opening Stock</label><input type="number" id="openingStock" readonly class="input-field bg-gray-100"></div><div><label for="reorderLevel">Reorder Lvl</label><input type="number" id="reorderLevel" required min="0" class="input-field"></div></div><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="price">Price</label><input type="number" id="price" step="0.01" required min="0" class="input-field"></div><div><label for="supplier">Supplier</label><select id="supplier" required class="input-field"><option value="">Select</option></select></div></div><div id="itemFormLoadingIndicator" class="hidden"><div class="loader small"></div><p>Saving...</p></div><div class="flex justify-end space-x-3 pt-2"><button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button><button type="submit" id="submitButton" class="btn btn-primary">Add Item</button></div></form></div></div>
-    <!-- In/Out Stock Modal -->
     <div id="inOutModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 id="inOutModalTitle" class="mb-4 text-lg font-semibold">Transaction</h3><form id="inOutForm" class="space-y-3"><div><label>Type</label><select id="inOutType" class="input-field"><option value="inward">Inward</option><option value="outward">Outward</option></select></div><div><label>Quantity</label><input type="number" id="inOutQty" min="1" required class="input-field"></div><div><label>Remarks</label><input type="text" id="inOutRemarks" class="input-field" placeholder="Optional"></div><div id="inOutLoadingIndicator" class="hidden"><div class="loader small"></div><p>Processing...</p></div><div class="flex gap-2 pt-2"><button type="button" id="inOutCancelBtn" class="btn btn-secondary flex-1">Cancel</button><button type="submit" id="inOutSubmitBtn" class="btn btn-primary flex-1">Submit</button></div></form></div></div>
-    <!-- Transaction Log Modal -->
     <div id="txnLogModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl"><div class="mb-4 flex items-center justify-between"><h3 id="txnLogModalTitle" class="text-lg font-semibold">Log</h3><button id="closeTxnLogBtnTop"><i class="ph ph-x text-2xl"></i></button></div><div id="txnLogLoadingIndicator" class="hidden"><div class="loader small"></div><p>Loading...</p></div><div id="txnLogListContainer"><div id="txnLogList" class="max-h-80 overflow-y-auto"></div></div><button id="closeTxnLogBtn" class="btn btn-primary mt-4 w-full">Close</button></div></div>
-    <!-- Confirmation Modal -->
     <div id="confirmModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold">Are you sure?</h3><p id="confirmText" class="mb-4 text-sm"></p><div class="flex space-x-3"><button id="confirmYesBtn" class="btn btn-danger w-full">Yes</button><button id="confirmNoBtn" class="btn btn-secondary w-full">No</button></div></div></div>
 
-    <!-- Supplier Form Modal -->
+    <!-- New Modal for Delete Item Options -->
+    <div id="deleteItemOptionsModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop">
+        <div class="mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
+            <h3 class="mb-2 text-lg font-semibold">Delete Item Options</h3>
+            <p id="deleteItemOptionsText" class="mb-4 text-sm"></p>
+            <div class="flex flex-col space-y-2">
+                <button id="deleteItemAndTransactionsBtn" class="btn btn-danger w-full">Yes, Delete Item & Transactions</button>
+                <button id="deleteItemOnlyBtn" class="btn btn-warning w-full">No, Delete Item Only</button>
+                <button id="cancelDeleteItemBtn" class="btn btn-secondary w-full">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+
     <div id="supplierFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop">
         <div class="supplier-form-modal mx-4 w-full max-w-lg p-6 md:p-8">
             <div class="mb-6 flex items-center justify-between">
@@ -305,7 +408,6 @@
         </div>
     </div>
 
-    <!-- User Form Modal -->
     <div id="userFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop">
         <div class="user-form-modal mx-4 w-full max-w-xl p-6 md:p-8">
              <div class="mb-6 flex items-center justify-between">
@@ -335,11 +437,7 @@
             </form>
         </div>
     </div>
-    <!-- MODALS END HERE -->
-
-
     <div id="toastContainer" class="fixed right-6 top-6 z-[90] space-y-2"></div>
-    <div id="lowStockBanner" class="fixed left-0 top-0 z-[80] hidden w-full bg-amber-400 py-2 text-center font-semibold text-amber-900">Low stock! <span id="lowStockCount"></span></div>
     <div id="syncStatusIndicator" class="fixed bottom-4 right-4 z-[100] hidden rounded-md px-3 py-1.5 text-xs font-medium shadow-md">Syncing...</div>
 
     <script>
@@ -357,12 +455,13 @@
             const LOCAL_STORAGE_ALL_USERS_KEY = 'inventoryApp_allUsers';
             const AUTO_SYNC_INTERVAL = 5000; // Sync every 5 seconds
 
-            // --- DOM Elements (Ensure all are correctly identified) ---
+            // --- DOM Elements ---
             const sidebar = document.getElementById('sidebar');
             const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
             const sidebarNavDashboard = document.getElementById('sidebarNavDashboard');
             const sidebarNavInventory = document.getElementById('sidebarNavInventory');
             const sidebarNavSuppliers = document.getElementById('sidebarNavSuppliers');
+            const sidebarNavTransactions = document.getElementById('sidebarNavTransactions');
             const sidebarNavUsersListItem = document.getElementById('sidebarNavUsersListItem');
             const sidebarNavUsers = document.getElementById('sidebarNavUsers');
             const sidebarLogoutBtn = document.getElementById('sidebarLogoutBtn');
@@ -382,6 +481,7 @@
             const inventoryAppDiv = document.getElementById('inventoryApp');
             const suppliersPageDiv = document.getElementById('suppliersPage');
             const userManagementPageDiv = document.getElementById('userManagementPage');
+            const transactionsPageDiv = document.getElementById('transactionsPage');
             const enterAppBtn = document.getElementById('enterAppBtn');
             const loginModal = document.getElementById('loginModal');
             const loginForm = document.getElementById('loginForm');
@@ -412,7 +512,6 @@
             const totalItemsStatEl = document.getElementById('totalItemsStat');
             const lowStockItemsStatEl = document.getElementById('lowStockItemsStat');
             const totalQuantityStatEl = document.getElementById('totalQuantityStat');
-             // In/Out Modal elements
             const inOutModal = document.getElementById('inOutModal');
             const inOutModalTitle = document.getElementById('inOutModalTitle');
             const inOutForm = document.getElementById('inOutForm');
@@ -422,9 +521,7 @@
             const inOutCancelBtn = document.getElementById('inOutCancelBtn');
             const inOutSubmitBtn = document.getElementById('inOutSubmitBtn');
             const inOutLoadingIndicator = document.getElementById('inOutLoadingIndicator');
-            let inOutItemId = null; // To store the ID of the item being transacted
-
-            // Supplier Modal Elements
+            let inOutItemId = null; 
             const supplierFormModal = document.getElementById('supplierFormModal');
             const supplierFormModalTitle = document.getElementById('supplierFormModalTitle');
             const supplierFormEl_Modal = document.getElementById('supplierFormModal_form');
@@ -436,8 +533,6 @@
             const supplierFormModalLoadingIndicator = document.getElementById('supplierFormModalLoadingIndicator');
             const supplierListBody = document.getElementById('supplierListBody');
             const supplierListLoadingIndicator = document.getElementById('supplierListLoadingIndicator');
-
-            // User Modal Elements
             const userFormModal = document.getElementById('userFormModal');
             const userFormModalTitle = document.getElementById('userFormModalTitle');
             const userFormEl_Modal = document.getElementById('userFormModal_form');
@@ -455,7 +550,6 @@
             const userFormModalLoadingIndicator = document.getElementById('userFormModalLoadingIndicator');
             const userListBody = document.getElementById('userListBody');
             const userListLoadingIndicator = document.getElementById('userListLoadingIndicator');
-
             const txnLogModal = document.getElementById('txnLogModal');
             const txnLogList = document.getElementById('txnLogList');
             const closeTxnLogBtn = document.getElementById('closeTxnLogBtn');
@@ -464,35 +558,64 @@
             const txnLogLoadingIndicator = document.getElementById('txnLogLoadingIndicator');
             const txnLogListContainer = document.getElementById('txnLogListContainer');
             const syncStatusIndicator = document.getElementById('syncStatusIndicator');
-
-            // Dashboard enhancement elements
             const recentActivityFeed = document.getElementById('recentActivityFeed');
             const totalStockValueDisplay = document.getElementById('totalStockValueDisplay');
             const lowStockAlertsList = document.getElementById('lowStockAlertsList');
             const topInwardItemsList = document.getElementById('topInwardItemsList');
             const topOutwardItemsList = document.getElementById('topOutwardItemsList');
             const importantAnnouncementList = document.getElementById('importantAnnouncementList');
+            const viewAllTransactionsLink = document.getElementById('viewAllTransactionsLink');
+            const deleteItemOptionsModal = document.getElementById('deleteItemOptionsModal');
+            const deleteItemOptionsText = document.getElementById('deleteItemOptionsText');
+            const deleteItemAndTransactionsBtn = document.getElementById('deleteItemAndTransactionsBtn');
+            const deleteItemOnlyBtn = document.getElementById('deleteItemOnlyBtn');
+            const cancelDeleteItemBtn = document.getElementById('cancelDeleteItemBtn');
             const DASHBOARD_FEED_LIMIT = 5;
 
-
-            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            // --- State Variables ---
             let currentEditItemId = null; let inventory = []; let suppliers = []; let transactions = [];
             let allUsersData = []; let syncQueue = []; let currentEditSupplierId = null; let currentEditUserId = null;
             let loggedInUser = null; let isSyncing = false; const MAX_RETRIES = 3;
-            let autoSyncIntervalId = null; // To store the interval ID for auto-sync
+            let autoSyncIntervalId = null;
 
-             // --- Date Formatting Helper ---
+            // --- Helper Functions ---
+            function getItemNameById(itemId) {
+                if (!itemId) return 'N/A';
+                const item = inventory.find(i => String(i.ItemID) === String(itemId));
+                return item ? item.ItemName : `Item ID: ${itemId}`;
+            }
+
+            function getUserNameById(userId) {
+                if (!userId || userId === 'null' || userId === 'undefined') return 'System/Unknown';
+                const userById = allUsersData.find(u => String(u.UserID) === String(userId));
+                if (userById) {
+                    const fullNameTrimmed = userById.FullName ? userById.FullName.trim() : '';
+                    const loginIDTrimmed = userById.LoginID ? userById.LoginID.trim() : '';
+                    if (fullNameTrimmed) return fullNameTrimmed;
+                    if (loginIDTrimmed) return loginIDTrimmed;
+                    return `User ID: ${userId}`;
+                }
+                if (typeof userId === 'string') {
+                    const userByName = allUsersData.find(u => u.FullName === userId || u.LoginID === userId);
+                    if (userByName) {
+                        return userByName.FullName || userByName.LoginID;
+                    }
+                    if (!userId.startsWith('temp_') && !userId.match(/^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/i)) {
+                        return userId;
+                    }
+                }
+                return `UID: ${userId}`;
+            }
+
             function formatDate(dateString, includeTime = true) {
                 if (!dateString) return 'N/A';
                 try {
                     const date = new Date(dateString);
                     if (isNaN(date.getTime())) return 'Invalid Date';
-
                     const day = String(date.getDate()).padStart(2, '0');
                     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
                     const month = monthNames[date.getMonth()];
                     const year = date.getFullYear();
-
                     if (includeTime) {
                         let hours = date.getHours();
                         const minutes = String(date.getMinutes()).padStart(2, '0');
@@ -516,7 +639,6 @@
                 try {
                     const loginTime = new Date(dateString);
                     if (isNaN(loginTime.getTime())) return 'Invalid Date';
-
                     const now = new Date();
                     const diffMillis = now.getTime() - loginTime.getTime();
                     const diffSeconds = Math.round(diffMillis / 1000);
@@ -536,7 +658,7 @@
             }
 
 
-            // --- Sidebar & Basic Nav ---
+            // --- Sidebar & Navigation ---
             if (sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', () => sidebar.classList.toggle('-translate-x-full'));
             document.querySelectorAll('.sidebar-nav-item').forEach(item => {
                 item.addEventListener('click', () => { if (window.innerWidth < 1024 && !sidebar.classList.contains('-translate-x-full')) sidebar.classList.add('-translate-x-full'); });
@@ -548,9 +670,9 @@
             function setLocalStorage(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){console.error(`Err LSto:"${key}"`,e);showToast(`Local save fail: ${e.message}`,1);}}
             function genId(){return `temp_${Date.now()}_${Math.random().toString(36).substr(2,9)}`;}
             function updateSyncIndicator(){if(!syncStatusIndicator)return;if(isSyncing){syncStatusIndicator.textContent=`Syncing(${syncQueue.length})...`;syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-pending z-[100] shadow-md rounded-md';syncStatusIndicator.classList.remove('hidden');}else if(syncQueue.length>0){syncStatusIndicator.textContent=`${syncQueue.length} pending.`;syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-pending z-[100] shadow-md rounded-md';syncStatusIndicator.classList.remove('hidden');}else{syncStatusIndicator.textContent='Synced';syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-success z-[100] shadow-md rounded-md';setTimeout(()=>{if(syncQueue.length===0&&!isSyncing)syncStatusIndicator.classList.add('hidden');},3000);}}
-            async function addToSyncQ(op){syncQueue.push({...op,id:genId(),retries:0,timestamp:Date.now()});setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,syncQueue);updateSyncIndicator();processSyncQ();} // No await here for processSyncQ for background adds
+            async function addToSyncQ(op){syncQueue.push({...op,id:genId(),retries:0,timestamp:Date.now()});setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,syncQueue);processSyncQ();}
             
-            async function processSyncQ(isManualOrAutoSync = false) { // Added flag to distinguish call source
+            async function processSyncQ(isManualOrAutoSync = false) {
                 if (isSyncing || syncQueue.length === 0 || !navigator.onLine) {
                     updateSyncIndicator();
                     return;
@@ -565,48 +687,33 @@
                     if (result.success) {
                         syncQueue.shift();
                         setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY, syncQueue);
-                        if(isManualOrAutoSync) showToast(`${op.type} synced!`, 0); // Show toast only for manual/auto, not for every background queue process
+                        if(isManualOrAutoSync) showToast(`${op.type} synced!`, 0);
                         
+                        let needsUIRefresh = false;
                         if (op.tempId && result.data) {
-                            let itemUpdatedInTable = false; // Flag to check if inventory table needs re-render
                             if (op.type === 'createItem' && result.data.ItemID) {
                                 const idx = inventory.findIndex(i => String(i.ItemID) === String(op.tempId));
-                                if (idx > -1) { inventory[idx].ItemID = String(result.data.ItemID); inventory[idx] = { ...inventory[idx], ...result.data, ItemID: String(result.data.ItemID), SupplierID: String(result.data.SupplierID || "") }; itemUpdatedInTable = true;}
+                                if (idx > -1) { inventory[idx].ItemID = String(result.data.ItemID); inventory[idx] = { ...inventory[idx], ...result.data, ItemID: String(result.data.ItemID), SupplierID: String(result.data.SupplierID || "") }; needsUIRefresh = true;}
                             } else if (op.type === 'createSupplier' && result.data.SupplierID) {
                                 const idx = suppliers.findIndex(s => String(s.SupplierID) === String(op.tempId));
                                 if (idx > -1) { suppliers[idx].SupplierID = String(result.data.SupplierID); suppliers[idx] = { ...suppliers[idx], ...result.data, SupplierID: String(result.data.SupplierID) };}
-                                renderSupplierList(); populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown(); itemUpdatedInTable = true; // Supplier changes might affect item table
+                                populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown(); needsUIRefresh = true;
                             } else if (op.type === 'createTransaction' && result.data.TransactionID) {
                                 const idx = transactions.findIndex(t => String(t.id) === String(op.tempId));
                                 if (idx > -1) { transactions[idx].id = String(result.data.TransactionID); transactions[idx] = { ...transactions[idx], ...result.data, id: String(result.data.TransactionID), transactionUserID: result.data.UserID ? String(result.data.UserID) : transactions[idx].transactionUserID };}
-                                 itemUpdatedInTable = true; // Transactions affect dashboard and potentially item logs
+                                needsUIRefresh = true;
                             } else if (op.type === 'createUser' && result.data && result.data.UserID) {
                                 const userIdx = allUsersData.findIndex(u => String(u.UserID) === String(op.tempId));
                                 if (userIdx > -1) { allUsersData[userIdx] = { ...allUsersData[userIdx], ...result.data, UserID: String(result.data.UserID) }; } else { allUsersData.push({ ...result.data, UserID: String(result.data.UserID) }); }
-                                renderUserList();
+                                needsUIRefresh = true;
                             }
-                            // Common updates if any item-related data changed
-                            if(itemUpdatedInTable){
+
+                            if(needsUIRefresh){
                                 setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
                                 setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers);
                                 setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
                                 setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData);
-
-                                if (overviewPageDiv && !overviewPageDiv.classList.contains('hidden') && loggedInUser) {
-                                    renderInteractiveDashboard(); // Full dashboard refresh if on overview page
-                                } else if (inventoryAppDiv && !inventoryAppDiv.classList.contains('hidden') && loggedInUser) {
-                                    renderInventoryTable(); // Only inventory table if on inventory page
-                                    updateOverviewStats(); // Still update core stats for banners etc.
-                                } else if (suppliersPageDiv && !suppliersPageDiv.classList.contains('hidden') && loggedInUser) {
-                                    renderSupplierList();
-                                    updateOverviewStats();
-                                } else if (userManagementPageDiv && !userManagementPageDiv.classList.contains('hidden') && loggedInUser) {
-                                    renderUserList();
-                                    updateOverviewStats();
-                                }
-                                else { // Fallback: update core stats if no specific page is active (e.g. during initial load)
-                                    updateOverviewStats();
-                                }
+                                refreshCurrentPageUI();
                             }
                         }
                     } else { throw new Error(result.message || 'API op fail.'); }
@@ -615,7 +722,7 @@
                     op.retries++;
                     if (op.retries >= MAX_RETRIES) {
                         if(isManualOrAutoSync) showToast(`Fail ${op.type} sync x${MAX_RETRIES}. Moved to end.`, 1);
-                        syncQueue.shift(); syncQueue.push(op); // Move to end of queue
+                        syncQueue.shift(); syncQueue.push(op);
                     } else {
                         if(isManualOrAutoSync) showToast(`Sync fail ${op.type}(${op.retries}/${MAX_RETRIES}). Retry.`, 1);
                     }
@@ -624,13 +731,23 @@
                     isSyncing = false;
                     updateSyncIndicator();
                     if (syncQueue.length > 0 && navigator.onLine) {
-                        const delay = syncQueue[0] === op && op.retries > 0 ? Math.min(30000, 2000 * Math.pow(2, op.retries)) : (isManualOrAutoSync ? 100 : 1000); // Shorter delay for immediate retry after manual/auto, longer for background retries
-                        setTimeout(() => processSyncQ(false), delay); // Subsequent calls from here are part of the background chain
+                        const delay = syncQueue[0] === op && op.retries > 0 ? Math.min(30000, 2000 * Math.pow(2, op.retries)) : (isManualOrAutoSync ? 100 : 1000);
+                        setTimeout(() => processSyncQ(false), delay);
                     }
                 }
             }
 
-            async function fetchStoreUsers(force=0){if(!force&&allUsersData.length>0){console.log("Cached users.");return;}if(!navigator.onLine && !force) { console.log("Offline, skipping user fetch."); return;}try{const r=await fetch(USERS_API_ENDPOINT);if(!r.ok){console.error("Fail fetch users:",r.status);showToast("User data load fail.",1);return;}const res=await r.json();if(res.success&&Array.isArray(res.data)){allUsersData=res.data.map(u=>({...u,UserID:String(u.UserID),LoginID:u.LoginID,FullName:u.FullName,ContactNo:u.ContactNo,FirstName:u.FirstName,LastName:u.LastName, Role: u.Role || 'User'}));setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,allUsersData);console.log("Users loaded:",allUsersData.length);}else{console.error("Fail parse users:",res.message);showToast("User data parse err.",1);}}catch(e){console.error("Err fetch users:",e);showToast("User data fetch err.",1);}}
+            function refreshCurrentPageUI() {
+                const currentPage = document.querySelector('.page-container:not(.hidden)');
+                if (currentPage === overviewPageDiv) renderInteractiveDashboard();
+                else if (currentPage === inventoryAppDiv) renderInventoryTable();
+                else if (currentPage === suppliersPageDiv) renderSupplierList();
+                else if (currentPage === userManagementPageDiv) renderUserList();
+                else if (currentPage === transactionsPageDiv) renderTransactionTable();
+                else updateOverviewStats();
+            }
+
+            async function fetchStoreUsers(force=0){if(!force&&allUsersData.length>0){return;}if(!navigator.onLine && !force) {return;}try{const r=await fetch(USERS_API_ENDPOINT);if(!r.ok){console.error("Fail fetch users:",r.status);showToast("User data load fail.",1);return;}const res=await r.json();if(res.success&&Array.isArray(res.data)){allUsersData=res.data.map(u=>({...u,UserID:String(u.UserID),LoginID:u.LoginID,FullName:u.FullName,ContactNo:u.ContactNo,FirstName:u.FirstName,LastName:u.LastName, Role: u.Role || 'User'}));setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,allUsersData);}else{console.error("Fail parse users:",res.message);showToast("User data parse err.",1);}}catch(e){console.error("Err fetch users:",e);showToast("User data fetch err.",1);}}
 
             // --- Login & Role-Based UI ---
             function updateSidebarForRole() {
@@ -644,9 +761,9 @@
                 }
             }
 
-            function openLoginModal(){loginIdInput.value='';loginPasswordInput.value='';loginErrorText.classList.add('hidden');loginErrorText.textContent='';loginLoadingIndicator.classList.add('hidden');loginSubmitBtn.disabled=false;loginModal.classList.remove('hidden');loginIdInput.focus();sidebar.classList.add('-translate-x-full','lg:translate-x-0');mainContentWrapper.classList.remove('lg:ml-64');document.body.classList.remove('flex'); updateSidebarForRole(); }
-            function closeLoginModal(){loginModal.classList.add('hidden');document.body.classList.add('flex');if(loggedInUser){sidebar.classList.remove('-translate-x-full');mainContentWrapper.classList.add('lg:ml-64');}}
-            async function updateUserLastLogin(id){if(!navigator.onLine) return; try{const r=await fetch(USERS_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:"updateUser",data:{UserID:id,LastLoginDate:new Date().toISOString()}})});const res=await r.json();if(res.success)console.log("LastLogin user:",id);else console.error("Fail LastLogin:",res.message);}catch(e){console.error("Err LastLogin:",e);}}
+            function openLoginModal(){loginIdInput.value='';loginPasswordInput.value='';loginErrorText.classList.add('hidden');loginErrorText.textContent='';loginLoadingIndicator.classList.add('hidden');loginSubmitBtn.disabled=false;loginModal.classList.remove('hidden');loginIdInput.focus();}
+            function closeLoginModal(){loginModal.classList.add('hidden');}
+            async function updateUserLastLogin(id){if(!navigator.onLine) return; try{const r=await fetch(USERS_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:"updateUser",data:{UserID:id,LastLoginDate:new Date().toISOString()}})});const res=await r.json();if(!res.success) console.error("Fail LastLogin:",res.message);}catch(e){console.error("Err LastLogin:",e);}}
 
             loginForm.addEventListener('submit',async(e)=>{
                 e.preventDefault();
@@ -655,115 +772,98 @@
                 if(!emailAsLoginId||!pw){loginErrorText.textContent='Email (Login ID) & Password required.';loginErrorText.classList.remove('hidden');return;}
                 loginErrorText.classList.add('hidden');loginLoadingIndicator.classList.remove('hidden');loginSubmitBtn.disabled=true;
                 try{
-                    await fetchStoreUsers(true); // Force fetch users on login attempt
+                    await fetchStoreUsers(true);
                     const user=allUsersData.find(u=>u.LoginID.toLowerCase()===emailAsLoginId.toLowerCase());
                     if(user){
-                        // IMPORTANT: This is a placeholder for password comparison. 
-                        // In a real app, NEVER store/compare plaintext passwords. Use hashing.
-                        if(user.PasswordHash===pw){ // Assuming PasswordHash is the plaintext password for this example
+                        if(user.PasswordHash===pw){
                             loggedInUser={...user,UserID:String(user.UserID)};
                             setLocalStorage(LOCAL_STORAGE_LOGGED_IN_USER_KEY,loggedInUser);
                             updateUserLastLogin(user.UserID);
-                            await fetchAllDataFromAPIsAndStore(true, false); // Force fetch all data after successful login, not background
+                            await fetchAllDataFromAPIsAndStore(true, false);
                             closeLoginModal();
                             updateSidebarForRole();
                             showPage(overviewPageDiv,sidebarNavDashboard);
                             showToast(`Welcome, ${user.FullName || user.LoginID}!`,0);
-                            processSyncQ(true); // Process queue after login, flag as part of a "manual" flow
-                            startAutoSync(); // Start auto-sync after login
+                            processSyncQ(true);
+                            startAutoSync();
                         }else{loginErrorText.textContent='Invalid Email/Password.';loginErrorText.classList.remove('hidden');}
                     }else{loginErrorText.textContent='Invalid Email/Password.';loginErrorText.classList.remove('hidden');}
                 }catch(e){console.error("Login err:",e);loginErrorText.textContent=`Login fail: ${e.message}.`;loginErrorText.classList.remove('hidden');}
                 finally{loginLoadingIndicator.classList.add('hidden');loginSubmitBtn.disabled=false;}
             });
-            if(closeLoginModalBtn)closeLoginModalBtn.addEventListener('click',()=>{loginModal.classList.add('hidden');if(!loggedInUser){sidebar.classList.add('-translate-x-full','lg:translate-x-0');mainContentWrapper.classList.remove('lg:ml-64');document.body.classList.remove('flex');}else{document.body.classList.add('flex');sidebar.classList.remove('-translate-x-full');mainContentWrapper.classList.add('lg:ml-64');}});
+            if(closeLoginModalBtn)closeLoginModalBtn.addEventListener('click',closeLoginModal);
 
             function showPage(pageToShow, activeNavLinkEl = null) {
-                landingPageDiv.classList.add('hidden');
-                overviewPageDiv.classList.add('hidden');
-                inventoryAppDiv.classList.add('hidden');
-                suppliersPageDiv.classList.add('hidden');
-                userManagementPageDiv.classList.add('hidden');
-                itemFormModal.classList.add('hidden');
-                userFormModal.classList.add('hidden');
-                supplierFormModal.classList.add('hidden');
+                // Hide all main page containers and modals first
+                [landingPageDiv, overviewPageDiv, inventoryAppDiv, suppliersPageDiv, userManagementPageDiv, transactionsPageDiv, itemFormModal, userFormModal, supplierFormModal].forEach(el => el.classList.add('hidden'));
 
+                // Security check for admin-only pages
                 if (pageToShow === userManagementPageDiv && (!loggedInUser || loggedInUser.Role !== 'Admin')) {
                     showToast("Access Denied: Admins only.", true);
-                    pageToShow = overviewPageDiv;
+                    pageToShow = overviewPageDiv; // Default to dashboard
                     activeNavLinkEl = sidebarNavDashboard;
                 }
 
-                if(pageToShow) pageToShow.classList.remove('hidden');
+                // Show the target page
+                if (pageToShow) pageToShow.classList.remove('hidden');
 
+                // --- UI State Reset ---
+                // Start by setting the UI to the "logged out" or "landing page" state
                 headerPageTitle.textContent = '';
-                headerAddItemBtnContainer.classList.add('hidden');
-                headerAddSupplierBtnContainer.classList.add('hidden');
-                headerAddUserBtnContainer.classList.add('hidden');
-                headerSyncBtn.classList.add('hidden');
-                sidebar.classList.add('hidden'); // Hide sidebar by default
-                mainContentWrapper.classList.remove('lg:ml-64'); // Remove margin by default
-                document.body.classList.remove('flex'); // Remove flex by default
+                [headerAddItemBtnContainer, headerAddSupplierBtnContainer, headerAddUserBtnContainer, headerSyncBtn, sidebar, sidebarLogoutBtn].forEach(el => el && el.classList.add('hidden'));
+                mainContentWrapper.classList.remove('lg:ml-64');
+                document.body.classList.remove('flex'); // Remove flex layout for full-width main content
 
+                // Reset active state on all sidebar links
                 document.querySelectorAll('.sidebar-nav-item').forEach(link => link.classList.remove('active'));
-                updateSidebarForRole();
+                updateSidebarForRole(); // Update visibility of admin-only links
 
-                if (loggedInUser && pageToShow !== landingPageDiv && pageToShow !== loginModal) {
-                    sidebar.classList.remove('hidden'); // Show sidebar for logged-in users on internal pages
-                    sidebar.classList.remove('-translate-x-full'); // Ensure sidebar is visible on larger screens
-                    mainContentWrapper.classList.add('lg:ml-64'); // Add margin for sidebar on larger screens
-                    document.body.classList.add('flex'); // Add flex for main layout
+                // --- Conditional UI Setup ---
+                // If logged in and on an internal page, enable the sidebar and related layout
+                if (loggedInUser && pageToShow !== landingPageDiv) {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.remove('-translate-x-full');
+                    mainContentWrapper.classList.add('lg:ml-64');
+                    document.body.classList.add('flex'); // Re-apply flex layout
                     sidebarLogoutBtn.classList.remove('hidden');
                     headerSyncBtn.classList.remove('hidden');
 
                     if (activeNavLinkEl) activeNavLinkEl.classList.add('active');
 
-                    if (pageToShow === overviewPageDiv) {
-                        headerPageTitle.textContent = 'Inventory Dashboard';
-                        renderInteractiveDashboard();
-                    } else if (pageToShow === inventoryAppDiv) {
-                        headerPageTitle.textContent = 'Full Inventory List';
-                        headerAddItemBtnContainer.classList.remove('hidden');
-                        renderInventoryTable();
-                    } else if (pageToShow === suppliersPageDiv) {
-                        headerPageTitle.textContent = 'Manage Suppliers';
-                        headerAddSupplierBtnContainer.classList.remove('hidden');
-                        renderSupplierList();
-                    } else if (pageToShow === userManagementPageDiv && loggedInUser.Role === 'Admin') {
-                        headerPageTitle.textContent = 'Manage Users';
-                        headerAddUserBtnContainer.classList.remove('hidden');
-                        renderUserList();
+                    // Configure page-specific titles, buttons, and render functions
+                    const pageConfig = {
+                        [overviewPageDiv.id]: { title: 'Inventory Dashboard', render: renderInteractiveDashboard },
+                        [inventoryAppDiv.id]: { title: 'Full Inventory List', render: renderInventoryTable, show: [headerAddItemBtnContainer] },
+                        [suppliersPageDiv.id]: { title: 'Manage Suppliers', render: renderSupplierList, show: [headerAddSupplierBtnContainer] },
+                        [transactionsPageDiv.id]: { title: 'All Transactions', render: renderTransactionTable },
+                        [userManagementPageDiv.id]: { title: 'Manage Users', render: renderUserList, show: [headerAddUserBtnContainer] }
+                    };
+
+                    const config = pageConfig[pageToShow.id];
+                    if (config) {
+                        headerPageTitle.textContent = config.title;
+                        config.render();
+                        if (config.show) config.show.forEach(el => el.classList.remove('hidden'));
                     }
-                } else if (pageToShow === landingPageDiv) {
-                    // Specific setup for landing page (no sidebar, full width)
-                    sidebar.classList.add('-translate-x-full', 'lg:translate-x-0', 'hidden');
-                    mainContentWrapper.classList.remove('lg:ml-64');
-                    document.body.classList.remove('flex');
-                    sidebarLogoutBtn.classList.add('hidden');
-                    headerSyncBtn.classList.add('hidden');
                 }
+                // If not logged in, or if on the landing page, the UI remains in the reset (no-sidebar) state.
             }
 
             enterAppBtn.addEventListener('click', openLoginModal);
             if(sidebarLogoutBtn) sidebarLogoutBtn.addEventListener('click', () => {
                 showConfirm('Logout?', () => {
-                    stopAutoSync(); // Stop auto-sync on logout
+                    stopAutoSync();
                     loggedInUser=null;
-                    localStorage.removeItem(LOCAL_STORAGE_LOGGED_IN_USER_KEY);
+                    localStorage.clear();
                     inventory=[];suppliers=[];transactions=[];syncQueue=[];allUsersData=[];
-                    setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,[]);
-                    setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY,[]);
-                    setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,[]);
-                    setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,[]);
-                    setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,[]);
                     updateSidebarForRole();
                     showPage(landingPageDiv);
                 });
             });
-
             if(sidebarNavDashboard) sidebarNavDashboard.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(overviewPageDiv, sidebarNavDashboard); });
             if(sidebarNavInventory) sidebarNavInventory.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(inventoryAppDiv, sidebarNavInventory); });
             if(sidebarNavSuppliers) sidebarNavSuppliers.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(suppliersPageDiv, sidebarNavSuppliers); });
+            if(sidebarNavTransactions) sidebarNavTransactions.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(transactionsPageDiv, sidebarNavTransactions); });
             if(sidebarNavUsers) sidebarNavUsers.addEventListener('click', (e) => {
                 e.preventDefault();
                 if(loggedInUser && loggedInUser.Role === 'Admin') {
@@ -774,61 +874,45 @@
                 }
             });
 
+            if(viewAllTransactionsLink) {
+                viewAllTransactionsLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(loggedInUser) showPage(transactionsPageDiv, sidebarNavTransactions);
+                });
+            }
+
             if(headerAddItemBtn) headerAddItemBtn.addEventListener('click', () => openFormModal('add'));
             if(headerAddSupplierBtn) headerAddSupplierBtn.addEventListener('click', () => openSupplierFormModal('add'));
-            if(headerAddUserBtn) headerAddUserBtn.addEventListener('click', () => {
-                if (loggedInUser && loggedInUser.Role === 'Admin') {
-                    openUserFormModal('add');
-                } else {
-                    showToast("Access Denied: Admins only.", true);
-                }
-            });
-
-            if(headerSyncBtn) headerSyncBtn.addEventListener('click', () => {
-                if (!navigator.onLine) { showToast("Offline. Cannot sync.", 1); return; }
-                showToast("Manual sync initiated...", false, 2000);
-                processSyncQ(true); // Flag as manual sync
-                fetchAllDataFromAPIsAndStore(true, false); // Also fetch all data on manual sync, not background
-            });
-
+            if(headerAddUserBtn) headerAddUserBtn.addEventListener('click', () => { if (loggedInUser && loggedInUser.Role === 'Admin') openUserFormModal('add'); else showToast("Access Denied: Admins only.", true); });
+            if(headerSyncBtn) headerSyncBtn.addEventListener('click', () => { if (!navigator.onLine) { showToast("Offline. Cannot sync.", 1); return; } showToast("Manual sync initiated...", false, 2000); processSyncQ(true); fetchAllDataFromAPIsAndStore(true, false); });
 
             // --- Item Modals & Forms ---
             async function openFormModal(mode='add',itemId=null){resetForm();await populateSupplierDropdownForItemForm();if(mode==='add'){formTitle.textContent='Add New Item';submitButton.textContent='Add Item';currentEditItemId=null;openingStockInput.value='';}else if(mode==='edit'&&itemId){const item=inventory.find(i=>String(i.ItemID)===String(itemId));if(!item){showToast('Item edit err.',1);return;}formTitle.textContent='Edit Item';submitButton.textContent='Update Item';currentEditItemId=String(item.ItemID);itemNameInput.value=item.ItemName;stockQuantityInput.value=item.StockQuantity;openingStockInput.value=item.openingStock!==undefined?item.openingStock:'';reorderLevelInput.value=item.ReorderLevel;priceInput.value=item.Price;supplierInput.value=item.SupplierID||"";}itemFormModal.classList.remove('hidden');itemNameInput.focus();}
             function closeFormModal(){itemFormModal.classList.add('hidden');resetForm();}
             if(closeFormModalBtn)closeFormModalBtn.addEventListener('click',closeFormModal);
             if(cancelButton)cancelButton.addEventListener('click',closeFormModal);
-            function showMessage(msg,isErr=0){messageText.textContent=msg;messageModal.classList.remove('hidden');messageText.className=`text-sm mb-4 ${isErr?'text-red-700':'text-green-700'}`;}
-            if(closeMessageButton)closeMessageButton.addEventListener('click',()=>messageModal.classList.add('hidden'));
 
             // --- Data Fetching & Initial Load ---
             async function fetchAllDataFromAPIsAndStore(force = false, isBackground = false) {
                 if (!navigator.onLine && !force) {
-                    console.log("Offline, skipping full data fetch unless forced.");
-                    loadDataFromLocalStorage(); 
+                    loadDataFromLocalStorage();
                     return;
                 }
-                // Condition to skip full API fetch if local data is recent enough and not forced, and not a background sync specifically requesting fresh data
-                if (!force && !isBackground && getLocalStorage(LOCAL_STORAGE_ITEMS_KEY, null) !== null && getLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, null) !== null && getLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, null) !== null) {
-                    console.log("Local data load sufficient, not forcing full API fetch.");
+                if (!force && !isBackground && getLocalStorage(LOCAL_STORAGE_ITEMS_KEY, null) !== null) {
                     loadDataFromLocalStorage();
-                    await fetchStoreUsers(); 
-                    if (loggedInUser) { // Refresh UI only if a relevant page is active
-                        const currentPage = document.querySelector('.page-container:not(.hidden)');
-                        if (currentPage === overviewPageDiv) renderInteractiveDashboard();
-                        else if (currentPage === inventoryAppDiv) renderInventoryTable();
-                        else if (currentPage === suppliersPageDiv) renderSupplierList();
-                        else if (currentPage === userManagementPageDiv) renderUserList();
-                        else updateOverviewStats(); // Fallback for other states
-                    }
+                    await fetchStoreUsers();
+                    if (loggedInUser) refreshCurrentPageUI();
                     return;
                 }
 
-                if (!isBackground) { // Only show "Fetching latest data..." for non-background operations
-                    showToast("Fetching latest data...", 0, 1500);
-                }
+                if (!isBackground) showToast("Fetching latest data...", 0, 1500);
                 if (inventoryLoadingIndicator && !isBackground) inventoryLoadingIndicator.classList.remove('hidden');
-                
-                await fetchStoreUsers(force); 
+
+                const oldInventory = [...inventory];
+                const oldSuppliers = [...suppliers];
+                const oldTransactions = [...transactions];
+
+                await fetchStoreUsers(force);
 
                 try {
                     const [itemsR, suppR, txnsR] = await Promise.all([
@@ -837,55 +921,153 @@
                         fetch(TRANSACTIONS_API_ENDPOINT)
                     ]);
 
+                    const changes = {
+                        items: { new: 0, updated: 0 },
+                        suppliers: { new: 0 },
+                        transactions: { new: 0 }
+                    };
+
+                    // Process Items
                     if (!itemsR.ok) throw new Error(`Items API fail:${itemsR.status}`);
                     const itemsRes = await itemsR.json();
                     if (itemsRes.success && Array.isArray(itemsRes.data)) {
-                        inventory = itemsRes.data.map(i => ({ ...i, ItemID: String(i.ItemID), SupplierID: i.SupplierID ? String(i.SupplierID) : "", openingStock: i.openingStock !== undefined ? Number(i.openingStock) : Number(i.StockQuantity), openingStockDate: i.openingStockDate || i.CreatedAt || new Date().toISOString() }));
+                        const newInventory = itemsRes.data.map(i => ({ ...i, ItemID: String(i.ItemID), SupplierID: i.SupplierID ? String(i.SupplierID) : "", openingStock: i.openingStock !== undefined ? Number(i.openingStock) : Number(i.StockQuantity), openingStockDate: i.openingStockDate || i.CreatedAt || new Date().toISOString() }));
+                        const oldInventoryMap = new Map(oldInventory.map(i => [i.ItemID, i]));
+                        newInventory.forEach(newItem => {
+                            const oldItem = oldInventoryMap.get(newItem.ItemID);
+                            if (!oldItem) {
+                                changes.items.new++;
+                            } else {
+                                if (oldItem.StockQuantity !== newItem.StockQuantity) {
+                                    changes.items.updated++;
+                                }
+                            }
+                        });
+                        inventory = newInventory;
                         setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
                     } else { throw new Error(itemsRes.message || "Fail fetch items."); }
 
+                    // Process Suppliers
                     if (!suppR.ok) throw new Error(`Suppliers API fail:${suppR.status}`);
                     const suppRes = await suppR.json();
                     if (suppRes.success && Array.isArray(suppRes.data)) {
-                        suppliers = suppRes.data.map(s => ({ ...s, SupplierID: String(s.SupplierID) }));
+                        const newSuppliers = suppRes.data.map(s => ({ ...s, SupplierID: String(s.SupplierID) }));
+                        const oldSupplierIds = new Set(oldSuppliers.map(s => s.SupplierID));
+                        newSuppliers.forEach(newSupplier => {
+                            if (!oldSupplierIds.has(newSupplier.SupplierID)) {
+                                changes.suppliers.new++;
+                            }
+                        });
+                        suppliers = newSuppliers;
                         setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers);
                     } else { throw new Error(suppRes.message || "Fail fetch suppliers."); }
 
+                    // Process Transactions
                     if (!txnsR.ok) throw new Error(`Txns API fail:${txnsR.status}`);
                     const txnsRes = await txnsR.json();
                     if (txnsRes.success && Array.isArray(txnsRes.data)) {
-                        transactions = txnsRes.data.map(t => ({ id: String(t.TransactionID), itemId: String(t.ItemID), itemName: t.ItemName, type: t.TransactionType, quantity: t.Quantity, date: t.TransactionDate, remarks: t.Remarks, transactionUserID: t.UserID ? String(t.UserID) : null }));
+                        const newTransactions = txnsRes.data.map(t => ({ id: String(t.TransactionID), itemId: String(t.ItemID), itemName: t.ItemName, type: t.TransactionType, quantity: t.Quantity, date: t.TransactionDate, remarks: t.Remarks, transactionUserID: t.UserID ? String(t.UserID) : null }));
+                        const oldTransactionIds = new Set(oldTransactions.map(t => t.id));
+                        newTransactions.forEach(newTxn => {
+                            if (!oldTransactionIds.has(newTxn.id)) {
+                                changes.transactions.new++;
+                            }
+                        });
+                        transactions = newTransactions;
                         setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
                     } else { throw new Error(txnsRes.message || "Fail fetch txns."); }
-
-                    if(force && !isBackground) showToast("Data refreshed from server.", 0);
+                    
+                    if (isBackground) {
+                        let notificationMessages = [];
+                        if(changes.items.new > 0) notificationMessages.push(`${changes.items.new} new item(s)`);
+                        if(changes.items.updated > 0) notificationMessages.push(`${changes.items.updated} item(s) updated`);
+                        if(changes.suppliers.new > 0) notificationMessages.push(`${changes.suppliers.new} new supplier(s)`);
+                        if(changes.transactions.new > 0) notificationMessages.push(`${changes.transactions.new} new transaction(s)`);
+                        
+                        if(notificationMessages.length > 0) {
+                            showToast(`Sync: ${notificationMessages.join(', ')}.`, 0, 5000);
+                        }
+                    } else if (force) {
+                         const totalChanges = changes.items.new + changes.items.updated + changes.suppliers.new + changes.transactions.new;
+                         if (totalChanges === 0) {
+                            showToast("Data is already up to date.", 0);
+                         } else {
+                            showToast("Data refreshed from server.", 0);
+                         }
+                    }
 
                 } catch (e) {
                     console.error("Err fetch all:", e);
                     if (!isBackground) showToast(`Fetch err: ${e.message}. Using local.`, 1);
-                    loadDataFromLocalStorage(); 
+                    loadDataFromLocalStorage();
                 } finally {
                     if (inventoryLoadingIndicator && !isBackground) inventoryLoadingIndicator.classList.add('hidden');
                     populateSupplierDropdownForItemForm();
                     updateSupplierFilterDropdown();
-                    if (loggedInUser) {
-                        const currentPage = document.querySelector('.page-container:not(.hidden)');
-                        if (currentPage === overviewPageDiv) renderInteractiveDashboard();
-                        else if (currentPage === inventoryAppDiv) { renderInventoryTable(); updateOverviewStats(); }
-                        else if (currentPage === suppliersPageDiv) { renderSupplierList(); updateOverviewStats(); }
-                        else if (currentPage === userManagementPageDiv) { renderUserList(); updateOverviewStats(); }
-                        else updateOverviewStats();
-                    }
+                    if (loggedInUser) refreshCurrentPageUI();
                 }
             }
-
+            
             function loadDataFromLocalStorage(){inventory=getLocalStorage(LOCAL_STORAGE_ITEMS_KEY,[]);suppliers=getLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY,[]);transactions=getLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,[]);syncQueue=getLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,[]);loggedInUser=getLocalStorage(LOCAL_STORAGE_LOGGED_IN_USER_KEY,null);allUsersData=getLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,[]);console.log("Local data loaded. Items:",inventory.length,"Q:",syncQueue.length);}
+            
+            // --- UI Rendering Functions ---
+            function renderTransactionTable() {
+                const tableBody = document.getElementById('transactionTableBody');
+                if (!tableBody) return;
 
-            // --- UI Rendering (Inventory, Overview, Charts) ---
+                const sortedTransactions = [...transactions].sort((a, b) => new Date(b.date || b.TransactionDate) - new Date(a.date || a.TransactionDate));
+
+                if (sortedTransactions.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-gray-500">No transactions recorded yet.</td></tr>`;
+                    return;
+                }
+
+                tableBody.innerHTML = sortedTransactions.map(t => {
+                    const type = t.type || t.TransactionType;
+                    const typeClass = type === 'inward' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800';
+                    const typeText = type.charAt(0).toUpperCase() + type.slice(1);
+                    const itemName = getItemNameById(t.itemId || t.ItemID);
+                    const userName = getUserNameById(t.transactionUserID);
+                    const date = formatDate(t.date || t.TransactionDate, true);
+                    const quantity = t.quantity || t.Quantity;
+                    const remarks = t.remarks || t.Remarks || '-';
+
+                    return `
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-3 text-sm text-gray-700 font-medium">${itemName}</td>
+                            <td class="py-2 px-3 text-sm"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${typeClass}">${typeText}</span></td>
+                            <td class="py-2 px-3 text-sm text-gray-700 text-center">${quantity}</td>
+                            <td class="py-2 px-3 text-sm text-gray-700">${remarks}</td>
+                            <td class="py-2 px-3 text-sm text-gray-500">${date}</td>
+                            <td class="py-2 px-3 text-sm text-gray-700">${userName}</td>
+                        </tr>`;
+                }).join('');
+            }
+
             function updateOverviewStats(){if(!totalItemsStatEl||!lowStockItemsStatEl||!totalQuantityStatEl)return;totalItemsStatEl.textContent=inventory.length;lowStockItemsStatEl.textContent=inventory.filter(i=>Number(i.StockQuantity)<Number(i.ReorderLevel)).length;totalQuantityStatEl.textContent=inventory.reduce((sum,i)=>sum+(Number(i.StockQuantity)||0),0);}
-            function renderInventoryTable(){const filt=getFilteredInventory(),total=filt.length,paged=filt.slice((page-1)*pageSize,page*pageSize);inventoryTableBody.innerHTML='';if(total===0){inventoryTableBody.innerHTML=`<tr><td colspan="11" class="py-4 text-center text-gray-500">No items. ${inventory.length===0?'Add!':''}</td></tr>`;document.getElementById('paginationControls').innerHTML='';if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;return;}paged.forEach(i=>renderInventoryItem(i));renderPagination(total);if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;updateLowStockBanner();}
-            function renderInventoryItem(i){const r=document.createElement('tr'),low=Number(i.StockQuantity)<Number(i.ReorderLevel);r.className=`border-b hover:bg-gray-50 ${low?'bg-red-100 hover:bg-red-200':'bg-white'}`;let pF=typeof i.Price==='number'?`₹${i.Price.toFixed(2)}`:'N/A',sP=(typeof i.Price==='number'&&!isNaN(Number(i.StockQuantity)))?`₹${(i.Price*Number(i.StockQuantity)).toFixed(2)}`:'N/A',upF=formatDate(i.LastUpdated, false),osDF=formatDate(i.openingStockDate, false);const sO=suppliers.find(s=>String(s.SupplierID)===String(i.SupplierID)),sND=sO?sO.SupplierName:(i.SupplierID?'Unk':'N/A');r.innerHTML=`<td class="px-2 py-3 text-center"><input type="checkbox" class="bulk-checkbox" data-id="${i.ItemID}"/></td><td class="px-4 py-3 text-sm ${low?'text-red-700 font-semibold':'text-gray-700'}">${i.ItemName||'Unnamed'} ${low?'<span class="text-xs text-red-500">(Low)</span>':''}</td><td class="px-4 py-3 text-center text-sm">${i.openingStock!==undefined?i.openingStock:'N/A'}</td><td class="px-4 py-3 text-center text-sm">${osDF}</td><td class="px-4 py-3 text-center text-sm ${low?'text-red-700 font-semibold':'text-gray-700'}">${i.StockQuantity??'0'}</td><td class="px-4 py-3 text-center text-sm">${i.ReorderLevel??'0'}</td><td class="px-4 py-3 text-right text-sm">${pF}</td><td class="px-4 py-3 text-right text-sm">${sP}</td><td class="px-4 py-3 text-sm">${sND}</td><td class="px-4 py-3 text-sm">${upF}</td><td class="flex flex-wrap items-center justify-center gap-1 px-4 py-3 text-sm space-x-1"><button data-id="${i.ItemID}" class="inward-btn btn btn-success btn-xs"><i class="ph ph-arrow-down mr-1"></i>In</button><button data-id="${i.ItemID}" class="outward-btn btn btn-warning btn-xs"><i class="ph ph-arrow-up mr-1"></i>Out</button><button data-id="${i.ItemID}" class="edit-btn btn btn-info btn-xs"><i class="ph ph-pencil-simple mr-1"></i>Edit</button><button data-id="${i.ItemID}" data-name="${i.ItemName}" class="delete-btn btn btn-danger btn-xs"><i class="ph ph-trash mr-1"></i>Del</button><button data-id="${i.ItemID}" class="txnlog-btn btn btn-secondary btn-xs"><i class="ph ph-list mr-1"></i>Log</button></td>`;inventoryTableBody.appendChild(r);r.querySelector('.edit-btn').addEventListener('click',()=>openFormModal('edit',i.ItemID));r.querySelector('.delete-btn').addEventListener('click',(e)=>showConfirm(`Delete "${e.currentTarget.dataset.name}"?`,()=>deleteItem(e.currentTarget.dataset.id,e.currentTarget.dataset.name)));r.querySelector('.inward-btn').addEventListener('click',()=>openInOutModal(i.ItemID,'inward'));r.querySelector('.outward-btn').addEventListener('click',()=>openInOutModal(i.ItemID,'outward'));r.querySelector('.txnlog-btn').addEventListener('click',()=>showTxnLogModal(i.ItemID));}
-            itemForm.addEventListener('submit',async(e)=>{e.preventDefault();itemFormLoadingIndicator.classList.remove('hidden');submitButton.disabled=true;cancelButton.disabled=true;const n=itemNameInput.value.trim(),sQ=parseInt(stockQuantityInput.value),rL=parseInt(reorderLevelInput.value),pr=parseFloat(priceInput.value),sID=supplierInput.value;if(!n||isNaN(sQ)||isNaN(rL)||isNaN(pr)||!sID){showToast('Fill valid data.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}if(sQ<0||rL<0||pr<0){showToast('Nums cannot be neg.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}if(inventory.some(i=>i.ItemName.toLowerCase()===n.toLowerCase()&&String(i.ItemID)!==String(currentEditItemId))){showToast('Name exists.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}const d=new Date().toISOString(),pL={ItemName:n,StockQuantity:sQ,ReorderLevel:rL,Price:pr,SupplierID:sID,LastUpdated:d};if(currentEditItemId){const idx=inventory.findIndex(i=>String(i.ItemID)===String(currentEditItemId));if(idx>-1){const os=inventory[idx].openingStock,osd=inventory[idx].openingStockDate;inventory[idx]={...inventory[idx],...pL,openingStock:os,openingStockDate:osd};setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast('Item updated.',0);addToSyncQ({type:'updateItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"updateItem",data:{...pL,ItemID:currentEditItemId,openingStock:os,openingStockDate:osd}}});}}else{const tId=genId(),nI={...pL,ItemID:tId,CreatedAt:d,openingStock:sQ,openingStockDate:d};inventory.push(nI);setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast('Item added.',0);addToSyncQ({type:'createItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"createItem",data:{...pL,openingStock:sQ,openingStockDate:d}},tempId:tId});}renderInventoryTable();updateOverviewStats();closeFormModal();itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;});
+            function renderInventoryTable(){const filt=getFilteredInventory(),total=filt.length,paged=filt.slice((page-1)*pageSize,page*pageSize);inventoryTableBody.innerHTML='';if(total===0){inventoryTableBody.innerHTML=`<tr><td colspan="11" class="py-4 text-center text-gray-500">No items. ${inventory.length===0?'Add!':''}</td></tr>`;document.getElementById('paginationControls').innerHTML='';if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;return;}paged.forEach(i=>renderInventoryItem(i));renderPagination(total);if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;}
+            
+            function renderInventoryItem(i) {
+                const r = document.createElement('tr'),
+                    low = Number(i.StockQuantity) < Number(i.ReorderLevel);
+                r.className = `border-b hover:bg-gray-50 ${low ? 'bg-red-100 hover:bg-red-200' : 'bg-white'}`;
+                let pF = `₹${(i.Price || 0).toFixed(2)}`,
+                    sP = `₹${((i.Price || 0) * (i.StockQuantity || 0)).toFixed(2)}`,
+                    upF = formatDate(i.LastUpdated, false),
+                    osDF = formatDate(i.openingStockDate, false);
+                const sO = suppliers.find(s => String(s.SupplierID) === String(i.SupplierID)),
+                    sND = sO ? sO.SupplierName : (i.SupplierID ? 'Unk' : 'N/A');
+                r.innerHTML = `<td class="px-2 py-3 text-center"><input type="checkbox" class="bulk-checkbox" data-id="${i.ItemID}"/></td><td class="px-4 py-3 text-sm ${low ? 'text-red-700 font-semibold' : 'text-gray-700'}">${i.ItemName || 'Unnamed'} ${low ? '<span class="text-xs text-red-500">(Low)</span>' : ''}</td><td class="px-4 py-3 text-center text-sm">${i.openingStock ?? 'N/A'}</td><td class="px-4 py-3 text-center text-sm">${osDF}</td><td class="px-4 py-3 text-center text-sm ${low ? 'text-red-700 font-semibold' : 'text-gray-700'}">${i.StockQuantity ?? '0'}</td><td class="px-4 py-3 text-center text-sm">${i.ReorderLevel ?? '0'}</td><td class="px-4 py-3 text-right text-sm">${pF}</td><td class="px-4 py-3 text-right text-sm">${sP}</td><td class="px-4 py-3 text-sm">${sND}</td><td class="px-4 py-3 text-sm">${upF}</td><td class="flex flex-wrap items-center justify-center gap-1 px-4 py-3 text-sm space-x-1"><button data-id="${i.ItemID}" class="inward-btn btn btn-success btn-xs"><i class="ph ph-arrow-down mr-1"></i>In</button><button data-id="${i.ItemID}" class="outward-btn btn btn-warning btn-xs"><i class="ph ph-arrow-up mr-1"></i>Out</button><button data-id="${i.ItemID}" class="edit-btn btn btn-info btn-xs"><i class="ph ph-pencil-simple mr-1"></i>Edit</button><button data-id="${i.ItemID}" data-name="${i.ItemName}" class="delete-btn btn btn-danger btn-xs"><i class="ph ph-trash mr-1"></i>Del</button><button data-id="${i.ItemID}" class="txnlog-btn btn btn-secondary btn-xs"><i class="ph ph-list mr-1"></i>Log</button></td>`;
+                inventoryTableBody.appendChild(r);
+                r.querySelector('.edit-btn').addEventListener('click', () => openFormModal('edit', i.ItemID));
+                // Updated delete button event listener
+                r.querySelector('.delete-btn').addEventListener('click', (e) => confirmItemDelete(e.currentTarget.dataset.id, e.currentTarget.dataset.name));
+                r.querySelector('.inward-btn').addEventListener('click', () => openInOutModal(i.ItemID, 'inward'));
+                r.querySelector('.outward-btn').addEventListener('click', () => openInOutModal(i.ItemID, 'outward'));
+                r.querySelector('.txnlog-btn').addEventListener('click', () => showTxnLogModal(i.ItemID));
+            }
+
+            itemForm.addEventListener('submit',async(e)=>{e.preventDefault();itemFormLoadingIndicator.classList.remove('hidden');submitButton.disabled=true;cancelButton.disabled=true;const n=itemNameInput.value.trim(),sQ=parseInt(stockQuantityInput.value),rL=parseInt(reorderLevelInput.value),pr=parseFloat(priceInput.value),sID=supplierInput.value;if(!n||isNaN(sQ)||isNaN(rL)||isNaN(pr)||!sID){showToast('Fill valid data.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}if(sQ<0||rL<0||pr<0){showToast('Nums cannot be neg.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}if(isDupItemName(n, currentEditItemId)){showToast('Name exists.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}const d=new Date().toISOString(),pL={ItemName:n,StockQuantity:sQ,ReorderLevel:rL,Price:pr,SupplierID:sID,LastUpdated:d};if(currentEditItemId){const idx=inventory.findIndex(i=>String(i.ItemID)===String(currentEditItemId));if(idx>-1){const os=inventory[idx].openingStock,osd=inventory[idx].openingStockDate;inventory[idx]={...inventory[idx],...pL,openingStock:os,openingStockDate:osd};setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast('Item updated.',0);addToSyncQ({type:'updateItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"updateItem",data:{...pL,ItemID:currentEditItemId,openingStock:os,openingStockDate:osd}}});}}else{const tId=genId(),nI={...pL,ItemID:tId,CreatedAt:d,openingStock:sQ,openingStockDate:d};inventory.push(nI);setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast('Item added.',0);addToSyncQ({type:'createItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"createItem",data:{...pL,openingStock:sQ,openingStockDate:d}},tempId:tId});}renderInventoryTable();updateOverviewStats();closeFormModal();itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;});
             function openInOutModal(id,type='inward'){inOutItemId=String(id);const i=inventory.find(itm=>String(itm.ItemID)===inOutItemId);if(!i){showToast('Item not found.',1);return;}inOutType.value=type;inOutQty.value='';inOutRemarks.value='';inOutModalTitle.textContent=`${type==='inward'?'Add Stock':'Remove Stock'} for ${i.ItemName}`;inOutModal.classList.remove('hidden');inOutQty.focus();}
             function closeInOutModal(){inOutModal.classList.add('hidden');inOutItemId=null;}
             if(inOutCancelBtn)inOutCancelBtn.addEventListener('click',closeInOutModal);
@@ -911,44 +1093,12 @@
                 addToSyncQ({type:'updateItemStock',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"updateItem",data:{ItemID:itemForTransaction.ItemID,StockQuantity:newStock,LastUpdated:inventory[itemIndex].LastUpdated}}});
 
                 const tempTransactionId=genId();
-                const transactionData={
-                    id:tempTransactionId,
-                    itemId:itemForTransaction.ItemID,
-                    itemName:itemForTransaction.ItemName,
-                    TransactionType:type,
-                    Quantity:qty,
-                    Remarks:rem,
-                    transactionUserID:loggedInUser?.UserID?String(loggedInUser.UserID):null, // Actual UserID for client-side use
-                    TransactionDate:new Date().toISOString()
-                };
+                const transactionData={ id:tempTransactionId, itemId:itemForTransaction.ItemID, itemName:itemForTransaction.ItemName, TransactionType:type, Quantity:qty, Remarks:rem, transactionUserID:loggedInUser?.UserID?String(loggedInUser.UserID):null, TransactionDate:new Date().toISOString() };
                 transactions.push(transactionData);
                 setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,transactions);
 
-                // Prepare payload for Google Sheet - Use FullName for the UserID field destined for the sheet
-                let userIdentifierForSheet = 'System/Unknown'; // Default if loggedInUser is somehow null
-                if (loggedInUser) {
-                    const fullName = (loggedInUser.FullName && typeof loggedInUser.FullName === 'string') ? loggedInUser.FullName.trim() : null;
-                    const loginID = (loggedInUser.LoginID && typeof loggedInUser.LoginID === 'string') ? loggedInUser.LoginID.trim() : null;
-                    const userIDString = (loggedInUser.UserID && typeof loggedInUser.UserID === 'string') ? `User ID: ${loggedInUser.UserID}` : null;
-
-                    userIdentifierForSheet = (fullName && fullName !== '') ? fullName :
-                                             (loginID && loginID !== '') ? loginID :
-                                             userIDString || 'Unknown User'; // Fallback if all specific fields are empty/null but loggedInUser exists
-                }
-
-
-                addToSyncQ({
-                    type:'createTransaction',apiEndpoint:TRANSACTIONS_API_ENDPOINT,method:'POST',
-                    payload:{action:"createTransaction",data:{
-                        ItemID:transactionData.itemId,
-                        ItemName:transactionData.itemName,
-                        TransactionType:transactionData.TransactionType,
-                        Quantity:transactionData.Quantity,
-                        Remarks:transactionData.Remarks,
-                        UserID: userIdentifierForSheet // This is what Apps Script will store in the 'UserID' column of Transactions sheet
-                    }},
-                    tempId:tempTransactionId
-                });
+                let userIdentifierForSheet = getUserNameById(loggedInUser?.UserID);
+                addToSyncQ({ type:'createTransaction',apiEndpoint:TRANSACTIONS_API_ENDPOINT,method:'POST', payload:{action:"createTransaction",data:{ ItemID:transactionData.itemId, ItemName:transactionData.itemName, TransactionType:transactionData.TransactionType, Quantity:transactionData.Quantity, Remarks:transactionData.Remarks, UserID: userIdentifierForSheet }}, tempId:tempTransactionId });
 
                 showToast('Transaction recorded.',0);renderInventoryTable();updateOverviewStats();closeInOutModal();
                 inOutLoadingIndicator.classList.add('hidden');inOutSubmitBtn.disabled=false;inOutCancelBtn.disabled=false;
@@ -964,26 +1114,14 @@
                 txnLogListContainer.classList.add('hidden');
                 txnLogModal.classList.remove('hidden');
                 if(allUsersData.length===0) await fetchStoreUsers();
-                const iTxns=transactions.filter(t=>String(t.itemId)===String(id)).sort((a,b)=>new Date(b.date||b.TransactionDate)-new Date(a.date||a.TransactionDate));
+                const iTxns=transactions.filter(t=>String(t.itemId || t.ItemID)===String(id)).sort((a,b)=>new Date(b.date||b.TransactionDate)-new Date(a.date||a.TransactionDate));
                 if(iTxns.length===0){
                     txnLogList.innerHTML='<div class="py-4 text-center text-gray-400">No txns.</div>';
                 } else {
                     txnLogList.innerHTML=`<table class="min-w-full border-collapse text-xs"><thead class="bg-slate-100"><tr><th class="border px-2 py-1 text-left">Date</th><th class="border px-2 py-1 text-left">Type</th><th class="border px-2 py-1 text-center">Qty</th><th class="border px-2 py-1 text-left">User</th><th class="border px-2 py-1 text-left">Remarks</th><th class="border px-2 py-1 text-center">Status</th></tr></thead>
                                             <tbody>${iTxns.map(t=>{
                                                 const p=String(t.id).startsWith('temp_');
-                                                const user = allUsersData.find(usr=>String(usr.UserID)===String(t.transactionUserID)); // Use actual UserID for lookup
-                                                let uN = 'N/A';
-                                                if (user) {
-                                                    uN = (user.FullName && user.FullName.trim() !== '') ? user.FullName.trim() :
-                                                         (user.FirstName && user.LastName ? `${user.FirstName} ${user.LastName}`.trim() :
-                                                         (user.LoginID || `User ID: ${user.UserID}`));
-                                                    if(uN.trim() === '' && user.LoginID) uN = user.LoginID;
-                                                    else if (uN.trim() === '' && user.UserID) uN = `User ID: ${user.UserID}`;
-                                                } else if (t.transactionUserID) { // Fallback if user not in allUsersData for some reason
-                                                    uN = `UID: ${t.transactionUserID}`;
-                                                }
-
-
+                                                const uN = getUserNameById(t.transactionUserID);
                                                 const d=t.date||t.TransactionDate;
                                                 const fD=formatDate(d, true);
                                                 const ty=t.type||t.TransactionType;
@@ -999,21 +1137,98 @@
             if(closeTxnLogBtn)closeTxnLogBtn.addEventListener('click',()=>txnLogModal.classList.add('hidden'));
             if(closeTxnLogBtnTop)closeTxnLogBtnTop.addEventListener('click',()=>txnLogModal.classList.add('hidden'));
             function resetForm(){if(itemForm)itemForm.reset();currentEditItemId=null;}
-            async function deleteItem(id,name){const idx=inventory.findIndex(i=>String(i.ItemID)===String(id));if(idx>-1){inventory.splice(idx,1);setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast(`"${name}" deleted.`,0);renderInventoryTable();updateOverviewStats();if(String(currentEditItemId)===String(id))closeFormModal();addToSyncQ({type:'deleteItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"deleteItem",data:{ItemID:id}}});}else{showToast('Item N/F to del.',1);}}
-            async function handleBulkDelete(){const ids=Array.from(document.querySelectorAll('.bulk-checkbox:checked')).map(cb=>cb.dataset.id);if(ids.length===0){showToast('No items selected.',1);return;}showConfirm(`Delete ${ids.length} item(s)?`,async()=>{let delCt=0;for(const id of ids){const idx=inventory.findIndex(i=>String(i.ItemID)===String(id));if(idx>-1){inventory.splice(idx,1);delCt++;addToSyncQ({type:'deleteItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"deleteItem",data:{ItemID:id}}});}}if(delCt>0){setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast(`${delCt} item(s) deleted.`,0);renderInventoryTable();updateOverviewStats();if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;}});}
-            function updateLowStockBanner(){const low=inventory.filter(i=>Number(i.StockQuantity)<Number(i.ReorderLevel)),ban=document.getElementById('lowStockBanner'),cnt=document.getElementById('lowStockCount');if(ban&&cnt){if(low.length>0){ban.classList.remove('hidden');cnt.textContent=`${low.length} item(s) low!`;}else{ban.classList.add('hidden');}}}
+            
+            /**
+             * Handles the final deletion of an item and its associated transactions.
+             * @param {string} id - The ID of the item to delete.
+             * @param {string} name - The name of the item.
+             */
+            async function deleteItemAndTransactions(id, name) {
+                // Find transactions related to the item
+                const txnsToDelete = transactions.filter(t => String(t.itemId || t.ItemID) === String(id));
+                
+                // Queue up the deletion of each transaction for sync
+                txnsToDelete.forEach(txn => {
+                    // Only queue deletion for synced transactions (those without 'temp_' prefix)
+                    if (!String(txn.id).startsWith('temp_')) {
+                        addToSyncQ({
+                            type: 'deleteTransaction',
+                            apiEndpoint: TRANSACTIONS_API_ENDPOINT,
+                            method: 'POST',
+                            payload: {
+                                action: "deleteTransaction",
+                                data: { TransactionID: txn.id }
+                            }
+                        });
+                    }
+                });
+                
+                // Optimistically update the local transactions array
+                transactions = transactions.filter(t => String(t.itemId || t.ItemID) !== String(id));
+                setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
+
+                // Now, delete the item itself
+                deleteItem(id, name, true); // Pass a flag to indicate transactions were handled
+                showToast(`Deleted "${name}" and its transactions.`, 0, 4000);
+            }
+
+            /**
+             * Initiates the item deletion process, checking for transactions first.
+             * @param {string} id - The ID of the item.
+             * @param {string} name - The name of the item.
+             */
+            function confirmItemDelete(id, name) {
+                const hasTransactions = transactions.some(t => String(t.itemId || t.ItemID) === String(id));
+
+                if (hasTransactions) {
+                    // Item has transactions, show the options modal
+                    deleteItemOptionsText.textContent = `"${name}" has existing transactions. Do you want to delete its transaction history as well?`;
+                    
+                    // Clone and replace buttons to ensure fresh event listeners
+                    const cleanDeleteItemAndTxnBtn = deleteItemAndTransactionsBtn.cloneNode(true);
+                    deleteItemAndTransactionsBtn.parentNode.replaceChild(cleanDeleteItemAndTxnBtn, deleteItemAndTransactionsBtn);
+                    
+                    const cleanDeleteItemOnlyBtn = deleteItemOnlyBtn.cloneNode(true);
+                    deleteItemOnlyBtn.parentNode.replaceChild(cleanDeleteItemOnlyBtn, deleteItemOnlyBtn);
+
+                    const cleanCancelBtn = cancelDeleteItemBtn.cloneNode(true);
+                    cancelDeleteItemBtn.parentNode.replaceChild(cleanCancelBtn, cancelDeleteItemBtn);
+                    
+                    cleanDeleteItemAndTxnBtn.addEventListener('click', () => {
+                        deleteItemAndTransactions(id, name);
+                        deleteItemOptionsModal.classList.add('hidden');
+                    });
+                    
+                    cleanDeleteItemOnlyBtn.addEventListener('click', () => {
+                        deleteItem(id, name);
+                        deleteItemOptionsModal.classList.add('hidden');
+                    });
+
+                    cleanCancelBtn.addEventListener('click', () => {
+                        deleteItemOptionsModal.classList.add('hidden');
+                    });
+
+                    deleteItemOptionsModal.classList.remove('hidden');
+                } else {
+                    // No transactions, show a simple confirm modal
+                    showConfirm(`Are you sure you want to delete "${name}"?`, () => deleteItem(id, name));
+                }
+            }
+
+
+            async function deleteItem(id,name, txnsHandled = false){const idx=inventory.findIndex(i=>String(i.ItemID)===String(id));if(idx>-1){inventory.splice(idx,1);setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);if(!txnsHandled){showToast(`"${name}" deleted.`,0);}renderInventoryTable();updateOverviewStats();if(String(currentEditItemId)===String(id))closeFormModal();if(!String(id).startsWith('temp_')){addToSyncQ({type:'deleteItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"deleteItem",data:{ItemID:id}}});}}else{showToast('Item not found for deletion.',1);}}
+            async function handleBulkDelete(){const ids=Array.from(document.querySelectorAll('.bulk-checkbox:checked')).map(cb=>cb.dataset.id);if(ids.length===0){showToast('No items selected.',1);return;}showConfirm(`Delete ${ids.length} item(s)? Note: Transaction history for these items will be kept.`,async()=>{let delCt=0;for(const id of ids){const idx=inventory.findIndex(i=>String(i.ItemID)===String(id));if(idx>-1){inventory.splice(idx,1);delCt++;addToSyncQ({type:'deleteItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"deleteItem",data:{ItemID:id}}});}}if(delCt>0){setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast(`${delCt} item(s) deleted.`,0);renderInventoryTable();updateOverviewStats();if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;}});}
+            
             function isDupItemName(n,exId=null){return inventory.some(i=>i.ItemName.toLowerCase()===n.toLowerCase()&&String(i.ItemID)!==String(exId));}
             function isDupSupName(n,exId=null){return suppliers.some(s=>s.SupplierName.toLowerCase()===n.toLowerCase()&&String(s.SupplierID)!==String(exId));}
             function showToast(msg,isErr=0,dur=3000){const cont=document.getElementById('toastContainer');if(!cont)return;const t=document.createElement('div');t.className=`transform translate-x-full opacity-0 rounded-md px-4 py-3 text-sm font-semibold shadow-lg transition-all duration-300 ease-in-out ${isErr?'bg-red-500 text-white':'bg-green-500 text-white'}`;t.textContent=msg;cont.appendChild(t);setTimeout(()=>{t.classList.remove('translate-x-full','opacity-0');t.classList.add('translate-x-0','opacity-100');},10);setTimeout(()=>{t.classList.remove('translate-x-0','opacity-100');t.classList.add('translate-x-full','opacity-0');setTimeout(()=>t.remove(),300);},dur);}
             function showConfirm(msg,onY,onN=()=>{}){const m=document.getElementById('confirmModal'),txt=document.getElementById('confirmText'),yB=document.getElementById('confirmYesBtn'),nB=document.getElementById('confirmNoBtn');if(!m||!txt||!yB||!nB)return;txt.textContent=msg;m.classList.remove('hidden');const nYB=yB.cloneNode(true);yB.parentNode.replaceChild(nYB,yB);const nNB=nB.cloneNode(true);nB.parentNode.replaceChild(nNB,nB);nYB.onclick=()=>{m.classList.add('hidden');onY();};nNB.onclick=()=>{m.classList.add('hidden');onN();};}
-            function exportCSV(){if(inventory.length===0){showToast("No data.",1);return;}const h=['ItemID','ItemName','OpeningStock','OpeningStockDate','StockQuantity','ReorderLevel','Price','SupplierID','SupplierName','LastUpdated','CreatedAt'],r=inventory.map(i=>{const s=suppliers.find(sup=>String(sup.SupplierID)===String(i.SupplierID));return[i.ItemID,i.ItemName,i.openingStock??'',formatDate(i.openingStockDate, false),i.StockQuantity,i.ReorderLevel,i.Price,i.SupplierID,s?s.SupplierName:'',formatDate(i.LastUpdated, false), formatDate(i.CreatedAt, false)].map(v=>String(v??"").replace(/"/g,'""'));});let csv=[h.join(','),...r.map(rw=>`"${rw.join('","')}"`)].join('\r\n');const b=new Blob([csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`inventory_${formatDate(new Date().toISOString(), false)}.csv`;document.body.appendChild(a);a.click();document.body.removeChild(a);showToast('Exported.');}
-            async function importCSV(f){showToast("CSV Import...",0,5000);if(!f)return;const r=new FileReader();r.onload=async function(e){if(inventoryLoadingIndicator)inventoryLoadingIndicator.classList.remove('hidden');let skip=0,toQ=[];try{const l=e.target.result.split(/\r?\n/).filter(ln=>ln.trim()!=="");if(l.length<2){showToast('CSV empty.',1);return;}const h=l[0].toLowerCase().split(',').map(hd=>hd.replace(/"/g,'').trim()),mH=(hd)=>({'itemid':'ItemID','id':'ItemID','itemname':'ItemName','name':'ItemName','stockquantity':'StockQuantity','stock':'StockQuantity','currentstock':'StockQuantity','openingstock':'openingStock','openingstockdate':'openingStockDate','reorderlevel':'ReorderLevel','price':'Price','supplierid':'SupplierID','suppliername':'SupplierName','lastupdated':'LastUpdated','createdat':'CreatedAt'})[hd]||hd,mapH=h.map(mH),nIdx=mapH.indexOf('ItemName'),sIdx=mapH.indexOf('StockQuantity'),osIdx=mapH.indexOf('openingStock'),osdIdx=mapH.indexOf('openingStockDate'),rlIdx=mapH.indexOf('ReorderLevel'),pIdx=mapH.indexOf('Price'),sIdIdx=mapH.indexOf('SupplierID'),sNmIdx=mapH.indexOf('SupplierName'),csvIdIdx=mapH.indexOf('ItemID');if(nIdx===-1||sIdx===-1){showToast('CSV no ItemName/StockQty.',1);return;}for(let i=1;i<l.length;i++){const v=l[i].split(',').map(val=>val.replace(/"/g,'').trim()),cD={};cD.ItemName=v[nIdx];if(!cD.ItemName){skip++;continue;}cD.StockQuantity=sIdx>-1&&v[sIdx]?parseInt(v[sIdx]):0;cD.openingStock=osIdx>-1&&v[osIdx]?parseInt(v[osIdx]):cD.StockQuantity;cD.openingStockDate=osdIdx>-1&&v[osdIdx]?new Date(v[osdIdx]).toISOString():new Date().toISOString();cD.ReorderLevel=rlIdx>-1&&v[rlIdx]?parseInt(v[rlIdx]):0;cD.Price=pIdx>-1&&v[pIdx]?parseFloat(v[pIdx]):0;let sIdV=sIdIdx>-1?v[sIdIdx]:null,sNmV=sNmIdx>-1?v[sNmIdx]:null;if(!sIdV&&sNmV){const fS=suppliers.find(s=>s.SupplierName.toLowerCase()===sNmV.toLowerCase());if(fS)sIdV=String(fS.SupplierID);else console.warn(`CSV Sup "${sNmV}" N/F.`);}cD.SupplierID=sIdV||"";cD.LastUpdated=new Date().toISOString();let ex=null,exID=null;if(csvIdIdx>-1&&v[csvIdIdx]){exID=String(v[csvIdIdx]);ex=inventory.find(it=>String(it.ItemID)===exID);}if(!ex){ex=inventory.find(it=>it.ItemName.toLowerCase()===cD.ItemName.toLowerCase());if(ex)exID=ex.ItemID;}toQ.push({data:cD,existingItemID:ex?exID:null});}let imp=0,upd=0;for(const iP of toQ){let act=iP.existingItemID?"updateItem":"createItem",pD={...iP.data},lOk=false;if(act==="updateItem"){const idx=inventory.findIndex(i=>String(i.ItemID)===String(iP.existingItemID));if(idx>-1){inventory[idx]={...inventory[idx],...pD};lOk=true;upd++;}}else{const tId=genId();inventory.push({...pD,ItemID:tId,CreatedAt:new Date().toISOString()});iP.tempId=tId;lOk=true;imp++;}if(lOk)addToSyncQ({type:act,apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:act,data:(act==="updateItem"?{...pD,ItemID:iP.existingItemID}:pD)},tempId:iP.tempId});else{skip++;console.warn(`Skip "${pD.ItemName}" local upd.`);}}setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);renderInventoryTable();updateOverviewStats();showToast(`CSV:${imp} new,${upd} upd,${skip} skip. Q'd.`,0,5000);}catch(er){console.error("Err import CSV:",er);showToast("Err CSV proc. Check fmt.",1);}finally{if(inventoryLoadingIndicator)inventoryLoadingIndicator.classList.add('hidden');const iCI=document.getElementById('importCSVInput');if(iCI)iCI.value='';}}};
-
-            // --- Filtering, Sorting, Pagination (Inventory) ---
+            
+            // --- Filtering, Sorting, Pagination ---
             let searchQuery='',filterSupplier='',filterLowStock=0,sortKey='ItemName',sortDir=1,page=1,pageSize=10;
             function getFilteredInventory(){let filt=[...inventory];if(searchQuery){const lq=searchQuery.toLowerCase();filt=filt.filter(i=>i.ItemName.toLowerCase().includes(lq)||(i.SupplierID&&suppliers.find(s=>String(s.SupplierID)===String(i.SupplierID))?.SupplierName.toLowerCase().includes(lq)));}if(filterSupplier)filt=filt.filter(i=>String(i.SupplierID)===String(filterSupplier));if(filterLowStock)filt=filt.filter(i=>Number(i.StockQuantity)<Number(i.ReorderLevel));if(sortKey){filt.sort((a,b)=>{let vA=a[sortKey],vB=b[sortKey];if(sortKey==='SupplierID'){vA=suppliers.find(s=>String(s.SupplierID)===String(a.SupplierID))?.SupplierName||'';vB=suppliers.find(s=>String(s.SupplierID)===String(b.SupplierID))?.SupplierName||'';}else if(['LastUpdated','CreatedAt','openingStockDate'].includes(sortKey)){vA=new Date(vA||0);vB=new Date(vB||0);}else if(['StockQuantity','ReorderLevel','Price','openingStock'].includes(sortKey)){vA=parseFloat(vA)||0;vB=parseFloat(vB)||0;}else if(typeof vA==='string'){vA=vA.toLowerCase();vB=vB.toLowerCase();}else{vA=String(vA??"").toLowerCase();vB=String(vB??"").toLowerCase();}if(vA<vB)return -1*sortDir;if(vA>vB)return 1*sortDir;return 0;});}return filt;}
-            function renderPagination(total){const totP=Math.ceil(total/pageSize),pC=document.getElementById('paginationControls');if(!pC||totP<=1){if(pC)pC.innerHTML='';return;}let h='<div class="flex items-center space-x-1">';h+=`<button class="btn btn-secondary btn-sm ${page===1?'opacity-50 cursor-not-allowed':''}" data-page="${page-1}" ${page===1?'disabled':''}>Prev</button>`;let sP=Math.max(1,page-2),eP=Math.min(totP,page+2);if(sP>1){h+=`<button class="btn btn-secondary btn-sm" data-page="1">1</button>`;if(sP>2)h+=`<span class="px-2 text-gray-500">...</span>`;}for(let i=sP;i<=eP;i++){h+=`<button class="btn btn-sm ${i===page?'btn-primary':'btn-secondary'}" data-page="${i}">${i}</button>`;}if(eP<totP){if(eP<totP-1)h+=`<span class="px-2 text-gray-500">...</span>`;h+=`<button class="btn btn-secondary btn-sm" data-page="${totP}">${totP}</button>`;}h+=`<button class="btn btn-secondary btn-sm ${page===totP?'opacity-50 cursor-not-allowed':''}" data-page="${page+1}" ${page===totP?'disabled':''}>Next</button></div>`;pC.innerHTML=h;Array.from(pC.querySelectorAll('button[data-page]')).forEach(b=>{b.addEventListener('click',()=>{page=Number(b.dataset.page);renderInventoryTable();});});}
-            function initializeInventoryControls(){const cont=document.getElementById('inventoryTableSection')?.parentNode;if(!cont)return;let div=document.getElementById('inventoryTableControls');if(!div){div=document.createElement('div');div.id='inventoryTableControls';div.className='mb-4 flex flex-wrap items-center gap-2 rounded-xl bg-gray-50 p-4 shadow';div.innerHTML=`<input id="searchInput" type="text" placeholder="Search..." class="input-field flex-grow md:flex-grow-0"/><select id="supplierFilter" class="input-field"><option value="">All Suppliers</option></select><label class="flex items-center gap-1.5"><input type="checkbox" id="lowStockFilter"/>Low Stock</label><button id="exportCSVBtn" class="btn btn-success btn-sm"><i class="ph ph-download mr-1"></i>Export</button><label class="btn btn-success btn-sm cursor-pointer"><i class="ph ph-upload mr-1"></i>Import<input id="importCSVInput" type="file" accept=".csv" class="hidden"/></label><button id="bulkDeleteBtn" class="btn btn-danger btn-sm"><i class="ph ph-trash mr-1"></i>Del Sel</button>`;const iS=document.getElementById('inventoryTableSection');if(iS)iS.parentNode.insertBefore(div,iS);else cont.appendChild(div);}document.getElementById('exportCSVBtn')?.addEventListener('click',exportCSV);document.getElementById('importCSVInput')?.addEventListener('change',e=>importCSV(e.target.files[0]));document.getElementById('bulkDeleteBtn')?.addEventListener('click',handleBulkDelete);document.getElementById('searchInput')?.addEventListener('input',e=>{searchQuery=e.target.value;page=1;renderInventoryTable();});document.getElementById('lowStockFilter')?.addEventListener('change',e=>{filterLowStock=e.target.checked;page=1;renderInventoryTable();});document.getElementById('supplierFilter')?.addEventListener('change',e=>{filterSupplier=e.target.value;page=1;renderInventoryTable();});document.querySelectorAll('.sortable').forEach(th=>{th.classList.add('cursor-pointer','select-none');th.addEventListener('click',()=>{const k=th.dataset.key;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1;}document.querySelectorAll('.sort-indicator').forEach(s=>s.textContent='');const ind=th.querySelector('.sort-indicator');if(ind)ind.textContent=sortDir===1?' ▲':' ▼';page=1;renderInventoryTable();});});const iSH=document.querySelector(`.sortable[data-key="${sortKey}"] .sort-indicator`);if(iSH)iSH.textContent=sortDir===1?' ▲':' ▼';const bSACB=document.getElementById('bulkSelectAll');if(bSACB)bSACB.addEventListener('change',e=>{document.querySelectorAll('.bulk-checkbox').forEach(cb=>cb.checked=e.target.checked);});updateSupplierFilterDropdown();}
+            function renderPagination(total){const totP=Math.ceil(total/pageSize),pC=document.getElementById('paginationControls');if(!pC||totP<=1){if(pC)pC.innerHTML='';return;}let h='<div class="flex items-center space-x-1">';h+=`<button class="btn btn-secondary btn-sm ${page===1?'opacity-50 cursor-not-allowed':''}" data-page="${page-1}" ${page===1?'disabled':''}>Prev</button>`;let sP=Math.max(1,page-2),eP=Math.min(totP,page+2);if(sP>1){h+=`<button class="btn btn-secondary btn-sm" data-page="1">1</button>`;if(sP>2)h+=`<span class="px-2 text-gray-500">...</span>`;}for(let i=sP;i<=eP;i++){h+=`<button class="btn btn-sm ${i===page?'btn-primary':'btn-secondary'}" data-page="${i}">${i}</button>`;}if(eP<totP){if(eP<totP-1)h+=`<span class="px-2 text-gray-500">...</span>`;h+=`<button class="btn btn-secondary btn-sm" data-page="${totP}">${totP}</button>`;}h+=`<button class="btn btn-secondary btn-sm ${page===totP?'opacity-50 cursor-not-allowed':''}" data-page="${page+1}" ${page===totP?'disabled':''}>Next</button></div>`;pC.innerHTML=h;pC.querySelectorAll('button[data-page]').forEach(b=>{b.addEventListener('click',()=>{page=Number(b.dataset.page);renderInventoryTable();});});}
+            function initializeInventoryControls(){const cont=document.getElementById('inventoryTableSection')?.parentNode;if(!cont)return;let div=document.getElementById('inventoryTableControls');if(!div){div=document.createElement('div');div.id='inventoryTableControls';div.className='mb-4 flex flex-wrap items-center gap-2 rounded-xl bg-gray-50 p-4 shadow';div.innerHTML=`<input id="searchInput" type="text" placeholder="Search..." class="input-field flex-grow md:flex-grow-0"/><select id="supplierFilter" class="input-field"><option value="">All Suppliers</option></select><label class="flex items-center gap-1.5"><input type="checkbox" id="lowStockFilter"/>Low Stock</label><button id="exportCSVBtn" class="btn btn-success btn-sm"><i class="ph ph-download mr-1"></i>Export</button><label class="btn btn-success btn-sm cursor-pointer"><i class="ph ph-upload mr-1"></i>Import<input id="importCSVInput" type="file" accept=".csv" class="hidden"/></label><button id="bulkDeleteBtn" class="btn btn-danger btn-sm"><i class="ph ph-trash mr-1"></i>Del Sel</button>`;const iS=document.getElementById('inventoryTableSection');if(iS)iS.parentNode.insertBefore(div,iS);else cont.appendChild(div);}document.getElementById('exportCSVBtn')?.addEventListener('click',exportCSV);document.getElementById('importCSVInput')?.addEventListener('change',e=>importCSV(e.target.files[0]));document.getElementById('bulkDeleteBtn')?.addEventListener('click',handleBulkDelete);document.getElementById('searchInput')?.addEventListener('input',e=>{searchQuery=e.target.value;page=1;renderInventoryTable();});document.getElementById('lowStockFilter')?.addEventListener('change',e=>{filterLowStock=e.target.checked;page=1;renderInventoryTable();});document.getElementById('supplierFilter')?.addEventListener('change',e=>{filterSupplier=e.target.value;page=1;renderInventoryTable();});document.getElementById('bulkSelectAll')?.addEventListener('change',e=>{document.querySelectorAll('.bulk-checkbox').forEach(cb=>cb.checked=e.target.checked);});updateSupplierFilterDropdown();}
             function updateSupplierFilterDropdown(){const s=document.getElementById('supplierFilter');if(!s)return;const v=s.value;s.innerHTML='<option value="">All Suppliers</option>';suppliers.sort((a,b)=>a.SupplierName.localeCompare(b.SupplierName)).forEach(sup=>{s.innerHTML+=`<option value="${sup.SupplierID}">${sup.SupplierName}</option>`;});s.value=v;}
             async function populateSupplierDropdownForItemForm(){const s=document.getElementById('supplier');if(!s)return;const v=s.value;s.innerHTML='<option value="">Select Supplier</option>';suppliers.sort((a,b)=>a.SupplierName.localeCompare(b.SupplierName)).forEach(sup=>{s.innerHTML+=`<option value="${sup.SupplierID}">${sup.SupplierName}</option>`;});s.value=v;}
 
@@ -1064,27 +1279,20 @@
             if(supplierFormEl_Modal) supplierFormEl_Modal.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 supplierFormModalLoadingIndicator.classList.remove('hidden');
-                saveSupplierModalBtn.disabled = true;
-                cancelSupplierEditModalBtn.disabled = true;
-
+                saveSupplierModalBtn.disabled = true; cancelSupplierEditModalBtn.disabled = true;
                 const name = supplierNameInputModal.value.trim();
                 const editId = supplierEditIdModalInput.value;
-
                 if (!name) { showToast('Supplier name empty.', true); supplierFormModalLoadingIndicator.classList.add('hidden'); saveSupplierModalBtn.disabled = false; cancelSupplierEditModalBtn.disabled = false; return; }
                 if (isDupSupName(name, editId)) { showToast('Supplier name exists.', true); supplierFormModalLoadingIndicator.classList.add('hidden'); saveSupplierModalBtn.disabled = false; cancelSupplierEditModalBtn.disabled = false; return; }
-
                 const payload = { SupplierName: name };
                 currentEditSupplierId = editId;
-
                 if (currentEditSupplierId) {
                     const idx = suppliers.findIndex(s => String(s.SupplierID) === String(currentEditSupplierId));
                     if (idx > -1) { suppliers[idx] = { ...suppliers[idx], ...payload }; setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers); showToast('Supplier updated.',0); addToSyncQ({ type: 'updateSupplier', apiEndpoint: SUPPLIERS_API_ENDPOINT, method: 'POST', payload: { action: "updateSupplier", data: { ...payload, SupplierID: currentEditSupplierId }}}); }
                 } else {
                     const tempId = genId(); suppliers.push({ ...payload, SupplierID: tempId }); setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers); showToast('Supplier added.',0); addToSyncQ({ type: 'createSupplier', apiEndpoint: SUPPLIERS_API_ENDPOINT, method: 'POST', payload: { action: "createSupplier", data: payload }, tempId: tempId });
                 }
-                renderSupplierList();
-                closeSupplierFormModal();
-                populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown();
+                renderSupplierList(); closeFormModal(); populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown();
                 supplierFormModalLoadingIndicator.classList.add('hidden'); saveSupplierModalBtn.disabled = false; cancelSupplierEditModalBtn.disabled = false;
             });
 
@@ -1110,7 +1318,7 @@
             }
 
             // --- User Management Modal Logic ---
-             function openUserFormModal(mode = 'add', userIdToEdit = null) {
+            function openUserFormModal(mode = 'add', userIdToEdit = null) {
                 currentEditUserId = userIdToEdit;
                 resetUserFormModal();
                 if (mode === 'add') {
@@ -1146,13 +1354,12 @@
             if(closeUserFormModalBtn) closeUserFormModalBtn.addEventListener('click', closeUserFormModal);
             if(cancelUserEditModalBtn) cancelUserEditModalBtn.addEventListener('click', closeUserFormModal);
 
-
             function renderUserList() {
                 if (!userListBody) return;
                 userListBody.innerHTML = '';
                 userListLoadingIndicator.classList.remove('hidden');
                 if (allUsersData.length === 0) {
-                    userListBody.innerHTML = '<tr><td colspan="7" class="py-3 text-center text-gray-500">No users. Click "Add User".</td></tr>'; // colspan updated to 7
+                    userListBody.innerHTML = '<tr><td colspan="7" class="py-3 text-center text-gray-500">No users. Click "Add User".</td></tr>';
                     userListLoadingIndicator.classList.add('hidden');
                     return;
                 }
@@ -1160,21 +1367,9 @@
                 sortedUsers.forEach(user => {
                     const row = userListBody.insertRow(); row.className = "hover:bg-gray-50";
                     const lastLoginDisplay = formatLastLoginTime(user.LastLoginDate);
-                    // IMPORTANT: Never display actual passwords or password hashes in the UI.
-                    // This is a placeholder and should be removed or changed in a real application.
-                    const displayPasswordPlaceholder = '********'; // Mask password
+                    const displayPasswordPlaceholder = '********';
 
-                    row.innerHTML = `
-                        <td class="py-2 px-3 text-sm text-gray-700">${user.FullName || (user.FirstName && user.LastName ? `${user.FirstName} ${user.LastName}`: 'N/A')}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700">${user.LoginID || 'N/A'}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700">${user.ContactNo || 'N/A'}</td>
-                        <td class="py-2 px-3 text-sm text-gray-700">${user.Role || 'User'}</td>
-                        <td class="py-2 px-3 text-sm text-gray-500">${displayPasswordPlaceholder}</td>
-                        <td class="py-2 px-3 text-sm text-gray-500">${lastLoginDisplay}</td>
-                        <td class="py-2 px-3 text-sm text-center space-x-2">
-                            <button data-id="${user.UserID}" class="edit-user-btn text-blue-500 hover:text-blue-700"><i class="ph ph-pencil-simple"></i> Edit</button>
-                            <button data-id="${user.UserID}" data-loginid="${user.LoginID}" class="delete-user-btn text-red-500 hover:text-red-700 ${loggedInUser && String(loggedInUser.UserID) === String(user.UserID) ? 'opacity-50 cursor-not-allowed' : ''}" ${loggedInUser && String(loggedInUser.UserID) === String(user.UserID) ? 'disabled' : ''}><i class="ph ph-trash"></i> Delete</button>
-                        </td>`;
+                    row.innerHTML = `<td class="py-2 px-3 text-sm text-gray-700">${user.FullName || (user.FirstName && user.LastName ? `${user.FirstName} ${user.LastName}`: 'N/A')}</td><td class="py-2 px-3 text-sm text-gray-700">${user.LoginID || 'N/A'}</td><td class="py-2 px-3 text-sm text-gray-700">${user.ContactNo || 'N/A'}</td><td class="py-2 px-3 text-sm text-gray-700">${user.Role || 'User'}</td><td class="py-2 px-3 text-sm text-gray-500">${displayPasswordPlaceholder}</td><td class="py-2 px-3 text-sm text-gray-500">${lastLoginDisplay}</td><td class="py-2 px-3 text-sm text-center space-x-2"><button data-id="${user.UserID}" class="edit-user-btn text-blue-500 hover:text-blue-700"><i class="ph ph-pencil-simple"></i> Edit</button><button data-id="${user.UserID}" data-loginid="${user.LoginID}" class="delete-user-btn text-red-500 hover:text-red-700 ${loggedInUser && String(loggedInUser.UserID) === String(user.UserID) ? 'opacity-50 cursor-not-allowed' : ''}" ${loggedInUser && String(loggedInUser.UserID) === String(user.UserID) ? 'disabled' : ''}><i class="ph ph-trash"></i> Delete</button></td>`;
                     row.querySelector('.edit-user-btn').addEventListener('click', () => openUserFormModal('edit', user.UserID));
                     const deleteBtn = row.querySelector('.delete-user-btn');
                     if (deleteBtn && !deleteBtn.disabled) {
@@ -1189,7 +1384,6 @@
                     e.preventDefault();
                     userFormModalLoadingIndicator.classList.remove('hidden');
                     saveUserModalBtn.disabled = true; cancelUserEditModalBtn.disabled = true;
-
                     const firstName = firstNameInputUserFormModal.value.trim();
                     const lastName = lastNameInputUserFormModal.value.trim();
                     const emailId = emailIdInputUserFormModal.value.trim();
@@ -1226,45 +1420,24 @@
                         userFormModalLoadingIndicator.classList.add('hidden'); saveUserModalBtn.disabled = false; cancelUserEditModalBtn.disabled = false; return;
                     }
 
-                    let payloadData = {
-                        FirstName: firstName, LastName: lastName, FullName: `${firstName} ${lastName}`,
-                        LoginID: emailId, ContactNo: contactNo, Role: role
-                    };
-                    // IMPORTANT: Only send the password to the backend if it's being set or changed.
-                    // The backend should handle hashing. For this example, we send it as is.
+                    let payloadData = { FirstName: firstName, LastName: lastName, FullName: `${firstName} ${lastName}`, LoginID: emailId, ContactNo: contactNo, Role: role };
                     if (password) payloadData.Password = password;
 
-
-                    if (currentEditUserId) { // Update existing user
+                    if (currentEditUserId) {
                         payloadData.UserID = currentEditUserId;
                         const userIndex = allUsersData.findIndex(u => String(u.UserID) === String(currentEditUserId));
-                        if (userIndex > -1) {
-                            allUsersData[userIndex] = {
-                                ...allUsersData[userIndex], // Keep existing fields like LastLoginDate
-                                LoginID: emailId, FullName: payloadData.FullName, FirstName: firstName, LastName: lastName,
-                                ContactNo: contactNo, Role: role,
-                                PasswordHash: password ? password : allUsersData[userIndex].PasswordHash // Update PasswordHash locally if password changed
-                            };
-                        }
-                    } else { // Create new user
+                        if (userIndex > -1) { allUsersData[userIndex] = { ...allUsersData[userIndex], ...payloadData, PasswordHash: password ? password : allUsersData[userIndex].PasswordHash }; }
+                    } else {
                         const tempUserId = genId();
-                        payloadData.UserID = tempUserId; // For optimistic update if backend doesn't return ID immediately
-                        const newUserOptimistic = {
-                            UserID: tempUserId, LoginID: emailId, FullName: payloadData.FullName, FirstName: firstName, LastName: lastName,
-                            ContactNo: contactNo, Role: role, LastLoginDate: null, PasswordHash: password
-                        };
+                        payloadData.UserID = tempUserId;
+                        const newUserOptimistic = { UserID: tempUserId, ...payloadData, LastLoginDate: null, PasswordHash: password };
                         allUsersData.push(newUserOptimistic);
-                        actionType = "createUser"; // Ensure action type is correct
                     }
 
                     setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData);
                     renderUserList();
 
-                    addToSyncQ({
-                        type: actionType, apiEndpoint: USERS_API_ENDPOINT, method: 'POST',
-                        payload: { action: actionType, data: payloadData }, // payloadData already contains UserID for updates
-                        tempId: actionType === "createUser" ? payloadData.UserID : null
-                    });
+                    addToSyncQ({ type: actionType, apiEndpoint: USERS_API_ENDPOINT, method: 'POST', payload: { action: actionType, data: payloadData }, tempId: actionType === "createUser" ? payloadData.UserID : null });
 
                     showToast(`User ${currentEditUserId ? 'updated' : 'added'} locally. Syncing...`, false);
                     closeUserFormModal();
@@ -1274,12 +1447,12 @@
 
             function resetUserFormModal() {
                 if(userFormEl_Modal) userFormEl_Modal.reset();
-                if(userFormModalTitle) userFormModalTitle.textContent = 'Add New User';
-                if(saveUserModalBtn) saveUserModalBtn.textContent = 'Save User';
-                if(passwordInputUserFormModal) passwordInputUserFormModal.placeholder = "Enter password (required for new user)";
-                if(confirmPasswordInputUserFormModal) confirmPasswordInputUserFormModal.placeholder = "Confirm password";
-                if(roleInputUserFormModal) roleInputUserFormModal.value = 'User';
-                if(userEditIdInputModal) userEditIdInputModal.value = '';
+                userFormModalTitle.textContent = 'Add New User';
+                saveUserModalBtn.textContent = 'Save User';
+                passwordInputUserFormModal.placeholder = "Enter password (required for new user)";
+                confirmPasswordInputUserFormModal.placeholder = "Confirm password";
+                roleInputUserFormModal.value = 'User';
+                userEditIdInputModal.value = '';
                 currentEditUserId = null;
             }
 
@@ -1304,7 +1477,7 @@
             // --- Charts & Dashboard ---
             function renderRecentActivityFeed() {
                 if (!recentActivityFeed) return;
-                recentActivityFeed.innerHTML = ''; // Clear previous
+                recentActivityFeed.innerHTML = '';
                 const sortedTransactions = [...transactions].sort((a,b) => new Date(b.date || b.TransactionDate) - new Date(a.date || a.TransactionDate));
                 const recent = sortedTransactions.slice(0, DASHBOARD_FEED_LIMIT);
 
@@ -1313,35 +1486,8 @@
                     return;
                 }
                 recent.forEach(t => {
-                    const item = inventory.find(i => String(i.ItemID) === String(t.itemId));
-                    const user = allUsersData.find(u => String(u.UserID) === String(t.transactionUserID));
-                    // Updated username display logic
-                    let activityUserName = 'System/Unknown';
-                    if (user) {
-                        const fullNameTrimmed = user.FullName ? user.FullName.trim() : '';
-                        const loginIDTrimmed = user.LoginID ? user.LoginID.trim() : '';
-                        const constructedName = user.FirstName && user.LastName ? `${user.FirstName.trim()} ${user.LastName.trim()}`.trim() : '';
-
-                        if (fullNameTrimmed) {
-                            activityUserName = fullNameTrimmed;
-                        } else if (constructedName) {
-                            activityUserName = constructedName;
-                        } else if (loginIDTrimmed) {
-                            activityUserName = loginIDTrimmed;
-                        } else if (user.UserID) {
-                            activityUserName = `User ID: ${user.UserID}`;
-                        }
-                    } else if (t.transactionUserID && t.transactionUserID !== 'null' && t.transactionUserID !== 'undefined') { // Check if transactionUserID has a value
-                         // Attempt to match with UserID from Google Sheet value if it was stored as name
-                        const userBySheetName = allUsersData.find(u => u.FullName === t.transactionUserID || u.LoginID === t.transactionUserID);
-                        if (userBySheetName) {
-                            activityUserName = userBySheetName.FullName || userBySheetName.LoginID;
-                        } else {
-                           activityUserName = `Recorded by: ${t.transactionUserID}`; // Display the raw UserID from sheet if no match
-                        }
-                    }
-
-
+                    const item = inventory.find(i => String(i.ItemID) === String(t.itemId || t.ItemID));
+                    const activityUserName = getUserNameById(t.transactionUserID);
                     const typeClass = (t.type === 'inward' || t.TransactionType === 'inward') ? 'text-green-600' : 'text-amber-600';
                     const typeIcon = (t.type === 'inward' || t.TransactionType === 'inward') ? '<i class="ph ph-arrow-down text-green-500 mr-1"></i>' : '<i class="ph ph-arrow-up text-amber-500 mr-1"></i>';
                     const quantityDisplay = t.quantity || t.Quantity || 0;
@@ -1349,47 +1495,15 @@
 
                     const div = document.createElement('div');
                     div.className = 'dashboard-feed-item';
-                    div.innerHTML = `
-                        <div class="flex justify-between items-center">
-                            <span class="font-medium">${item ? item.ItemName : (t.itemName || 'Unknown Item')}</span>
-                            <span class="${typeClass} font-semibold">${typeIcon} ${quantityDisplay} units</span>
-                        </div>
-                        <div class="text-xs text-gray-500">
-                            <span>By: ${activityUserName}</span> | <span>${formatDate(dateDisplay, true)}</span>
-                        </div>
-                    `;
+                    div.innerHTML = `<div class="flex justify-between items-center"><span class="font-medium">${item ? item.ItemName : (t.itemName || 'Unknown Item')}</span><span class="${typeClass} font-semibold">${typeIcon} ${quantityDisplay} units</span></div><div class="text-xs text-gray-500"><span>By: ${activityUserName}</span> | <span>${formatLastLoginTime(dateDisplay)}</span></div>`;
                     recentActivityFeed.appendChild(div);
                 });
             }
 
             function renderTotalStockValue() {
                 if (!totalStockValueDisplay) return;
-                const totalValue = inventory.reduce((sum, item) => {
-                    const quantity = Number(item.StockQuantity) || 0;
-                    const price = Number(item.Price) || 0;
-                    return sum + (quantity * price);
-                }, 0);
+                const totalValue = inventory.reduce((sum, item) => sum + ((Number(item.StockQuantity) || 0) * (Number(item.Price) || 0)), 0);
                 totalStockValueDisplay.textContent = `₹${totalValue.toFixed(2)}`;
-            }
-
-            function renderLowStockAlerts() {
-                if (!lowStockAlertsList) return;
-                lowStockAlertsList.innerHTML = ''; // Clear previous
-                const lowStockItems = inventory.filter(item => Number(item.StockQuantity) < Number(item.ReorderLevel));
-
-                if (lowStockItems.length === 0) {
-                    lowStockAlertsList.innerHTML = '<p class="text-gray-500">No items currently low on stock. Great!</p>';
-                    return;
-                }
-                lowStockItems.forEach(item => {
-                    const li = document.createElement('li');
-                    li.className = 'flex justify-between items-center py-1';
-                    li.innerHTML = `
-                        <span>${item.ItemName}</span>
-                        <span class="text-red-500 font-semibold">Stock: ${item.StockQuantity} (Min: ${item.ReorderLevel})</span>
-                    `;
-                    lowStockAlertsList.appendChild(li);
-                });
             }
 
             function renderImportantAnnouncements() {
@@ -1398,16 +1512,13 @@
                 const lowStockItems = inventory.filter(item => Number(item.StockQuantity) < Number(item.ReorderLevel));
 
                 if (lowStockItems.length === 0) {
-                    importantAnnouncementList.innerHTML = '<p class="text-gray-500">All stock levels are normal. No urgent announcements.</p>';
+                    importantAnnouncementList.innerHTML = '<p class="text-gray-500">All stock levels are normal.</p>';
                     return;
                 }
                 lowStockItems.forEach(item => {
                     const div = document.createElement('div');
                     div.className = 'p-2 rounded-md bg-amber-100 border border-amber-200';
-                    div.innerHTML = `
-                        <p class="font-semibold text-amber-800">${item.ItemName}</p>
-                        <p class="text-xs text-amber-700">Current stock: ${item.StockQuantity}. Reorder level is ${item.ReorderLevel}. Please re-stock soon.</p>
-                    `;
+                    div.innerHTML = `<p class="font-semibold text-amber-800">${item.ItemName}</p><p class="text-xs text-amber-700">Current stock: ${item.StockQuantity}. Reorder level is ${item.ReorderLevel}.</p>`;
                     importantAnnouncementList.appendChild(div);
                 });
             }
@@ -1415,59 +1526,32 @@
             function renderTopMovers() {
                 if (!topInwardItemsList || !topOutwardItemsList) return;
                 topInwardItemsList.innerHTML = ''; topOutwardItemsList.innerHTML = '';
-
                 const thirtyDaysAgo = new Date();
                 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-
                 const recentTransactions = transactions.filter(t => new Date(t.date || t.TransactionDate) >= thirtyDaysAgo);
-
-                const itemMovements = {}; // { itemId: { inward: 0, outward: 0, name: '' }}
-
+                const itemMovements = {};
                 recentTransactions.forEach(t => {
-                    const itemId = String(t.itemId || t.ItemID); // Handle potential differences in property names
+                    const itemId = String(t.itemId || t.ItemID);
                     if (!itemMovements[itemId]) {
                         const itemInfo = inventory.find(i => String(i.ItemID) === itemId);
                         itemMovements[itemId] = { inward: 0, outward: 0, name: itemInfo ? itemInfo.ItemName : (t.itemName || 'Unknown Item') };
                     }
                     const transactionType = t.type || t.TransactionType;
                     const quantity = Number(t.quantity || t.Quantity) || 0;
-
-                    if (transactionType === 'inward') {
-                        itemMovements[itemId].inward += quantity;
-                    } else if (transactionType === 'outward') {
-                        itemMovements[itemId].outward += quantity;
-                    }
+                    if (transactionType === 'inward') itemMovements[itemId].inward += quantity;
+                    else if (transactionType === 'outward') itemMovements[itemId].outward += quantity;
                 });
-
                 const allMovers = Object.values(itemMovements);
-
                 const topInward = [...allMovers].sort((a,b) => b.inward - a.inward).slice(0, DASHBOARD_FEED_LIMIT);
                 const topOutward = [...allMovers].sort((a,b) => b.outward - a.outward).slice(0, DASHBOARD_FEED_LIMIT);
 
-                if (topInward.length === 0 || topInward.every(item => item.inward === 0)) {
-                    topInwardItemsList.innerHTML = '<li class="text-gray-500">No inward movement in last 30 days.</li>';
-                } else {
-                    topInward.filter(item => item.inward > 0).forEach(item => {
-                        const li = document.createElement('li');
-                        li.textContent = `${item.name}: ${item.inward} units`;
-                        topInwardItemsList.appendChild(li);
-                    });
-                }
-                if (topOutward.length === 0 || topOutward.every(item => item.outward === 0)) {
-                    topOutwardItemsList.innerHTML = '<li class="text-gray-500">No outward movement in last 30 days.</li>';
-                } else {
-                     topOutward.filter(item => item.outward > 0).forEach(item => {
-                        const li = document.createElement('li');
-                        li.textContent = `${item.name}: ${item.outward} units`;
-                        topOutwardItemsList.appendChild(li);
-                    });
-                }
+                topInwardItemsList.innerHTML = topInward.length === 0 || topInward.every(i => i.inward === 0) ? '<li class="text-gray-500">No inward movement.</li>' : topInward.filter(i => i.inward > 0).map(i => `<li>${i.name}: ${i.inward} units</li>`).join('');
+                topOutwardItemsList.innerHTML = topOutward.length === 0 || topOutward.every(i => i.outward === 0) ? '<li class="text-gray-500">No outward movement.</li>' : topOutward.filter(i => i.outward > 0).map(i => `<li>${i.name}: ${i.outward} units</li>`).join('');
             }
-
 
             function renderStockChart(){const d=document.getElementById('stockChartDiv');if(!d||overviewPageDiv.classList.contains('hidden'))return;const i=inventory.filter(it=>(Number(it.StockQuantity)||0)>0).sort((a,b)=>(Number(b.StockQuantity)||0)-(Number(a.StockQuantity)||0)).slice(0,10),tC='#374151',bC='#3b82f6',vC='#2563eb';if(i.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Top Stock</h3><div class="py-8 text-center text-gray-400">No stock.</div>`;return;}const mS=Math.max(...i.map(it=>(Number(it.StockQuantity)||0)),0),bH=20,cH=i.length*(bH+10)+30,lW=150,bAW=d.offsetWidth>450?d.offsetWidth-lW-70:230,vO=5;let h=`<h3 class="mb-4 text-center text-lg font-semibold" style="color:${tC};">Top Stocked</h3><svg width="100%" height="${cH}" viewBox="0 0 ${lW+bAW+50} ${cH}" class="font-sans">`;i.forEach((it,idx)=>{const y=idx*(bH+10)+15,s=Number(it.StockQuantity)||0,bW=mS>0?(s/mS)*bAW:0,nD=it.ItemName.length>20?it.ItemName.slice(0,18)+'...':it.ItemName;h+=`<text x="0" y="${y+bH/2+4}" font-size="12" fill="${tC}">${nD}</text><rect x="${lW}" y="${y}" width="${bW}" height="${bH}" fill="${bC}" rx="3" class="chart-bar" data-name="${it.ItemName}" data-stock="${s}"/><text x="${lW+bW+vO}" y="${y+bH/2+4}" font-size="12" fill="${vC}" font-weight="500">${s}</text>`;});h+='</svg>';d.innerHTML=h;d.querySelectorAll('.chart-bar').forEach(b=>{b.addEventListener('mouseenter',(e)=>showToast(`${e.target.dataset.name}:${e.target.dataset.stock} units`));});}
             function renderPieChart(){const d=document.getElementById('pieChartDiv');if(!d||overviewPageDiv.classList.contains('hidden'))return;const tC='#1f2937',lTC='#4b5563',clrs=['#4f46e5','#10b981','#f59e0b','#3b82f6','#a855f7','#06b6d4','#64748b'];if(inventory.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="py-8 text-center text-gray-400">No data.</div>`;return;}const sS={};inventory.forEach(i=>{const s=suppliers.find(sp=>String(sp.SupplierID)===String(i.SupplierID)),sN=s?s.SupplierName:(i.SupplierID&&i.SupplierID!==""?'Unk':'Unassigned');sS[sN]=(sS[sN]||0)+(Number(i.StockQuantity)||0);});const srtdS=Object.entries(sS).filter(([,stk])=>stk>0).sort(([,a],[,b])=>b-a);if(srtdS.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="py-8 text-center text-gray-400">No stock.</div>`;return;}const tN=5,cD=srtdS.slice(0,tN),oS=srtdS.slice(tN).reduce((sum,[,stk])=>sum+stk,0);if(oS>0)cD.push(['Other',oS]);const totS=cD.reduce((sum,[,stk])=>sum+stk,0);if(totS===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="py-8 text-center text-gray-400">No stock.</div>`;return;}let acA=-90;const r=80,cX=100,cY=100;const pths=cD.map(([n,s],idx)=>{const prc=s/totS,ang=prc*360,x1=cX+r*Math.cos(Math.PI/180*acA),y1=cY+r*Math.sin(Math.PI/180*acA);acA+=ang;const x2=cX+r*Math.cos(Math.PI/180*acA),y2=cY+r*Math.sin(Math.PI/180*acA),lAF=ang>180?1:0;if(ang<0.1)return'';return`<path d="M${cX},${cY} L${x1},${y1} A${r},${r} 0 ${lAF},1 ${x2},${y2} Z" fill="${clrs[idx%clrs.length]}" class="chart-slice" data-name="${n}" data-stock="${s}" data-percent="${(prc*100).toFixed(1)}%"/>`;}).join('');const leg=cD.map(([n,s],idx)=>`<div class="mb-1.5 flex items-center gap-2 text-xs"><span style="background-color:${clrs[idx%clrs.length]};width:12px;height:12px;border-radius:3px;display:inline-block;"></span><span style="color:${lTC};">${n}:${s}(${(s/totS*100).toFixed(1)}%)</span></div>`).join('');d.innerHTML=`<h3 class="mb-4 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="flex flex-col items-center justify-center gap-x-8 gap-y-4 p-2 md:flex-row"><svg width="200" height="200" viewBox="0 0 200 200" class="font-sans flex-shrink-0">${pths}</svg><div class="text-sm">${leg}</div></div>`;d.querySelectorAll('.chart-slice').forEach(s=>{s.addEventListener('mouseenter',(e)=>showToast(`${e.target.dataset.name}:${e.target.dataset.stock} units(${e.target.dataset.percent})`));});}
-            function renderBarChart(){const d=document.getElementById('barChartDiv');if(!d||overviewPageDiv.classList.contains('hidden'))return;const tC='#374151',bC='#ef4444',vC='#dc2626',lI=inventory.filter(i=>(Number(i.StockQuantity)||0)<(Number(i.ReorderLevel)||0));if(lI.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Low Stock</h3><div class="py-8 text-center text-gray-400">No low stock.</div>`;return;}const sLC={};lI.forEach(i=>{const s=suppliers.find(sp=>String(sp.SupplierID)===String(i.SupplierID)),sN=s?s.SupplierName:(i.SupplierID&&i.SupplierID!==""?'Unk':'Unassigned');sLC[sN]=(sLC[sN]||0)+1;});const cD=Object.entries(sLC).filter(([,cnt])=>cnt>0).sort(([,a],[,b])=>b-a).slice(0,7);if(cD.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Low Stock by Supplier</h3><div class="py-8 text-center text-gray-400">No low stock by sup.</div>`;return;}const mC=Math.max(...cD.map(([,cnt])=>cnt),0),bH=20,cH=cD.length*(bH+10)+30,lW=150,bAW=d.offsetWidth>450?d.offsetWidth-lW-70:230;let h=`<h3 class="mb-4 text-center text-lg font-semibold" style="color:${tC};">Low Stock by Supplier</h3><svg width="100%" height="${cH}" viewBox="0 0 ${lW+bAW+50} ${cH}" class="font-sans">`;cD.forEach(([n,c],idx)=>{const y=idx*(bH+10)+15,bW=mC>0?(c/mC)*bAW:0,nD=n.length>20?n.slice(0,18)+'...':n;h+=`<text x="0" y="${y+bH/2+4}" font-size="12" fill="${tC}">${nD}</text><rect x="${lW}" y="${y}" width="${bW}" height="${bH}" fill="${bC}" rx="3" class="chart-bar-low" data-name="${n}" data-count="${c}"/><text x="${lW+bW+5}" y="${y+bH/2+4}" font-size="12" fill="${vC}" font-weight="500">${c}</text>`;});h+='</svg>';d.innerHTML=h;d.querySelectorAll('.chart-bar-low').forEach(b=>{b.addEventListener('mouseenter',(e)=>showToast(`${e.target.dataset.name}:${e.target.dataset.count} low item(s)`));});}
+            
             function setupOverviewDashboard(){const crds=[{el:overviewPageDiv.querySelector('.overview-card-new:nth-child(1)'),filt:'all',tst:'All items'},{el:overviewPageDiv.querySelector('.overview-card-new:nth-child(2)'),filt:'lowStock',tst:'Low stock items'},{el:overviewPageDiv.querySelector('.overview-card-new:nth-child(3)'),filt:'totalQuantity',tst:'Sorted by stock'}];crds.forEach(cI=>{if(cI.el&&!cI.el.classList.contains('db-bound')){cI.el.classList.add('cursor-pointer','db-bound');cI.el.addEventListener('click',()=>{showPage(inventoryAppDiv,sidebarNavInventory);searchQuery='';filterSupplier='';if(document.getElementById('searchInput'))document.getElementById('searchInput').value='';if(document.getElementById('supplierFilter'))document.getElementById('supplierFilter').value='';if(cI.filt==='all'){filterLowStock=false;if(document.getElementById('lowStockFilter'))document.getElementById('lowStockFilter').checked=false;sortKey='ItemName';sortDir=1;}else if(cI.filt==='lowStock'){filterLowStock=true;if(document.getElementById('lowStockFilter'))document.getElementById('lowStockFilter').checked=true;sortKey='ItemName';sortDir=1;}else if(cI.filt==='totalQuantity'){filterLowStock=false;if(document.getElementById('lowStockFilter'))document.getElementById('lowStockFilter').checked=false;sortKey='StockQuantity';sortDir=-1;}page=1;renderInventoryTable();showToast(cI.tst);});}});}
 
             function renderInteractiveDashboard(){
@@ -1475,79 +1559,39 @@
                 setupOverviewDashboard();
                 renderStockChart();
                 renderPieChart();
-                renderBarChart();
                 renderRecentActivityFeed();
                 renderTotalStockValue();
-                renderLowStockAlerts();
-                renderTopMovers();
                 renderImportantAnnouncements();
+                renderTopMovers();
             }
 
             // --- Auto Sync Logic ---
             async function backgroundAutoSync() {
-                if (!navigator.onLine) {
-                    console.log("Auto-sync: Offline, skipping.");
-                    updateSyncIndicator(); 
-                    return;
-                }
-                // Avoid starting a new full fetch if a sync queue process is already running from another source (e.g. manual action)
-                // or if a background sync itself is already in the process of fetching all data.
-                // However, still allow queue processing to try and clear pending items.
-                if (isSyncing && syncQueue.length > 0) { 
-                    console.log("Auto-sync: Queue processing or another sync operation might be in progress.");
-                    await processSyncQ(true); // Attempt to process queue, flagging as auto-sync context for toast logic
-                    return; // Don't proceed to fetchAllData if another operation might be handling it or if queue is main concern
-                }
-                
-                console.log("Auto-sync: Starting background data sync and queue processing.");
-                if (syncQueue.length > 0) {
-                    await processSyncQ(true); 
-                }
-                
-                await fetchAllDataFromAPIsAndStore(true, true); // Pass true for force and true for isBackground
-                
-                if (loggedInUser) {
-                    const currentPage = document.querySelector('.page-container:not(.hidden)');
-                    if (currentPage === overviewPageDiv) renderInteractiveDashboard();
-                    else if (currentPage === inventoryAppDiv) renderInventoryTable();
-                    else if (currentPage === suppliersPageDiv) renderSupplierList();
-                    else if (currentPage === userManagementPageDiv) renderUserList();
-                    // updateOverviewStats(); // This might be redundant if the page-specific renders include it.
-                }
+                if (!navigator.onLine || (isSyncing && syncQueue.length > 0)) return;
+                console.log("Auto-sync: Starting...");
+                if (syncQueue.length > 0) await processSyncQ(true); 
+                await fetchAllDataFromAPIsAndStore(true, true);
+                if (loggedInUser) refreshCurrentPageUI();
                 updateSyncIndicator(); 
             }
 
             function startAutoSync() {
-                if (autoSyncIntervalId) {
-                    clearInterval(autoSyncIntervalId); 
-                }
-                if (loggedInUser && navigator.onLine) { 
-                    console.log(`Starting auto-sync every ${AUTO_SYNC_INTERVAL / 1000} seconds.`);
-                    autoSyncIntervalId = setInterval(backgroundAutoSync, AUTO_SYNC_INTERVAL);
-                } else {
-                    console.log("Auto-sync not started (User not logged in or offline).");
-                }
+                if (autoSyncIntervalId) clearInterval(autoSyncIntervalId);
+                if (loggedInUser && navigator.onLine) autoSyncIntervalId = setInterval(backgroundAutoSync, AUTO_SYNC_INTERVAL);
             }
 
             function stopAutoSync() {
-                if (autoSyncIntervalId) {
-                    clearInterval(autoSyncIntervalId);
-                    autoSyncIntervalId = null;
-                    console.log("Auto-sync stopped.");
-                }
+                if (autoSyncIntervalId) { clearInterval(autoSyncIntervalId); autoSyncIntervalId = null; }
             }
-
 
             // --- App Initialization ---
             async function initializeApp() {
-                console.log("Initializing app with conditional background sync toasts.");
                 loadDataFromLocalStorage();
                 initializeInventoryControls();
-
                 if (loggedInUser) {
                     showToast("Welcome back!", 0);
                     await fetchStoreUsers(true); 
-                    await fetchAllDataFromAPIsAndStore(true, false); // Initial load is not background
+                    await fetchAllDataFromAPIsAndStore(true, false);
                     updateSidebarForRole();
                     showPage(overviewPageDiv, sidebarNavDashboard);
                     startAutoSync(); 
@@ -1559,16 +1603,8 @@
                 processSyncQ(false); 
                 updateSyncIndicator();
                 
-                window.addEventListener('online', () => { 
-                    showToast("Online. Syncing...",0); 
-                    fetchStoreUsers(true); 
-                    processSyncQ(true); 
-                    if(loggedInUser) startAutoSync(); 
-                });
-                window.addEventListener('offline', () => { 
-                    showToast("Offline. Changes saved locally.",1,5000); 
-                    stopAutoSync(); 
-                });
+                window.addEventListener('online', () => { showToast("Online. Syncing...",0); fetchStoreUsers(true); processSyncQ(true); if(loggedInUser) startAutoSync(); });
+                window.addEventListener('offline', () => { showToast("Offline. Changes saved locally.",1,5000); stopAutoSync(); });
             }
 
             initializeApp();
