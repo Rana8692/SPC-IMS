@@ -216,7 +216,7 @@
             </div>
 
             <!-- Overview Page -->
-            <div id="overviewPage" class="page-container hidden"><div class="container mx-auto"><section class="mb-8"><div class="grid grid-cols-1 gap-6 md:grid-cols-3"><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-archive-box stat-icon text-sky-500"></i><div id="totalItemsStat" class="stat-value">0</div><div class="stat-label">Total Unique Items</div></div><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-warning-octagon stat-icon text-amber-500"></i><div id="lowStockItemsStat" class="stat-value">0</div><div class="stat-label">Items Low on Stock</div></div><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-stack-overflow-logo stat-icon text-indigo-500"></i><div id="totalQuantityStat" class="stat-value">0</div><div class="stat-label">Total Stock Quantity</div></div></div></section><section class="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6"><div><div id="recentActivitySection" class="dashboard-section p-6 mb-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Recent Activity</h3><div id="recentActivityFeed" class="max-h-64 overflow-y-auto text-sm space-y-2"><p class="text-gray-400">Loading...</p></div></div><div id="lowStockAlertsSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Low Stock Alerts</h3><div id="lowStockAlertsList" class="max-h-64 overflow-y-auto text-sm space-y-1"><p class="text-gray-400">Loading...</p></div></div></div><div><div id="totalStockValueSection" class="dashboard-section p-6 mb-6 text-center"><h3 class="text-lg font-semibold text-gray-700 mb-2">Total Stock Value</h3><div id="totalStockValueDisplay" class="text-3xl font-bold text-green-600">₹0.00</div></div><div id="topMoversSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Top Movers (Last 30 Days)</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><h4 class="text-md font-medium text-gray-600 mb-2">Top Inward</h4><ul id="topInwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto"><li class="text-gray-400">Loading...</li></ul></div><div><h4 class="text-md font-medium text-gray-600 mb-2">Top Outward</h4><ul id="topOutwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto"><li class="text-gray-400">Loading...</li></ul></div></div></div></div></section><section><div class="grid grid-cols-1 gap-6 lg:grid-cols-2"><div class="chart-container p-4"><div id="stockChartDiv"></div></div><div class="chart-container p-4"><div id="pieChartDiv"></div></div><div class="chart-container p-4 lg:col-span-2"><div id="barChartDiv"></div></div></div></section></div></div>
+            <div id="overviewPage" class="page-container hidden"><div class="container mx-auto"><section class="mb-8"><div class="grid grid-cols-1 gap-6 md:grid-cols-3"><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-archive-box stat-icon text-sky-500"></i><div id="totalItemsStat" class="stat-value">0</div><div class="stat-label">Total Unique Items</div></div><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-warning-octagon stat-icon text-amber-500"></i><div id="lowStockItemsStat" class="stat-value">0</div><div class="stat-label">Items Low on Stock</div></div><div class="overview-card-new flex flex-col items-center justify-center p-6 text-center"><i class="ph ph-stack-overflow-logo stat-icon text-indigo-500"></i><div id="totalQuantityStat" class="stat-value">0</div><div class="stat-label">Total Stock Quantity</div></div></div></section><section class="mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6"><div><div id="recentActivitySection" class="dashboard-section p-6 mb-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Recent Activity</h3><div id="recentActivityFeed" class="max-h-64 overflow-y-auto text-sm space-y-2"><p class="text-gray-400">Loading...</p></div></div><div id="lowStockAlertsSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Low Stock Alerts</h3><div id="lowStockAlertsList" class="max-h-64 overflow-y-auto text-sm space-y-1"><p class="text-gray-400">Loading...</p></div></div></div><div><div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6"><div id="importantAnnouncementSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-red-600 mb-3 flex items-center"><i class="ph ph-warning-circle mr-2"></i>Announcements</h3><div id="importantAnnouncementList" class="max-h-48 overflow-y-auto text-sm space-y-2"><p class="text-gray-400">Loading...</p></div></div><div id="totalStockValueSection" class="dashboard-section p-6 text-center flex flex-col justify-center"><h3 class="text-lg font-semibold text-gray-700 mb-2">Total Stock Value</h3><div id="totalStockValueDisplay" class="text-3xl font-bold text-green-600">₹0.00</div></div></div><div id="topMoversSection" class="dashboard-section p-6"><h3 class="text-lg font-semibold text-gray-700 mb-3">Top Movers (Last 30 Days)</h3><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><h4 class="text-md font-medium text-gray-600 mb-2">Top Inward</h4><ul id="topInwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto"><li class="text-gray-400">Loading...</li></ul></div><div><h4 class="text-md font-medium text-gray-600 mb-2">Top Outward</h4><ul id="topOutwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto"><li class="text-gray-400">Loading...</li></ul></div></div></div></div></section><section><div class="grid grid-cols-1 gap-6 lg:grid-cols-2"><div class="chart-container p-4"><div id="stockChartDiv"></div></div><div class="chart-container p-4"><div id="pieChartDiv"></div></div><div class="chart-container p-4 lg:col-span-2"><div id="barChartDiv"></div></div></div></section></div></div>
 
             <!-- Inventory Page -->
             <div id="inventoryApp" class="page-container content-wrapper hidden"><div class="container mx-auto"><div id="inventoryLoadingIndicator" class="my-4 hidden"><div class="loader"></div><p>Loading...</p></div><section id="inventoryTableSection" class="inventory-section-bg"><div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="table-header"><tr><th class="px-2 py-3 text-center"><input type="checkbox" id="bulkSelectAll"/></th><th class="sortable px-4 py-3 text-left text-xs" data-key="ItemName">Name <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="openingStock">Opening Stock <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="openingStockDate">Opening Date <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="StockQuantity">Current Stock <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-center text-xs" data-key="ReorderLevel">Reorder Lvl <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-right text-xs" data-key="Price">Price <span class="sort-indicator"></span></th><th class="px-4 py-3 text-right text-xs">Stock Price</th><th class="sortable px-4 py-3 text-left text-xs" data-key="SupplierID">Supplier <span class="sort-indicator"></span></th><th class="sortable px-4 py-3 text-left text-xs" data-key="LastUpdated">Last Updated <span class="sort-indicator"></span></th><th class="px-4 py-3 text-center text-xs">Actions</th></tr></thead><tbody id="inventoryTableBody"></tbody></table></div><div id="paginationControls" class="mt-4 flex justify-center"></div></section></div></div>
@@ -355,6 +355,7 @@
             const LOCAL_STORAGE_SYNC_QUEUE_KEY = 'inventoryApp_syncQueue';
             const LOCAL_STORAGE_LOGGED_IN_USER_KEY = 'inventoryApp_loggedInUser';
             const LOCAL_STORAGE_ALL_USERS_KEY = 'inventoryApp_allUsers';
+            const AUTO_SYNC_INTERVAL = 5000; // Sync every 5 seconds
 
             // --- DOM Elements (Ensure all are correctly identified) ---
             const sidebar = document.getElementById('sidebar');
@@ -470,6 +471,7 @@
             const lowStockAlertsList = document.getElementById('lowStockAlertsList');
             const topInwardItemsList = document.getElementById('topInwardItemsList');
             const topOutwardItemsList = document.getElementById('topOutwardItemsList');
+            const importantAnnouncementList = document.getElementById('importantAnnouncementList');
             const DASHBOARD_FEED_LIMIT = 5;
 
 
@@ -477,6 +479,7 @@
             let currentEditItemId = null; let inventory = []; let suppliers = []; let transactions = [];
             let allUsersData = []; let syncQueue = []; let currentEditSupplierId = null; let currentEditUserId = null;
             let loggedInUser = null; let isSyncing = false; const MAX_RETRIES = 3;
+            let autoSyncIntervalId = null; // To store the interval ID for auto-sync
 
              // --- Date Formatting Helper ---
             function formatDate(dateString, includeTime = true) {
@@ -545,9 +548,89 @@
             function setLocalStorage(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){console.error(`Err LSto:"${key}"`,e);showToast(`Local save fail: ${e.message}`,1);}}
             function genId(){return `temp_${Date.now()}_${Math.random().toString(36).substr(2,9)}`;}
             function updateSyncIndicator(){if(!syncStatusIndicator)return;if(isSyncing){syncStatusIndicator.textContent=`Syncing(${syncQueue.length})...`;syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-pending z-[100] shadow-md rounded-md';syncStatusIndicator.classList.remove('hidden');}else if(syncQueue.length>0){syncStatusIndicator.textContent=`${syncQueue.length} pending.`;syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-pending z-[100] shadow-md rounded-md';syncStatusIndicator.classList.remove('hidden');}else{syncStatusIndicator.textContent='Synced';syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-success z-[100] shadow-md rounded-md';setTimeout(()=>{if(syncQueue.length===0&&!isSyncing)syncStatusIndicator.classList.add('hidden');},3000);}}
-            async function addToSyncQ(op){syncQueue.push({...op,id:genId(),retries:0,timestamp:Date.now()});setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,syncQueue);updateSyncIndicator();processSyncQ();}
-            async function processSyncQ(){if(isSyncing||syncQueue.length===0){updateSyncIndicator();return;}isSyncing=true;updateSyncIndicator();const op=syncQueue[0];try{const res=await fetch(op.apiEndpoint,{method:op.method,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(op.payload)});if(!res.ok){const eTxt=await res.text();throw new Error(`API Err: ${res.status} ${res.statusText}. ${eTxt}`);}const result=await res.json();if(result.success){syncQueue.shift();setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,syncQueue);showToast(`${op.type} synced!`,0);if(op.tempId&&result.data){if(op.type==='createItem'&&result.data.ItemID){const idx=inventory.findIndex(i=>String(i.ItemID)===String(op.tempId));if(idx>-1){inventory[idx].ItemID=String(result.data.ItemID);inventory[idx]={...inventory[idx],...result.data,ItemID:String(result.data.ItemID),SupplierID:String(result.data.SupplierID||"")};}setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);if(inventoryAppDiv.classList.contains('hidden'))updateOverviewStats();else renderInventoryTable();}else if(op.type==='createSupplier'&&result.data.SupplierID){const idx=suppliers.findIndex(s=>String(s.SupplierID)===String(op.tempId));if(idx>-1){suppliers[idx].SupplierID=String(result.data.SupplierID);suppliers[idx]={...suppliers[idx],...result.data,SupplierID:String(result.data.SupplierID)};}setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY,suppliers);renderSupplierList();populateSupplierDropdownForItemForm();updateSupplierFilterDropdown();}else if(op.type==='createTransaction'&&result.data.TransactionID){const idx=transactions.findIndex(t=>String(t.id)===String(op.tempId));if(idx>-1){transactions[idx].id=String(result.data.TransactionID);transactions[idx]={...transactions[idx],...result.data,id:String(result.data.TransactionID),transactionUserID:result.data.UserID?String(result.data.UserID):transactions[idx].transactionUserID};}setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,transactions);} else if (op.type === 'createUser' && result.data && result.data.UserID) { const userIdx = allUsersData.findIndex(u => String(u.UserID) === String(op.tempId)); if (userIdx > -1) { allUsersData[userIdx] = { ...allUsersData[userIdx], ...result.data, UserID: String(result.data.UserID) }; } else { allUsersData.push({ ...result.data, UserID: String(result.data.UserID) });} setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData); renderUserList();}}}else{throw new Error(result.message||'API op fail.');}}catch(e){console.error(`Sync err ${op.id}(${op.type}):`,e);op.retries++;if(op.retries>=MAX_RETRIES){showToast(`Fail ${op.type} sync x${MAX_RETRIES}. Moved to end.`,1);syncQueue.shift();syncQueue.push(op);}else{showToast(`Sync fail ${op.type}(${op.retries}/${MAX_RETRIES}). Retry.`,1);}setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,syncQueue);}finally{isSyncing=false;updateSyncIndicator();if(syncQueue.length>0){const delay=syncQueue[0]===op&&op.retries>0?Math.min(30000,2000*Math.pow(2,op.retries)):1000;setTimeout(processSyncQ,delay);}}}
-            async function fetchStoreUsers(force=0){if(!force&&allUsersData.length>0){console.log("Cached users.");return;}try{const r=await fetch(USERS_API_ENDPOINT);if(!r.ok){console.error("Fail fetch users:",r.status);showToast("User data load fail.",1);return;}const res=await r.json();if(res.success&&Array.isArray(res.data)){allUsersData=res.data.map(u=>({...u,UserID:String(u.UserID),LoginID:u.LoginID,FullName:u.FullName,ContactNo:u.ContactNo,FirstName:u.FirstName,LastName:u.LastName, Role: u.Role || 'User'}));setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,allUsersData);console.log("Users loaded:",allUsersData.length);}else{console.error("Fail parse users:",res.message);showToast("User data parse err.",1);}}catch(e){console.error("Err fetch users:",e);showToast("User data fetch err.",1);}}
+            async function addToSyncQ(op){syncQueue.push({...op,id:genId(),retries:0,timestamp:Date.now()});setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,syncQueue);updateSyncIndicator();processSyncQ();} // No await here for processSyncQ for background adds
+            
+            async function processSyncQ(isManualOrAutoSync = false) { // Added flag to distinguish call source
+                if (isSyncing || syncQueue.length === 0 || !navigator.onLine) {
+                    updateSyncIndicator();
+                    return;
+                }
+                isSyncing = true;
+                updateSyncIndicator();
+                const op = syncQueue[0];
+                try {
+                    const res = await fetch(op.apiEndpoint, { method: op.method, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(op.payload) });
+                    if (!res.ok) { const eTxt = await res.text(); throw new Error(`API Err: ${res.status} ${res.statusText}. ${eTxt}`); }
+                    const result = await res.json();
+                    if (result.success) {
+                        syncQueue.shift();
+                        setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY, syncQueue);
+                        if(isManualOrAutoSync) showToast(`${op.type} synced!`, 0); // Show toast only for manual/auto, not for every background queue process
+                        
+                        if (op.tempId && result.data) {
+                            let itemUpdatedInTable = false; // Flag to check if inventory table needs re-render
+                            if (op.type === 'createItem' && result.data.ItemID) {
+                                const idx = inventory.findIndex(i => String(i.ItemID) === String(op.tempId));
+                                if (idx > -1) { inventory[idx].ItemID = String(result.data.ItemID); inventory[idx] = { ...inventory[idx], ...result.data, ItemID: String(result.data.ItemID), SupplierID: String(result.data.SupplierID || "") }; itemUpdatedInTable = true;}
+                            } else if (op.type === 'createSupplier' && result.data.SupplierID) {
+                                const idx = suppliers.findIndex(s => String(s.SupplierID) === String(op.tempId));
+                                if (idx > -1) { suppliers[idx].SupplierID = String(result.data.SupplierID); suppliers[idx] = { ...suppliers[idx], ...result.data, SupplierID: String(result.data.SupplierID) };}
+                                renderSupplierList(); populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown(); itemUpdatedInTable = true; // Supplier changes might affect item table
+                            } else if (op.type === 'createTransaction' && result.data.TransactionID) {
+                                const idx = transactions.findIndex(t => String(t.id) === String(op.tempId));
+                                if (idx > -1) { transactions[idx].id = String(result.data.TransactionID); transactions[idx] = { ...transactions[idx], ...result.data, id: String(result.data.TransactionID), transactionUserID: result.data.UserID ? String(result.data.UserID) : transactions[idx].transactionUserID };}
+                                 itemUpdatedInTable = true; // Transactions affect dashboard and potentially item logs
+                            } else if (op.type === 'createUser' && result.data && result.data.UserID) {
+                                const userIdx = allUsersData.findIndex(u => String(u.UserID) === String(op.tempId));
+                                if (userIdx > -1) { allUsersData[userIdx] = { ...allUsersData[userIdx], ...result.data, UserID: String(result.data.UserID) }; } else { allUsersData.push({ ...result.data, UserID: String(result.data.UserID) }); }
+                                renderUserList();
+                            }
+                            // Common updates if any item-related data changed
+                            if(itemUpdatedInTable){
+                                setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
+                                setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers);
+                                setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
+                                setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData);
+
+                                if (overviewPageDiv && !overviewPageDiv.classList.contains('hidden') && loggedInUser) {
+                                    renderInteractiveDashboard(); // Full dashboard refresh if on overview page
+                                } else if (inventoryAppDiv && !inventoryAppDiv.classList.contains('hidden') && loggedInUser) {
+                                    renderInventoryTable(); // Only inventory table if on inventory page
+                                    updateOverviewStats(); // Still update core stats for banners etc.
+                                } else if (suppliersPageDiv && !suppliersPageDiv.classList.contains('hidden') && loggedInUser) {
+                                    renderSupplierList();
+                                    updateOverviewStats();
+                                } else if (userManagementPageDiv && !userManagementPageDiv.classList.contains('hidden') && loggedInUser) {
+                                    renderUserList();
+                                    updateOverviewStats();
+                                }
+                                else { // Fallback: update core stats if no specific page is active (e.g. during initial load)
+                                    updateOverviewStats();
+                                }
+                            }
+                        }
+                    } else { throw new Error(result.message || 'API op fail.'); }
+                } catch (e) {
+                    console.error(`Sync err ${op.id}(${op.type}):`, e);
+                    op.retries++;
+                    if (op.retries >= MAX_RETRIES) {
+                        if(isManualOrAutoSync) showToast(`Fail ${op.type} sync x${MAX_RETRIES}. Moved to end.`, 1);
+                        syncQueue.shift(); syncQueue.push(op); // Move to end of queue
+                    } else {
+                        if(isManualOrAutoSync) showToast(`Sync fail ${op.type}(${op.retries}/${MAX_RETRIES}). Retry.`, 1);
+                    }
+                    setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY, syncQueue);
+                } finally {
+                    isSyncing = false;
+                    updateSyncIndicator();
+                    if (syncQueue.length > 0 && navigator.onLine) {
+                        const delay = syncQueue[0] === op && op.retries > 0 ? Math.min(30000, 2000 * Math.pow(2, op.retries)) : (isManualOrAutoSync ? 100 : 1000); // Shorter delay for immediate retry after manual/auto, longer for background retries
+                        setTimeout(() => processSyncQ(false), delay); // Subsequent calls from here are part of the background chain
+                    }
+                }
+            }
+
+            async function fetchStoreUsers(force=0){if(!force&&allUsersData.length>0){console.log("Cached users.");return;}if(!navigator.onLine && !force) { console.log("Offline, skipping user fetch."); return;}try{const r=await fetch(USERS_API_ENDPOINT);if(!r.ok){console.error("Fail fetch users:",r.status);showToast("User data load fail.",1);return;}const res=await r.json();if(res.success&&Array.isArray(res.data)){allUsersData=res.data.map(u=>({...u,UserID:String(u.UserID),LoginID:u.LoginID,FullName:u.FullName,ContactNo:u.ContactNo,FirstName:u.FirstName,LastName:u.LastName, Role: u.Role || 'User'}));setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,allUsersData);console.log("Users loaded:",allUsersData.length);}else{console.error("Fail parse users:",res.message);showToast("User data parse err.",1);}}catch(e){console.error("Err fetch users:",e);showToast("User data fetch err.",1);}}
 
             // --- Login & Role-Based UI ---
             function updateSidebarForRole() {
@@ -563,26 +646,31 @@
 
             function openLoginModal(){loginIdInput.value='';loginPasswordInput.value='';loginErrorText.classList.add('hidden');loginErrorText.textContent='';loginLoadingIndicator.classList.add('hidden');loginSubmitBtn.disabled=false;loginModal.classList.remove('hidden');loginIdInput.focus();sidebar.classList.add('-translate-x-full','lg:translate-x-0');mainContentWrapper.classList.remove('lg:ml-64');document.body.classList.remove('flex'); updateSidebarForRole(); }
             function closeLoginModal(){loginModal.classList.add('hidden');document.body.classList.add('flex');if(loggedInUser){sidebar.classList.remove('-translate-x-full');mainContentWrapper.classList.add('lg:ml-64');}}
-            async function updateUserLastLogin(id){try{const r=await fetch(USERS_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:"updateUser",data:{UserID:id,LastLoginDate:new Date().toISOString()}})});const res=await r.json();if(res.success)console.log("LastLogin user:",id);else console.error("Fail LastLogin:",res.message);}catch(e){console.error("Err LastLogin:",e);}}
+            async function updateUserLastLogin(id){if(!navigator.onLine) return; try{const r=await fetch(USERS_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:"updateUser",data:{UserID:id,LastLoginDate:new Date().toISOString()}})});const res=await r.json();if(res.success)console.log("LastLogin user:",id);else console.error("Fail LastLogin:",res.message);}catch(e){console.error("Err LastLogin:",e);}}
 
             loginForm.addEventListener('submit',async(e)=>{
                 e.preventDefault();
+                if(!navigator.onLine) { showToast("Offline. Cannot log in.", 1); return; }
                 const emailAsLoginId=loginIdInput.value.trim(),pw=loginPasswordInput.value;
                 if(!emailAsLoginId||!pw){loginErrorText.textContent='Email (Login ID) & Password required.';loginErrorText.classList.remove('hidden');return;}
                 loginErrorText.classList.add('hidden');loginLoadingIndicator.classList.remove('hidden');loginSubmitBtn.disabled=true;
                 try{
-                    await fetchStoreUsers(true);
+                    await fetchStoreUsers(true); // Force fetch users on login attempt
                     const user=allUsersData.find(u=>u.LoginID.toLowerCase()===emailAsLoginId.toLowerCase());
                     if(user){
-                        if(user.PasswordHash===pw){
+                        // IMPORTANT: This is a placeholder for password comparison. 
+                        // In a real app, NEVER store/compare plaintext passwords. Use hashing.
+                        if(user.PasswordHash===pw){ // Assuming PasswordHash is the plaintext password for this example
                             loggedInUser={...user,UserID:String(user.UserID)};
                             setLocalStorage(LOCAL_STORAGE_LOGGED_IN_USER_KEY,loggedInUser);
                             updateUserLastLogin(user.UserID);
-                            await fetchAllDataFromAPIsAndStore(true);
+                            await fetchAllDataFromAPIsAndStore(true, false); // Force fetch all data after successful login, not background
                             closeLoginModal();
                             updateSidebarForRole();
                             showPage(overviewPageDiv,sidebarNavDashboard);
-                            showToast(`Welcome, ${user.FullName || user.LoginID}!`,0);processSyncQ();
+                            showToast(`Welcome, ${user.FullName || user.LoginID}!`,0);
+                            processSyncQ(true); // Process queue after login, flag as part of a "manual" flow
+                            startAutoSync(); // Start auto-sync after login
                         }else{loginErrorText.textContent='Invalid Email/Password.';loginErrorText.classList.remove('hidden');}
                     }else{loginErrorText.textContent='Invalid Email/Password.';loginErrorText.classList.remove('hidden');}
                 }catch(e){console.error("Login err:",e);loginErrorText.textContent=`Login fail: ${e.message}.`;loginErrorText.classList.remove('hidden');}
@@ -613,18 +701,18 @@
                 headerAddSupplierBtnContainer.classList.add('hidden');
                 headerAddUserBtnContainer.classList.add('hidden');
                 headerSyncBtn.classList.add('hidden');
-                sidebar.classList.add('hidden');
-                mainContentWrapper.classList.remove('lg:ml-64');
-                document.body.classList.remove('flex');
+                sidebar.classList.add('hidden'); // Hide sidebar by default
+                mainContentWrapper.classList.remove('lg:ml-64'); // Remove margin by default
+                document.body.classList.remove('flex'); // Remove flex by default
 
                 document.querySelectorAll('.sidebar-nav-item').forEach(link => link.classList.remove('active'));
                 updateSidebarForRole();
 
                 if (loggedInUser && pageToShow !== landingPageDiv && pageToShow !== loginModal) {
-                    sidebar.classList.remove('hidden');
-                    sidebar.classList.remove('-translate-x-full');
-                    mainContentWrapper.classList.add('lg:ml-64');
-                    document.body.classList.add('flex');
+                    sidebar.classList.remove('hidden'); // Show sidebar for logged-in users on internal pages
+                    sidebar.classList.remove('-translate-x-full'); // Ensure sidebar is visible on larger screens
+                    mainContentWrapper.classList.add('lg:ml-64'); // Add margin for sidebar on larger screens
+                    document.body.classList.add('flex'); // Add flex for main layout
                     sidebarLogoutBtn.classList.remove('hidden');
                     headerSyncBtn.classList.remove('hidden');
 
@@ -647,6 +735,7 @@
                         renderUserList();
                     }
                 } else if (pageToShow === landingPageDiv) {
+                    // Specific setup for landing page (no sidebar, full width)
                     sidebar.classList.add('-translate-x-full', 'lg:translate-x-0', 'hidden');
                     mainContentWrapper.classList.remove('lg:ml-64');
                     document.body.classList.remove('flex');
@@ -658,6 +747,7 @@
             enterAppBtn.addEventListener('click', openLoginModal);
             if(sidebarLogoutBtn) sidebarLogoutBtn.addEventListener('click', () => {
                 showConfirm('Logout?', () => {
+                    stopAutoSync(); // Stop auto-sync on logout
                     loggedInUser=null;
                     localStorage.removeItem(LOCAL_STORAGE_LOGGED_IN_USER_KEY);
                     inventory=[];suppliers=[];transactions=[];syncQueue=[];allUsersData=[];
@@ -695,8 +785,10 @@
             });
 
             if(headerSyncBtn) headerSyncBtn.addEventListener('click', () => {
+                if (!navigator.onLine) { showToast("Offline. Cannot sync.", 1); return; }
                 showToast("Manual sync initiated...", false, 2000);
-                processSyncQ();
+                processSyncQ(true); // Flag as manual sync
+                fetchAllDataFromAPIsAndStore(true, false); // Also fetch all data on manual sync, not background
             });
 
 
@@ -709,7 +801,84 @@
             if(closeMessageButton)closeMessageButton.addEventListener('click',()=>messageModal.classList.add('hidden'));
 
             // --- Data Fetching & Initial Load ---
-            async function fetchAllDataFromAPIsAndStore(force=0){if(!force&&getLocalStorage(LOCAL_STORAGE_ITEMS_KEY,null)!==null&&getLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY,null)!==null&&getLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,null)!==null){console.log("Local data load.");loadDataFromLocalStorage();await fetchStoreUsers();return;}showToast("Fetching data...",0);if(inventoryLoadingIndicator)inventoryLoadingIndicator.classList.remove('hidden');await fetchStoreUsers(force);try{const[itemsR,suppR,txnsR]=await Promise.all([fetch(ITEMS_API_ENDPOINT),fetch(SUPPLIERS_API_ENDPOINT),fetch(TRANSACTIONS_API_ENDPOINT)]);if(!itemsR.ok)throw new Error(`Items API fail:${itemsR.status}`);const itemsRes=await itemsR.json();if(itemsRes.success&&Array.isArray(itemsRes.data)){inventory=itemsRes.data.map(i=>({...i,ItemID:String(i.ItemID),SupplierID:i.SupplierID?String(i.SupplierID):"",openingStock:i.openingStock!==undefined?Number(i.openingStock):Number(i.StockQuantity),openingStockDate:i.openingStockDate||i.CreatedAt||new Date().toISOString()}));setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);}else{throw new Error(itemsRes.message||"Fail fetch items.");}if(!suppR.ok)throw new Error(`Suppliers API fail:${suppR.status}`);const suppRes=await suppR.json();if(suppRes.success&&Array.isArray(suppRes.data)){suppliers=suppRes.data.map(s=>({...s,SupplierID:String(s.SupplierID)}));setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY,suppliers);}else{throw new Error(suppRes.message||"Fail fetch suppliers.");}if(!txnsR.ok)throw new Error(`Txns API fail:${txnsR.status}`);const txnsRes=await txnsR.json();if(txnsRes.success&&Array.isArray(txnsRes.data)){transactions=txnsRes.data.map(t=>({id:String(t.TransactionID),itemId:String(t.ItemID),itemName:t.ItemName,type:t.TransactionType,quantity:t.Quantity,date:t.TransactionDate,remarks:t.Remarks,transactionUserID:t.UserID?String(t.UserID):null}));setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,transactions);}else{throw new Error(txnsRes.message||"Fail fetch txns.");}showToast("Data refreshed.",0);}catch(e){console.error("Err fetch all:",e);showToast(`Fetch err: ${e.message}. Using local.`,1);loadDataFromLocalStorage();}finally{if(inventoryLoadingIndicator)inventoryLoadingIndicator.classList.add('hidden');populateSupplierDropdownForItemForm();updateSupplierFilterDropdown();}}
+            async function fetchAllDataFromAPIsAndStore(force = false, isBackground = false) {
+                if (!navigator.onLine && !force) {
+                    console.log("Offline, skipping full data fetch unless forced.");
+                    loadDataFromLocalStorage(); 
+                    return;
+                }
+                // Condition to skip full API fetch if local data is recent enough and not forced, and not a background sync specifically requesting fresh data
+                if (!force && !isBackground && getLocalStorage(LOCAL_STORAGE_ITEMS_KEY, null) !== null && getLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, null) !== null && getLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, null) !== null) {
+                    console.log("Local data load sufficient, not forcing full API fetch.");
+                    loadDataFromLocalStorage();
+                    await fetchStoreUsers(); 
+                    if (loggedInUser) { // Refresh UI only if a relevant page is active
+                        const currentPage = document.querySelector('.page-container:not(.hidden)');
+                        if (currentPage === overviewPageDiv) renderInteractiveDashboard();
+                        else if (currentPage === inventoryAppDiv) renderInventoryTable();
+                        else if (currentPage === suppliersPageDiv) renderSupplierList();
+                        else if (currentPage === userManagementPageDiv) renderUserList();
+                        else updateOverviewStats(); // Fallback for other states
+                    }
+                    return;
+                }
+
+                if (!isBackground) { // Only show "Fetching latest data..." for non-background operations
+                    showToast("Fetching latest data...", 0, 1500);
+                }
+                if (inventoryLoadingIndicator && !isBackground) inventoryLoadingIndicator.classList.remove('hidden');
+                
+                await fetchStoreUsers(force); 
+
+                try {
+                    const [itemsR, suppR, txnsR] = await Promise.all([
+                        fetch(ITEMS_API_ENDPOINT),
+                        fetch(SUPPLIERS_API_ENDPOINT),
+                        fetch(TRANSACTIONS_API_ENDPOINT)
+                    ]);
+
+                    if (!itemsR.ok) throw new Error(`Items API fail:${itemsR.status}`);
+                    const itemsRes = await itemsR.json();
+                    if (itemsRes.success && Array.isArray(itemsRes.data)) {
+                        inventory = itemsRes.data.map(i => ({ ...i, ItemID: String(i.ItemID), SupplierID: i.SupplierID ? String(i.SupplierID) : "", openingStock: i.openingStock !== undefined ? Number(i.openingStock) : Number(i.StockQuantity), openingStockDate: i.openingStockDate || i.CreatedAt || new Date().toISOString() }));
+                        setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
+                    } else { throw new Error(itemsRes.message || "Fail fetch items."); }
+
+                    if (!suppR.ok) throw new Error(`Suppliers API fail:${suppR.status}`);
+                    const suppRes = await suppR.json();
+                    if (suppRes.success && Array.isArray(suppRes.data)) {
+                        suppliers = suppRes.data.map(s => ({ ...s, SupplierID: String(s.SupplierID) }));
+                        setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers);
+                    } else { throw new Error(suppRes.message || "Fail fetch suppliers."); }
+
+                    if (!txnsR.ok) throw new Error(`Txns API fail:${txnsR.status}`);
+                    const txnsRes = await txnsR.json();
+                    if (txnsRes.success && Array.isArray(txnsRes.data)) {
+                        transactions = txnsRes.data.map(t => ({ id: String(t.TransactionID), itemId: String(t.ItemID), itemName: t.ItemName, type: t.TransactionType, quantity: t.Quantity, date: t.TransactionDate, remarks: t.Remarks, transactionUserID: t.UserID ? String(t.UserID) : null }));
+                        setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
+                    } else { throw new Error(txnsRes.message || "Fail fetch txns."); }
+
+                    if(force && !isBackground) showToast("Data refreshed from server.", 0);
+
+                } catch (e) {
+                    console.error("Err fetch all:", e);
+                    if (!isBackground) showToast(`Fetch err: ${e.message}. Using local.`, 1);
+                    loadDataFromLocalStorage(); 
+                } finally {
+                    if (inventoryLoadingIndicator && !isBackground) inventoryLoadingIndicator.classList.add('hidden');
+                    populateSupplierDropdownForItemForm();
+                    updateSupplierFilterDropdown();
+                    if (loggedInUser) {
+                        const currentPage = document.querySelector('.page-container:not(.hidden)');
+                        if (currentPage === overviewPageDiv) renderInteractiveDashboard();
+                        else if (currentPage === inventoryAppDiv) { renderInventoryTable(); updateOverviewStats(); }
+                        else if (currentPage === suppliersPageDiv) { renderSupplierList(); updateOverviewStats(); }
+                        else if (currentPage === userManagementPageDiv) { renderUserList(); updateOverviewStats(); }
+                        else updateOverviewStats();
+                    }
+                }
+            }
+
             function loadDataFromLocalStorage(){inventory=getLocalStorage(LOCAL_STORAGE_ITEMS_KEY,[]);suppliers=getLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY,[]);transactions=getLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,[]);syncQueue=getLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,[]);loggedInUser=getLocalStorage(LOCAL_STORAGE_LOGGED_IN_USER_KEY,null);allUsersData=getLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,[]);console.log("Local data loaded. Items:",inventory.length,"Q:",syncQueue.length);}
 
             // --- UI Rendering (Inventory, Overview, Charts) ---
@@ -983,7 +1152,7 @@
                 userListBody.innerHTML = '';
                 userListLoadingIndicator.classList.remove('hidden');
                 if (allUsersData.length === 0) {
-                    userListBody.innerHTML = '<tr><td colspan="6" class="py-3 text-center text-gray-500">No users. Click "Add User".</td></tr>';
+                    userListBody.innerHTML = '<tr><td colspan="7" class="py-3 text-center text-gray-500">No users. Click "Add User".</td></tr>'; // colspan updated to 7
                     userListLoadingIndicator.classList.add('hidden');
                     return;
                 }
@@ -991,14 +1160,16 @@
                 sortedUsers.forEach(user => {
                     const row = userListBody.insertRow(); row.className = "hover:bg-gray-50";
                     const lastLoginDisplay = formatLastLoginTime(user.LastLoginDate);
-                    const displayPassword = user.PasswordHash || 'N/A';
+                    // IMPORTANT: Never display actual passwords or password hashes in the UI.
+                    // This is a placeholder and should be removed or changed in a real application.
+                    const displayPasswordPlaceholder = '********'; // Mask password
 
                     row.innerHTML = `
                         <td class="py-2 px-3 text-sm text-gray-700">${user.FullName || (user.FirstName && user.LastName ? `${user.FirstName} ${user.LastName}`: 'N/A')}</td>
                         <td class="py-2 px-3 text-sm text-gray-700">${user.LoginID || 'N/A'}</td>
                         <td class="py-2 px-3 text-sm text-gray-700">${user.ContactNo || 'N/A'}</td>
                         <td class="py-2 px-3 text-sm text-gray-700">${user.Role || 'User'}</td>
-                        <td class="py-2 px-3 text-sm text-red-600">${displayPassword}</td>
+                        <td class="py-2 px-3 text-sm text-gray-500">${displayPasswordPlaceholder}</td>
                         <td class="py-2 px-3 text-sm text-gray-500">${lastLoginDisplay}</td>
                         <td class="py-2 px-3 text-sm text-center space-x-2">
                             <button data-id="${user.UserID}" class="edit-user-btn text-blue-500 hover:text-blue-700"><i class="ph ph-pencil-simple"></i> Edit</button>
@@ -1059,38 +1230,40 @@
                         FirstName: firstName, LastName: lastName, FullName: `${firstName} ${lastName}`,
                         LoginID: emailId, ContactNo: contactNo, Role: role
                     };
+                    // IMPORTANT: Only send the password to the backend if it's being set or changed.
+                    // The backend should handle hashing. For this example, we send it as is.
+                    if (password) payloadData.Password = password;
 
-                    if (currentEditUserId) {
+
+                    if (currentEditUserId) { // Update existing user
                         payloadData.UserID = currentEditUserId;
-                        if (password) payloadData.Password = password;
-                    } else {
-                        payloadData.Password = password;
-                    }
-
-                    const tempUserId = currentEditUserId || genId();
-
-                    if (actionType === "createUser") {
-                        const newUserOptimistic = { UserID: tempUserId, LoginID: emailId, FullName: payloadData.FullName, FirstName: firstName, LastName: lastName, ContactNo: contactNo, Role: role, LastLoginDate: null, PasswordHash: password };
-                        allUsersData.push(newUserOptimistic);
-                    } else if (actionType === "updateUser") {
                         const userIndex = allUsersData.findIndex(u => String(u.UserID) === String(currentEditUserId));
                         if (userIndex > -1) {
-                            allUsersData[userIndex].LoginID = emailId;
-                            allUsersData[userIndex].FirstName = firstName;
-                            allUsersData[userIndex].LastName = lastName;
-                            allUsersData[userIndex].FullName = payloadData.FullName;
-                            allUsersData[userIndex].ContactNo = contactNo;
-                            allUsersData[userIndex].Role = role;
-                            if(password) allUsersData[userIndex].PasswordHash = password;
+                            allUsersData[userIndex] = {
+                                ...allUsersData[userIndex], // Keep existing fields like LastLoginDate
+                                LoginID: emailId, FullName: payloadData.FullName, FirstName: firstName, LastName: lastName,
+                                ContactNo: contactNo, Role: role,
+                                PasswordHash: password ? password : allUsersData[userIndex].PasswordHash // Update PasswordHash locally if password changed
+                            };
                         }
+                    } else { // Create new user
+                        const tempUserId = genId();
+                        payloadData.UserID = tempUserId; // For optimistic update if backend doesn't return ID immediately
+                        const newUserOptimistic = {
+                            UserID: tempUserId, LoginID: emailId, FullName: payloadData.FullName, FirstName: firstName, LastName: lastName,
+                            ContactNo: contactNo, Role: role, LastLoginDate: null, PasswordHash: password
+                        };
+                        allUsersData.push(newUserOptimistic);
+                        actionType = "createUser"; // Ensure action type is correct
                     }
+
                     setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData);
                     renderUserList();
 
                     addToSyncQ({
                         type: actionType, apiEndpoint: USERS_API_ENDPOINT, method: 'POST',
-                        payload: { action: actionType, data: payloadData },
-                        tempId: actionType === "createUser" ? tempUserId : null
+                        payload: { action: actionType, data: payloadData }, // payloadData already contains UserID for updates
+                        tempId: actionType === "createUser" ? payloadData.UserID : null
                     });
 
                     showToast(`User ${currentEditUserId ? 'updated' : 'added'} locally. Syncing...`, false);
@@ -1158,23 +1331,31 @@
                         } else if (user.UserID) {
                             activityUserName = `User ID: ${user.UserID}`;
                         }
-                    } else if (t.transactionUserID) {
-                        activityUserName = `UID: ${t.transactionUserID}`;
+                    } else if (t.transactionUserID && t.transactionUserID !== 'null' && t.transactionUserID !== 'undefined') { // Check if transactionUserID has a value
+                         // Attempt to match with UserID from Google Sheet value if it was stored as name
+                        const userBySheetName = allUsersData.find(u => u.FullName === t.transactionUserID || u.LoginID === t.transactionUserID);
+                        if (userBySheetName) {
+                            activityUserName = userBySheetName.FullName || userBySheetName.LoginID;
+                        } else {
+                           activityUserName = `Recorded by: ${t.transactionUserID}`; // Display the raw UserID from sheet if no match
+                        }
                     }
 
 
-                    const typeClass = t.type === 'inward' ? 'text-green-600' : 'text-amber-600';
-                    const typeIcon = t.type === 'inward' ? '<i class="ph ph-arrow-down text-green-500 mr-1"></i>' : '<i class="ph ph-arrow-up text-amber-500 mr-1"></i>';
+                    const typeClass = (t.type === 'inward' || t.TransactionType === 'inward') ? 'text-green-600' : 'text-amber-600';
+                    const typeIcon = (t.type === 'inward' || t.TransactionType === 'inward') ? '<i class="ph ph-arrow-down text-green-500 mr-1"></i>' : '<i class="ph ph-arrow-up text-amber-500 mr-1"></i>';
+                    const quantityDisplay = t.quantity || t.Quantity || 0;
+                    const dateDisplay = t.date || t.TransactionDate;
 
                     const div = document.createElement('div');
                     div.className = 'dashboard-feed-item';
                     div.innerHTML = `
                         <div class="flex justify-between items-center">
-                            <span class="font-medium">${item ? item.ItemName : 'Unknown Item'}</span>
-                            <span class="${typeClass} font-semibold">${typeIcon} ${t.quantity} units</span>
+                            <span class="font-medium">${item ? item.ItemName : (t.itemName || 'Unknown Item')}</span>
+                            <span class="${typeClass} font-semibold">${typeIcon} ${quantityDisplay} units</span>
                         </div>
                         <div class="text-xs text-gray-500">
-                            <span>By: ${activityUserName}</span> | <span>${formatDate(t.date || t.TransactionDate, true)}</span>
+                            <span>By: ${activityUserName}</span> | <span>${formatDate(dateDisplay, true)}</span>
                         </div>
                     `;
                     recentActivityFeed.appendChild(div);
@@ -1211,6 +1392,26 @@
                 });
             }
 
+            function renderImportantAnnouncements() {
+                if (!importantAnnouncementList) return;
+                importantAnnouncementList.innerHTML = '';
+                const lowStockItems = inventory.filter(item => Number(item.StockQuantity) < Number(item.ReorderLevel));
+
+                if (lowStockItems.length === 0) {
+                    importantAnnouncementList.innerHTML = '<p class="text-gray-500">All stock levels are normal. No urgent announcements.</p>';
+                    return;
+                }
+                lowStockItems.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'p-2 rounded-md bg-amber-100 border border-amber-200';
+                    div.innerHTML = `
+                        <p class="font-semibold text-amber-800">${item.ItemName}</p>
+                        <p class="text-xs text-amber-700">Current stock: ${item.StockQuantity}. Reorder level is ${item.ReorderLevel}. Please re-stock soon.</p>
+                    `;
+                    importantAnnouncementList.appendChild(div);
+                });
+            }
+
             function renderTopMovers() {
                 if (!topInwardItemsList || !topOutwardItemsList) return;
                 topInwardItemsList.innerHTML = ''; topOutwardItemsList.innerHTML = '';
@@ -1223,14 +1424,18 @@
                 const itemMovements = {}; // { itemId: { inward: 0, outward: 0, name: '' }}
 
                 recentTransactions.forEach(t => {
-                    if (!itemMovements[t.itemId]) {
-                        const itemInfo = inventory.find(i => String(i.ItemID) === String(t.itemId));
-                        itemMovements[t.itemId] = { inward: 0, outward: 0, name: itemInfo ? itemInfo.ItemName : 'Unknown Item' };
+                    const itemId = String(t.itemId || t.ItemID); // Handle potential differences in property names
+                    if (!itemMovements[itemId]) {
+                        const itemInfo = inventory.find(i => String(i.ItemID) === itemId);
+                        itemMovements[itemId] = { inward: 0, outward: 0, name: itemInfo ? itemInfo.ItemName : (t.itemName || 'Unknown Item') };
                     }
-                    if (t.type === 'inward') {
-                        itemMovements[t.itemId].inward += Number(t.quantity) || 0;
-                    } else if (t.type === 'outward') {
-                        itemMovements[t.itemId].outward += Number(t.quantity) || 0;
+                    const transactionType = t.type || t.TransactionType;
+                    const quantity = Number(t.quantity || t.Quantity) || 0;
+
+                    if (transactionType === 'inward') {
+                        itemMovements[itemId].inward += quantity;
+                    } else if (transactionType === 'outward') {
+                        itemMovements[itemId].outward += quantity;
                     }
                 });
 
@@ -1275,32 +1480,98 @@
                 renderTotalStockValue();
                 renderLowStockAlerts();
                 renderTopMovers();
+                renderImportantAnnouncements();
             }
+
+            // --- Auto Sync Logic ---
+            async function backgroundAutoSync() {
+                if (!navigator.onLine) {
+                    console.log("Auto-sync: Offline, skipping.");
+                    updateSyncIndicator(); 
+                    return;
+                }
+                // Avoid starting a new full fetch if a sync queue process is already running from another source (e.g. manual action)
+                // or if a background sync itself is already in the process of fetching all data.
+                // However, still allow queue processing to try and clear pending items.
+                if (isSyncing && syncQueue.length > 0) { 
+                    console.log("Auto-sync: Queue processing or another sync operation might be in progress.");
+                    await processSyncQ(true); // Attempt to process queue, flagging as auto-sync context for toast logic
+                    return; // Don't proceed to fetchAllData if another operation might be handling it or if queue is main concern
+                }
+                
+                console.log("Auto-sync: Starting background data sync and queue processing.");
+                if (syncQueue.length > 0) {
+                    await processSyncQ(true); 
+                }
+                
+                await fetchAllDataFromAPIsAndStore(true, true); // Pass true for force and true for isBackground
+                
+                if (loggedInUser) {
+                    const currentPage = document.querySelector('.page-container:not(.hidden)');
+                    if (currentPage === overviewPageDiv) renderInteractiveDashboard();
+                    else if (currentPage === inventoryAppDiv) renderInventoryTable();
+                    else if (currentPage === suppliersPageDiv) renderSupplierList();
+                    else if (currentPage === userManagementPageDiv) renderUserList();
+                    // updateOverviewStats(); // This might be redundant if the page-specific renders include it.
+                }
+                updateSyncIndicator(); 
+            }
+
+            function startAutoSync() {
+                if (autoSyncIntervalId) {
+                    clearInterval(autoSyncIntervalId); 
+                }
+                if (loggedInUser && navigator.onLine) { 
+                    console.log(`Starting auto-sync every ${AUTO_SYNC_INTERVAL / 1000} seconds.`);
+                    autoSyncIntervalId = setInterval(backgroundAutoSync, AUTO_SYNC_INTERVAL);
+                } else {
+                    console.log("Auto-sync not started (User not logged in or offline).");
+                }
+            }
+
+            function stopAutoSync() {
+                if (autoSyncIntervalId) {
+                    clearInterval(autoSyncIntervalId);
+                    autoSyncIntervalId = null;
+                    console.log("Auto-sync stopped.");
+                }
+            }
+
 
             // --- App Initialization ---
             async function initializeApp() {
-                console.log("Initializing app: User Form with Role & Confirm Pwd. UserID for Txn sheet updated.");
+                console.log("Initializing app with conditional background sync toasts.");
                 loadDataFromLocalStorage();
                 initializeInventoryControls();
 
                 if (loggedInUser) {
                     showToast("Welcome back!", 0);
-                    await fetchStoreUsers(true);
-                    await fetchAllDataFromAPIsAndStore(true);
+                    await fetchStoreUsers(true); 
+                    await fetchAllDataFromAPIsAndStore(true, false); // Initial load is not background
                     updateSidebarForRole();
                     showPage(overviewPageDiv, sidebarNavDashboard);
+                    startAutoSync(); 
                 } else {
                     updateSidebarForRole();
                     showPage(landingPageDiv);
+                    stopAutoSync(); 
                 }
-                processSyncQ();
+                processSyncQ(false); 
                 updateSyncIndicator();
-                window.addEventListener('online', () => { showToast("Online. Syncing...",0); fetchStoreUsers(true); processSyncQ(); });
-                window.addEventListener('offline', () => { showToast("Offline. Changes saved locally.",1,5000); });
+                
+                window.addEventListener('online', () => { 
+                    showToast("Online. Syncing...",0); 
+                    fetchStoreUsers(true); 
+                    processSyncQ(true); 
+                    if(loggedInUser) startAutoSync(); 
+                });
+                window.addEventListener('offline', () => { 
+                    showToast("Offline. Changes saved locally.",1,5000); 
+                    stopAutoSync(); 
+                });
             }
 
             initializeApp();
         });
-    </script>
-</body>
+    </script></body>
 </html>
