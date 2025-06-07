@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subh Paper Company Inventory Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/phosphor-icons/1.4.2/css/phosphor.min.css" rel="stylesheet">
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1f2937; /* text-gray-800 */
+        }
+
+        /* Table Header Styles */
+        .table-header th {
+            background-color: #f9fafb; /* bg-gray-50 */
+            color: #6b7280; /* text-gray-500 */
+            border-bottom: 2px solid #e5e7eb; /* border-gray-200 */
+        }
+
+        /* Button Base Styles */
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+            transition: background-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, transform 0.1s ease;
+            cursor: pointer;
+            text-align: center;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1.25;
+        }
+        .btn svg { margin-right: 0.5rem; }
+        .btn:active { transform: translateY(1px); }
+
+        /* --- THEME COLOR UPDATES START --- */
+
+        /* Primary Button with new theme color */
+        .btn-primary { background-color: #2d3e50; color: white; }
+        .btn-primary:hover { background-color: #212f3c; box-shadow: 0 4px 14px 0 rgba(45, 62, 80, 0.39); }
+        
+        /* Sidebar Styles with new theme color */
+        #sidebar { background-color: #2d3e50; }
+        #sidebar .border-b { border-color: #34495e; }
+        #sidebar .border-t { border-color: #34495e; }
+        .sidebar-nav-item.active { background-color: #34495e; color: white; font-weight: 600; }
+        .sidebar-nav-item.active i { color: white; }
+        .sidebar-nav-item i { color: #95a5a6; }
+        .sidebar-nav-item:hover { background-color: #34495e; }
+        .sidebar-nav-item:hover i { color: white; }
+        #sidebarLogoLink i { color: #95a5a6; }
+
+        /* Header Styles with new theme color */
+        #headerPageTitle { color: #2d3e50; }
+
+        /* Modal & Form Styles with new theme color */
+        .login-modal h2, .supplier-form-modal h2, .user-form-modal h2 { color: #2d3e50; }
+
+        /* Input Field Focus State with new theme color */
+        .input-field:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            border-color: #2d3e50;
+            box-shadow: 0 0 0 3px rgba(45, 62, 80, 0.5);
+        }
+
+        /* Loader Animation with new theme color */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2d3e50;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        .small-loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2d3e50;
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Landing Page Gradient and Button with new theme */
+        .landing-page {
+            /* Updated with animated gradient */
+            background: linear-gradient(135deg, #7f8c8d 0%, #34495e 50%, #2d3e50 100%);
+            background-size: 200% 200%;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            animation: animated-gradient 15s ease infinite;
+        }
+        #enterAppBtn { color: #2d3e50; }
+
+        /* --- THEME COLOR UPDATES END --- */
+
+        /* Other Button Styles */
+        .btn-secondary { background-color: #e5e7eb; color: #374151; }
+        .btn-secondary:hover { background-color: #d1d5db; }
+        .btn-success { background-color: #10b981; color: white; }
+        .btn-success:hover { background-color: #059669; }
+        .btn-warning { background-color: #f59e0b; color: white; }
+        .btn-warning:hover { background-color: #d97706; }
+        .btn-info { background-color: #3b82f6; color: white; }
+        .btn-info:hover { background-color: #2563eb; }
+        .btn-danger { background-color: #dc2626; color: white; }
+        .btn-danger:hover { background-color: #b91c1c; }
+        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.875rem; }
+        .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.75rem; }
+        .btn-xs svg { margin-right: 0.25rem; }
+
+        /* Section & Card Styles */
+        .dashboard-section, .inventory-section-bg, .overview-card-new, .chart-container, .suppliers-section-bg, .users-section-bg {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-radius: 0.75rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .overview-card-new:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Scrollbar Hiding */
+        ::-webkit-scrollbar { display: none; }
+        html { scrollbar-width: none; }
+        body { -ms-overflow-style: none; }
+
+        /* Modal Styles */
+        .modal-backdrop { background-color: rgba(0,0,0,0.5); }
+        .form-modal, .login-modal, .user-form-modal, .supplier-form-modal {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Overview Card Stats */
+        .overview-card-new .stat-value { font-size: 2.5rem; line-height: 2.75rem; font-weight: 700; }
+        .overview-card-new .stat-label { font-size: 0.9rem; color: #475569; margin-top: 0.25rem; }
+        .overview-card-new .stat-icon { font-size: 3rem; margin-bottom: 0.75rem; opacity: 0.8; }
+
+        /* Table Styles */
+        .supplier-table th, .supplier-table td, .user-table th, .user-table td { padding: 0.5rem 0.75rem; text-align: left; }
+
+        /* Animation */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animation for Hero Text */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+            opacity: 0; /* Start hidden for animation */
+        }
+
+        /* Feature Card Styles */
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05); /* Semi-transparent white */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 2rem; /* p-8 */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sync Indicator */
+        #syncStatusIndicator {
+            transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
+        }
+        .sync-success { background-color: #10b981; color: white; }
+        .sync-pending { background-color: #f59e0b; color: white; }
+        .sync-error   { background-color: #ef4444; color: white; }
+        
+        /* Layout */
+        #landingPage { 
+            height: 100vh; /* Changed from min-height to height */
+            overflow: hidden; /* Prevent scrolling within the landing page */
+        }
+        .page-container { flex-grow: 1; }
+        .content-wrapper { flex-grow: 1; }
+        
+        /* Input Field Base */
+        .input-field {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Dashboard Feed */
+        .dashboard-feed-item {
+            border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+            padding-bottom: 0.5rem; /* pb-2 */
+            margin-bottom: 0.5rem; /* mb-2 */
+        }
+        .dashboard-feed-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col overflow-y-auto text-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 hidden">
+        <div class="p-4 border-b">
+            <a href="#" id="sidebarLogoLink" class="flex items-center text-2xl font-semibold">
+                <i class="ph ph-scroll text-3xl mr-2"></i> Subh Paper Co.
+            </a>
+        </div>
+        <ul class="mt-4 flex-grow space-y-1 px-2">
+            <li><a href="#" id="sidebarNavDashboard" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-gauge mr-3 text-lg"></i>Dashboard</a></li>
+            <li><a href="#" id="sidebarNavInventory" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-list-bullets mr-3 text-lg"></i>Inventory</a></li>
+            <li><a href="#" id="sidebarNavSuppliers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-users-three mr-3 text-lg"></i>Suppliers</a></li>
+            <li><a href="#" id="sidebarNavTransactions" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-arrow-left-right mr-3 text-lg"></i>Transactions</a></li>
+            <li id="sidebarNavUsersListItem" class="hidden"><a href="#" id="sidebarNavUsers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-users-four mr-3 text-lg"></i>Manage Users</a></li>
+        </ul>
+        <div class="p-4 mt-auto border-t">
+            <button id="sidebarLogoutBtn" class="w-full btn btn-danger btn-sm flex items-center justify-center hidden">
+                <i class="ph ph-sign-out mr-2"></i> Logout
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="mainContentWrapper" class="flex flex-1 flex-col w-full">
+        <!-- Header -->
+        <header id="mainHeader" class="sticky top-0 z-20 h-16 bg-white shadow-md">
+            <div class="mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div class="lg:hidden">
+                    <button id="sidebarToggleBtn" aria-label="Open sidebar" class="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                        <i class="ph ph-list text-2xl"></i>
+                    </button>
+                </div>
+                <div class="flex flex-grow items-center justify-center lg:justify-start">
+                    <h1 id="headerPageTitle" class="text-xl font-semibold"></h1>
+                </div>
+                <div class="flex items-center space-x-3">
+                    <div id="headerAddItemBtnContainer" class="hidden">
+                         <button id="headerAddItemBtn" class="btn btn-primary btn-sm"><i class="ph ph-plus-circle"></i> Add Item</button>
+                    </div>
+                     <div id="headerAddSupplierBtnContainer" class="hidden">
+                         <button id="headerAddSupplierBtn" class="btn btn-primary btn-sm"><i class="ph ph-user-plus"></i> Add Supplier</button>
+                    </div>
+                    <div id="headerAddUserBtnContainer" class="hidden">
+                        <button id="headerAddUserBtn" class="btn btn-primary btn-sm"><i class="ph ph-user-circle-plus"></i> Add User</button>
+                   </div>
+                   <button id="headerSyncBtn" class="btn btn-info btn-sm hidden">
+                        <i class="ph ph-arrows-clockwise"></i> Sync
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Display Area -->
+        <main id="pageDisplayArea" class="flex-grow overflow-y-auto bg-gray-100">
+            <!-- Landing Page -->
+            <div id="landingPage" class="landing-page flex flex-col items-center justify-center text-center">
+                <!-- Hero Section -->
+                <div class="flex-grow flex flex-col items-center justify-center w-full max-w-4xl mx-auto px-4">
+                     <h1 class="animate-fade-in-down mb-4 text-4xl font-bold md:text-6xl">Welcome to Your Command Center.</h1>
+                     <p class="animate-fade-in-up mb-8 text-lg md:text-xl opacity-90">The Subh Paper Co. inventory platform.</p>
+                     <button id="enterAppBtn" class="transform text-lg font-bold shadow-lg transition-transform hover:scale-105 hover:bg-sky-50 rounded-lg bg-white py-3 px-8">
+                        <i class="ph ph-arrow-circle-right mr-2"></i>Get Started
+                     </button>
+                </div>
+    
+                <!-- Feature Cards Section -->
+                <div class="w-full max-w-6xl mx-auto py-12 lg:py-16 px-4 flex-shrink-0">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        <!-- Card 1: Dashboard -->
+                        <div class="feature-card">
+                            <i class="ph ph-gauge text-4xl text-sky-300 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2 text-white">Real-Time Dashboard</h3>
+                            <p class="text-gray-300">Make informed purchasing decisions with a live overview of all stock levels.</p>
+                        </div>
+                        <!-- Card 2: Transactions -->
+                        <div class="feature-card">
+                            <i class="ph ph-arrow-left-right text-4xl text-sky-300 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2 text-white">Effortless Transactions</h3>
+                            <p class="text-gray-300">Reduce errors and save time by logging stock movements instantly from any device.</p>
+                        </div>
+                        <!-- Card 3: Suppliers -->
+                        <div class="feature-card">
+                            <i class="ph ph-users-three text-4xl text-sky-300 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2 text-white">Supplier Directory</h3>
+                            <p class="text-gray-300">Keep all your supplier contacts and details organized in one place.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="w-full py-4 text-center text-xs text-white/50 flex-shrink-0">
+                    © 2025 Subh Paper Co. All Rights Reserved.
+                </footer>
+            </div>
+
+            <!-- Overview/Dashboard Page -->
+            <div id="overviewPage" class="page-container hidden">
+                <div class="container mx-auto space-y-8">
+                    <!-- Stat Cards -->
+                    <section>
+                        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-archive-box stat-icon text-sky-500"></i>
+                                <div id="totalItemsStat" class="stat-value">0</div>
+                                <div class="stat-label">Total Unique Items</div>
+                            </div>
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-warning-octagon stat-icon text-amber-500"></i>
+                                <div id="lowStockItemsStat" class="stat-value">0</div>
+                                <div class="stat-label">Items Low on Stock</div>
+                            </div>
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-stack-overflow-logo stat-icon text-indigo-500"></i>
+                                <div id="totalQuantityStat" class="stat-value">0</div>
+                                <div class="stat-label">Total Stock Quantity</div>
+                            </div>
+                            <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
+                                <i class="ph ph-currency-inr stat-icon text-green-500"></i>
+                                <div id="totalStockValueDisplay" class="stat-value">₹0.00</div>
+                                <div class="stat-label">Total Stock Value</div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Dashboard Sections -->
+                    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-1 space-y-6">
+                            <div id="recentActivitySection" class="dashboard-section p-6 h-full">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="text-lg font-semibold text-gray-700">Recent Transaction Activity</h3>
+                                    <a href="#" id="viewAllTransactionsLink" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">View all &rarr;</a>
+                                </div>
+                                <div id="recentActivityFeed" class="max-h-96 overflow-y-auto text-sm space-y-2">
+                                    <p class="text-gray-400">Loading...</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:col-span-2 space-y-6">
+                             <div id="importantAnnouncementSection" class="dashboard-section p-6">
+                                <h3 class="text-lg font-semibold text-red-600 mb-3 flex items-center">
+                                    <i class="ph ph-warning-circle mr-2"></i>Announcements
+                                </h3>
+                                <div id="importantAnnouncementList" class="max-h-48 overflow-y-auto text-sm space-y-2">
+                                    <p class="text-gray-400">Loading...</p>
+                                </div>
+                            </div>
+                            <div id="topMoversSection" class="dashboard-section p-6">
+                                <h3 class="text-lg font-semibold text-gray-700 mb-3">Top Movers (Last 30 Days)</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <h4 class="text-md font-medium text-gray-600 mb-2">Top Inward</h4>
+                                        <ul id="topInwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto">
+                                            <li class="text-gray-400">Loading...</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-md font-medium text-gray-600 mb-2">Top Outward</h4>
+                                        <ul id="topOutwardItemsList" class="text-sm space-y-1 max-h-48 overflow-y-auto">
+                                            <li class="text-gray-400">Loading...</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Charts Section -->
+                    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="chart-container p-4">
+                            <div id="stockChartDiv"></div>
+                        </div>
+                        <div class="chart-container p-4">
+                            <div id="pieChartDiv"></div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Inventory Page -->
+            <div id="inventoryApp" class="page-container content-wrapper hidden"><div class="container mx-auto"><div id="inventoryLoadingIndicator" class="my-4 hidden"><div class="loader"></div><p>Loading...</p></div><section id="inventoryTableSection" class="inventory-section-bg"><div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="table-header"><tr><th class="px-2 py-3 text-center"><input type="checkbox" id="bulkSelectAll"/></th><th class="px-4 py-3 text-left text-xs" data-key="ItemName">Name</th><th class="px-4 py-3 text-center text-xs" data-key="openingStock">Opening Stock</th><th class="px-4 py-3 text-center text-xs" data-key="openingStockDate">Opening Date</th><th class="px-4 py-3 text-center text-xs" data-key="StockQuantity">Current Stock</th><th class="px-4 py-3 text-center text-xs" data-key="ReorderLevel">Reorder Lvl</th><th class="px-4 py-3 text-right text-xs" data-key="Price">Price</th><th class="px-4 py-3 text-right text-xs">Stock Price</th><th class="px-4 py-3 text-left text-xs" data-key="SupplierID">Supplier</th><th class="px-4 py-3 text-left text-xs" data-key="LastUpdated">Last Updated</th><th class="px-4 py-3 text-center text-xs">Actions</th></tr></thead><tbody id="inventoryTableBody"></tbody></table></div><div id="paginationControls" class="mt-4 flex justify-center"></div></section></div></div>
+
+            <!-- Suppliers Page -->
+            <div id="suppliersPage" class="page-container content-wrapper hidden">
+                <div class="container mx-auto">
+                    <section id="supplierListSection" class="suppliers-section-bg p-6">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Existing Suppliers</h3>
+                        <div id="supplierListLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p>Loading...</p></div>
+                        <div id="supplierListContainer" class="max-h-96 overflow-y-auto border rounded-md">
+                            <table class="min-w-full supplier-table">
+                                <thead class="table-header"><tr><th>Name</th><th class="text-center">Actions</th></tr></thead>
+                                <tbody id="supplierListBody"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- User Management Page -->
+            <div id="userManagementPage" class="page-container content-wrapper hidden">
+                <div class="container mx-auto">
+                    <section id="userListSection" class="users-section-bg p-6">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">Existing Users</h3>
+                        <div id="userListLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p>Loading Users...</p></div>
+                        <div id="userListTableContainer" class="overflow-x-auto border rounded-md">
+                            <table class="min-w-full user-table">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Full Name</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Email (Login ID)</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Contact No.</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Role</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Password</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Last Login</th>
+                                        <th class="py-2 px-3 text-center text-xs font-medium uppercase tracking-wider">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userListBody" class="bg-white divide-y divide-gray-200"></tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            
+            <!-- Transactions Page -->
+            <div id="transactionsPage" class="page-container content-wrapper hidden">
+                <div class="container mx-auto">
+                    <section class="users-section-bg p-6">
+                        <h3 class="text-xl font-semibold text-gray-700 mb-4">All Inventory Transactions</h3>
+                        <div id="transactionTableContainer" class="overflow-x-auto border rounded-md">
+                            <table class="min-w-full">
+                                <thead class="table-header">
+                                    <tr>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Item Name</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Type</th>
+                                        <th class="py-2 px-3 text-center text-xs font-medium uppercase tracking-wider">Quantity</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Remarks</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">Date</th>
+                                        <th class="py-2 px-3 text-left text-xs font-medium uppercase tracking-wider">User</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="transactionTableBody" class="bg-white divide-y divide-gray-200">
+                                    <!-- Rows will be injected by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div id="messageModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold text-gray-700">Notification</h3><p id="messageText" class="mb-4 text-sm text-gray-600"></p><button id="closeMessageButton" class="btn btn-primary w-full">OK</button></div></div>
+    <div id="loginModal" class="fixed inset-0 z-[80] hidden flex items-center justify-center modal-backdrop"><div class="login-modal mx-4 w-full max-w-md p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 class="text-xl font-semibold md:text-2xl">Login Required</h2><button id="closeLoginModalBtn"><i class="ph ph-x text-2xl"></i></button></div><form id="loginForm" class="space-y-4"><div><label for="loginIdInput" class="mb-1 block text-sm font-medium">Email ID</label><input type="email" id="loginIdInput" required class="w-full input-field" placeholder="Enter your Email ID"></div><div><label for="loginPasswordInput" class="mb-1 block text-sm font-medium">Password</label><input type="password" id="loginPasswordInput" required class="w-full input-field" placeholder="Password"></div><p id="loginErrorText" class="hidden text-sm text-red-600"></p><div id="loginLoadingIndicator" class="my-2 hidden"><div class="loader"></div><p>Authenticating...</p></div><div class="flex items-center justify-end pt-2"><button type="submit" id="loginSubmitBtn" class="btn btn-primary">Login</button></div></form></div></div>
+    <div id="itemFormModal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-backdrop"><div class="form-modal mx-4 w-full max-w-2xl p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 id="formTitle" class="text-xl font-semibold">Add Item</h2><button id="closeFormModalBtn"><i class="ph ph-x text-2xl"></i></button></div><form id="itemForm" class="space-y-4"><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="itemName">Name</label><input type="text" id="itemName" required class="input-field"></div><div><label for="stockQuantity">Stock Qty</label><input type="number" id="stockQuantity" required min="0" class="input-field"></div></div><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="openingStock">Opening Stock</label><input type="number" id="openingStock" readonly class="input-field bg-gray-100"></div><div><label for="reorderLevel">Reorder Lvl</label><input type="number" id="reorderLevel" required min="0" class="input-field"></div></div><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="price">Price</label><input type="number" id="price" step="0.01" required min="0" class="input-field"></div><div><label for="supplier">Supplier</label><select id="supplier" required class="input-field"><option value="">Select</option></select></div></div><div id="itemFormLoadingIndicator" class="hidden"><div class="loader small"></div><p>Saving...</p></div><div class="flex justify-end space-x-3 pt-2"><button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button><button type="submit" id="submitButton" class="btn btn-primary">Add Item</button></div></form></div></div>
+    <div id="inOutModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 id="inOutModalTitle" class="mb-4 text-lg font-semibold">Transaction</h3><form id="inOutForm" class="space-y-3"><div><label>Type</label><select id="inOutType" class="input-field"><option value="inward">Inward</option><option value="outward">Outward</option></select></div><div><label>Quantity</label><input type="number" id="inOutQty" min="1" required class="input-field"></div><div><label>Remarks</label><input type="text" id="inOutRemarks" class="input-field" placeholder="Optional"></div><div id="inOutLoadingIndicator" class="hidden"><div class="loader small"></div><p>Processing...</p></div><div class="flex gap-2 pt-2"><button type="button" id="inOutCancelBtn" class="btn btn-secondary flex-1">Cancel</button><button type="submit" id="inOutSubmitBtn" class="btn btn-primary flex-1">Submit</button></div></form></div></div>
+    <div id="txnLogModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl"><div class="mb-4 flex items-center justify-between"><h3 id="txnLogModalTitle" class="text-lg font-semibold">Log</h3><button id="closeTxnLogBtnTop"><i class="ph ph-x text-2xl"></i></button></div><div id="txnLogLoadingIndicator" class="hidden"><div class="loader small"></div><p>Loading...</p></div><div id="txnLogListContainer"><div id="txnLogList" class="max-h-80 overflow-y-auto"></div></div><button id="closeTxnLogBtn" class="btn btn-primary mt-4 w-full">Close</button></div></div>
+    <div id="confirmModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold">Are you sure?</h3><p id="confirmText" class="mb-4 text-sm"></p><div class="flex space-x-3"><button id="confirmYesBtn" class="btn btn-danger w-full">Yes</button><button id="confirmNoBtn" class="btn btn-secondary w-full">No</button></div></div></div>
+    <div id="deleteItemOptionsModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold">Delete Item Options</h3><p id="deleteItemOptionsText" class="mb-4 text-sm"></p><div class="flex flex-col space-y-2"><button id="deleteItemAndTransactionsBtn" class="btn btn-danger w-full">Yes, Delete Item & Transactions</button><button id="deleteItemOnlyBtn" class="btn btn-warning w-full">No, Delete Item Only</button><button id="cancelDeleteItemBtn" class="btn btn-secondary w-full">Cancel</button></div></div></div>
+    <div id="supplierFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop"><div class="supplier-form-modal mx-4 w-full max-w-lg p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 id="supplierFormModalTitle" class="text-xl md:text-2xl font-semibold">Add Supplier</h2><button id="closeSupplierFormModalBtn" class="text-gray-400 hover:text-gray-600"><i class="ph ph-x text-2xl"></i></button></div><form id="supplierFormModal_form" class="space-y-4"><div><label for="supplierNameInputModal" class="block text-sm font-medium text-gray-700 mb-1">Supplier Name</label><input type="text" id="supplierNameInputModal" required class="input-field" placeholder="Enter supplier name"></div><input type="hidden" id="supplierEditIdModal"><div id="supplierFormModalLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p class="text-sm text-center text-gray-500 mt-1">Saving...</p></div><div class="flex space-x-3 pt-2"><button type="submit" id="saveSupplierModalBtn" class="btn btn-primary">Add Supplier</button><button type="button" id="cancelSupplierEditModalBtn" class="btn btn-secondary">Cancel</button></div></form></div></div>
+    <div id="userFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop"><div class="user-form-modal mx-4 w-full max-w-xl p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 id="userFormModalTitle" class="text-xl md:text-2xl font-semibold">Add New User</h2><button id="closeUserFormModalBtn" class="text-gray-400 hover:text-gray-600"><i class="ph ph-x text-2xl"></i></button></div><form id="userFormModal_form" class="space-y-4"><input type="hidden" id="userEditIdInputModal"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="firstNameInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">First Name</label><input type="text" id="firstNameInputUserFormModal" required class="input-field" placeholder="First name"></div><div><label for="lastNameInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label><input type="text" id="lastNameInputUserFormModal" required class="input-field" placeholder="Last name"></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="emailIdInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Email ID (Login ID)</label><input type="email" id="emailIdInputUserFormModal" required class="input-field" placeholder="Email address"></div><div><label for="contactNoInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Contact No.</label><input type="tel" id="contactNoInputUserFormModal" required class="input-field" placeholder="Contact number"></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="passwordInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Password</label><input type="password" id="passwordInputUserFormModal" class="input-field" placeholder="Password"><p class="text-xs text-gray-500 mt-1">Min 6 chars. Required for new.</p></div><div><label for="confirmPasswordInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label><input type="password" id="confirmPasswordInputUserFormModal" class="input-field" placeholder="Confirm password"></div></div><div><label for="roleInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Role</label><select id="roleInputUserFormModal" required class="input-field"><option value="User">User</option><option value="Admin">Admin</option></select></div><div id="userFormModalLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p>Saving...</p></div><div class="flex space-x-3 pt-2"><button type="submit" id="saveUserModalBtn" class="btn btn-primary">Save User</button><button type="button" id="cancelUserEditModalBtn" class="btn btn-secondary">Cancel</button></div></form></div></div>
+    
+    <!-- Toast & Sync Indicators -->
+    <div id="toastContainer" class="fixed right-6 top-6 z-[90] space-y-2"></div>
+    <div id="syncStatusIndicator" class="fixed bottom-4 right-4 z-[100] hidden rounded-md px-3 py-1.5 text-xs font-medium shadow-md">Syncing...</div>
+
+    <script>
+        // All JavaScript logic remains the same.
+        // The script handles API interactions, local storage, UI logic, etc.
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- API Endpoints & Local Storage Keys ---
+            const USERS_API_ENDPOINT = "https://script.google.com/macros/s/AKfycbwvbtXJXPp0Mr6tYWpZbNUFzaNvgswE9g-TjzyaCod3F_qiOSeT13Ffxv9lDlOhwWu4ng/exec";
+            const SUPPLIERS_API_ENDPOINT = "https://script.google.com/macros/s/AKfycbz_Gctmd5Zxn_0clnrWNIsHK4JYT3-7K27NCy8QEeDFCzzwbb2o0czM_61Q76So5bgYGA/exec";
+            const ITEMS_API_ENDPOINT = "https://script.google.com/macros/s/AKfycbwp4X4x_WW26Z4ADcu7kC7A3H-3MV3iM-BauaJa40dgegxGXUOBkQ0bSwzvvlIfnC-4vQ/exec";
+            const TRANSACTIONS_API_ENDPOINT = "https://script.google.com/macros/s/AKfycbxDJAgr3bxoqKBxyVepYYFpUBg9RuxXquvEBsQdzzIUF4vFJfp5P8rayw556IUxHQGcmw/exec";
+            const LOCAL_STORAGE_SUPPLIERS_KEY = 'inventoryApp_suppliers';
+            const LOCAL_STORAGE_ITEMS_KEY = 'inventoryApp_items';
+            const LOCAL_STORAGE_TRANSACTIONS_KEY = 'inventoryApp_transactions';
+            const LOCAL_STORAGE_SYNC_QUEUE_KEY = 'inventoryApp_syncQueue';
+            const LOCAL_STORAGE_LOGGED_IN_USER_KEY = 'inventoryApp_loggedInUser';
+            const LOCAL_STORAGE_ALL_USERS_KEY = 'inventoryApp_allUsers';
+            const AUTO_SYNC_INTERVAL = 5000; // Sync every 5 seconds
+
+            // --- DOM Elements ---
+            const sidebar = document.getElementById('sidebar');
+            const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+            const sidebarNavDashboard = document.getElementById('sidebarNavDashboard');
+            const sidebarNavInventory = document.getElementById('sidebarNavInventory');
+            const sidebarNavSuppliers = document.getElementById('sidebarNavSuppliers');
+            const sidebarNavTransactions = document.getElementById('sidebarNavTransactions');
+            const sidebarNavUsersListItem = document.getElementById('sidebarNavUsersListItem');
+            const sidebarNavUsers = document.getElementById('sidebarNavUsers');
+            const sidebarLogoutBtn = document.getElementById('sidebarLogoutBtn');
+            const sidebarLogoLink = document.getElementById('sidebarLogoLink');
+            const headerPageTitle = document.getElementById('headerPageTitle');
+            const headerAddItemBtnContainer = document.getElementById('headerAddItemBtnContainer');
+            const headerAddItemBtn = document.getElementById('headerAddItemBtn');
+            const headerAddSupplierBtnContainer = document.getElementById('headerAddSupplierBtnContainer');
+            const headerAddSupplierBtn = document.getElementById('headerAddSupplierBtn');
+            const headerAddUserBtnContainer = document.getElementById('headerAddUserBtnContainer');
+            const headerAddUserBtn = document.getElementById('headerAddUserBtn');
+            const headerSyncBtn = document.getElementById('headerSyncBtn');
+            const mainContentWrapper = document.getElementById('mainContentWrapper');
+            const pageDisplayArea = document.getElementById('pageDisplayArea');
+            const landingPageDiv = document.getElementById('landingPage');
+            const overviewPageDiv = document.getElementById('overviewPage');
+            const inventoryAppDiv = document.getElementById('inventoryApp');
+            const suppliersPageDiv = document.getElementById('suppliersPage');
+            const userManagementPageDiv = document.getElementById('userManagementPage');
+            const transactionsPageDiv = document.getElementById('transactionsPage');
+            const enterAppBtn = document.getElementById('enterAppBtn');
+            const loginModal = document.getElementById('loginModal');
+            const loginForm = document.getElementById('loginForm');
+            const loginIdInput = document.getElementById('loginIdInput');
+            const loginPasswordInput = document.getElementById('loginPasswordInput');
+            const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+            const closeLoginModalBtn = document.getElementById('closeLoginModalBtn');
+            const loginErrorText = document.getElementById('loginErrorText');
+            const loginLoadingIndicator = document.getElementById('loginLoadingIndicator');
+            const itemFormModal = document.getElementById('itemFormModal');
+            const itemForm = document.getElementById('itemForm');
+            const formTitle = document.getElementById('formTitle');
+            const itemNameInput = document.getElementById('itemName');
+            const stockQuantityInput = document.getElementById('stockQuantity');
+            const openingStockInput = document.getElementById('openingStock');
+            const reorderLevelInput = document.getElementById('reorderLevel');
+            const priceInput = document.getElementById('price');
+            const supplierInput = document.getElementById('supplier');
+            const submitButton = document.getElementById('submitButton');
+            const cancelButton = document.getElementById('cancelButton');
+            const closeFormModalBtn = document.getElementById('closeFormModalBtn');
+            const itemFormLoadingIndicator = document.getElementById('itemFormLoadingIndicator');
+            const inventoryTableBody = document.getElementById('inventoryTableBody');
+            const inventoryLoadingIndicator = document.getElementById('inventoryLoadingIndicator');
+            const messageModal = document.getElementById('messageModal');
+            const messageText = document.getElementById('messageText');
+            const closeMessageButton = document.getElementById('closeMessageButton');
+            const totalItemsStatEl = document.getElementById('totalItemsStat');
+            const lowStockItemsStatEl = document.getElementById('lowStockItemsStat');
+            const totalQuantityStatEl = document.getElementById('totalQuantityStat');
+            const inOutModal = document.getElementById('inOutModal');
+            const inOutModalTitle = document.getElementById('inOutModalTitle');
+            const inOutForm = document.getElementById('inOutForm');
+            const inOutType = document.getElementById('inOutType');
+            const inOutQty = document.getElementById('inOutQty');
+            const inOutRemarks = document.getElementById('inOutRemarks');
+            const inOutCancelBtn = document.getElementById('inOutCancelBtn');
+            const inOutSubmitBtn = document.getElementById('inOutSubmitBtn');
+            const inOutLoadingIndicator = document.getElementById('inOutLoadingIndicator');
+            let inOutItemId = null; 
+            const supplierFormModal = document.getElementById('supplierFormModal');
+            const supplierFormModalTitle = document.getElementById('supplierFormModalTitle');
+            const supplierFormEl_Modal = document.getElementById('supplierFormModal_form');
+            const supplierNameInputModal = document.getElementById('supplierNameInputModal');
+            const saveSupplierModalBtn = document.getElementById('saveSupplierModalBtn');
+            const cancelSupplierEditModalBtn = document.getElementById('cancelSupplierEditModalBtn');
+            const closeSupplierFormModalBtn = document.getElementById('closeSupplierFormModalBtn');
+            const supplierEditIdModalInput = document.getElementById('supplierEditIdModal');
+            const supplierFormModalLoadingIndicator = document.getElementById('supplierFormModalLoadingIndicator');
+            const supplierListBody = document.getElementById('supplierListBody');
+            const supplierListLoadingIndicator = document.getElementById('supplierListLoadingIndicator');
+            const userFormModal = document.getElementById('userFormModal');
+            const userFormModalTitle = document.getElementById('userFormModalTitle');
+            const userFormEl_Modal = document.getElementById('userFormModal_form');
+            const userEditIdInputModal = document.getElementById('userEditIdInputModal');
+            const firstNameInputUserFormModal = document.getElementById('firstNameInputUserFormModal');
+            const lastNameInputUserFormModal = document.getElementById('lastNameInputUserFormModal');
+            const emailIdInputUserFormModal = document.getElementById('emailIdInputUserFormModal');
+            const contactNoInputUserFormModal = document.getElementById('contactNoInputUserFormModal');
+            const passwordInputUserFormModal = document.getElementById('passwordInputUserFormModal');
+            const confirmPasswordInputUserFormModal = document.getElementById('confirmPasswordInputUserFormModal');
+            const roleInputUserFormModal = document.getElementById('roleInputUserFormModal');
+            const saveUserModalBtn = document.getElementById('saveUserModalBtn');
+            const cancelUserEditModalBtn = document.getElementById('cancelUserEditModalBtn');
+            const closeUserFormModalBtn = document.getElementById('closeUserFormModalBtn');
+            const userFormModalLoadingIndicator = document.getElementById('userFormModalLoadingIndicator');
+            const userListBody = document.getElementById('userListBody');
+            const userListLoadingIndicator = document.getElementById('userListLoadingIndicator');
+            const txnLogModal = document.getElementById('txnLogModal');
+            const txnLogList = document.getElementById('txnLogList');
+            const closeTxnLogBtn = document.getElementById('closeTxnLogBtn');
+            const closeTxnLogBtnTop = document.getElementById('closeTxnLogBtnTop');
+            const txnLogModalTitleEl = txnLogModal ? txnLogModal.querySelector('h3') : null;
+            const txnLogLoadingIndicator = document.getElementById('txnLogLoadingIndicator');
+            const txnLogListContainer = document.getElementById('txnLogListContainer');
+            const syncStatusIndicator = document.getElementById('syncStatusIndicator');
+            const recentActivityFeed = document.getElementById('recentActivityFeed');
+            const totalStockValueDisplay = document.getElementById('totalStockValueDisplay');
+            const lowStockAlertsList = document.getElementById('lowStockAlertsList');
+            const topInwardItemsList = document.getElementById('topInwardItemsList');
+            const topOutwardItemsList = document.getElementById('topOutwardItemsList');
+            const importantAnnouncementList = document.getElementById('importantAnnouncementList');
+            const viewAllTransactionsLink = document.getElementById('viewAllTransactionsLink');
+            const deleteItemOptionsModal = document.getElementById('deleteItemOptionsModal');
+            const deleteItemOptionsText = document.getElementById('deleteItemOptionsText');
+            const deleteItemAndTransactionsBtn = document.getElementById('deleteItemAndTransactionsBtn');
+            const deleteItemOnlyBtn = document.getElementById('deleteItemOnlyBtn');
+            const cancelDeleteItemBtn = document.getElementById('cancelDeleteItemBtn');
+            const DASHBOARD_FEED_LIMIT = 5;
+
+            // --- State Variables ---
+            let currentEditItemId = null; let inventory = []; let suppliers = []; let transactions = [];
+            let allUsersData = []; let syncQueue = []; let currentEditSupplierId = null; let currentEditUserId = null;
+            let loggedInUser = null; let isSyncing = false; const MAX_RETRIES = 3;
+            let autoSyncIntervalId = null;
+
+            // --- Helper Functions ---
+            function getItemNameById(itemId) {
+                if (!itemId) return 'N/A';
+                const item = inventory.find(i => String(i.ItemID) === String(itemId));
+                return item ? item.ItemName : `Item ID: ${itemId}`;
+            }
+
+            function getUserNameById(userId) {
+                if (!userId || userId === 'null' || userId === 'undefined') return 'System/Unknown';
+                const userById = allUsersData.find(u => String(u.UserID) === String(userId));
+                if (userById) {
+                    const fullNameTrimmed = userById.FullName ? userById.FullName.trim() : '';
+                    const loginIDTrimmed = userById.LoginID ? userById.LoginID.trim() : '';
+                    if (fullNameTrimmed) return fullNameTrimmed;
+                    if (loginIDTrimmed) return loginIDTrimmed;
+                    return `User ID: ${userId}`;
+                }
+                if (typeof userId === 'string') {
+                    const userByName = allUsersData.find(u => u.FullName === userId || u.LoginID === userId);
+                    if (userByName) {
+                        return userByName.FullName || userByName.LoginID;
+                    }
+                    if (!userId.startsWith('temp_') && !userId.match(/^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$/i)) {
+                        return userId;
+                    }
+                }
+                return `UID: ${userId}`;
+            }
+
+            function formatDate(dateString, includeTime = true) {
+                if (!dateString) return 'N/A';
+                try {
+                    const date = new Date(dateString);
+                    if (isNaN(date.getTime())) return 'Invalid Date';
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                    const month = monthNames[date.getMonth()];
+                    const year = date.getFullYear();
+                    if (includeTime) {
+                        let hours = date.getHours();
+                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                        const seconds = String(date.getSeconds()).padStart(2, '0');
+                        const ampm = hours >= 12 ? 'PM' : 'AM';
+                        hours = hours % 12;
+                        hours = hours ? hours : 12;
+                        const strHours = String(hours).padStart(2, '0');
+                        return `${day}-${month}-${year} ${strHours}:${minutes}:${seconds} ${ampm}`;
+                    } else {
+                        return `${day}-${month}-${year}`;
+                    }
+                } catch (e) {
+                    console.error("Error formatting date:", dateString, e);
+                    return 'Invalid Date';
+                }
+            }
+
+            function formatLastLoginTime(dateString) {
+                if (!dateString) return 'Never';
+                try {
+                    const loginTime = new Date(dateString);
+                    if (isNaN(loginTime.getTime())) return 'Invalid Date';
+                    const now = new Date();
+                    const diffMillis = now.getTime() - loginTime.getTime();
+                    const diffSeconds = Math.round(diffMillis / 1000);
+                    const diffMinutes = Math.round(diffSeconds / 60);
+
+                    if (diffMinutes < 1) {
+                        return "Just now";
+                    } else if (diffMinutes < 60) {
+                        return `${diffMinutes} minute${diffMinutes === 1 ? '' : 's'} ago`;
+                    } else {
+                        return formatDate(dateString, true);
+                    }
+                } catch (e) {
+                    console.error("Error formatting last login time:", dateString, e);
+                    return formatDate(dateString, true);
+                }
+            }
+
+
+            // --- Sidebar & Navigation ---
+            if (sidebarToggleBtn) sidebarToggleBtn.addEventListener('click', () => sidebar.classList.toggle('-translate-x-full'));
+            document.querySelectorAll('.sidebar-nav-item').forEach(item => {
+                item.addEventListener('click', () => { if (window.innerWidth < 1024 && !sidebar.classList.contains('-translate-x-full')) sidebar.classList.add('-translate-x-full'); });
+            });
+            if(sidebarLogoLink) sidebarLogoLink.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) { showPage(overviewPageDiv, sidebarNavDashboard); if (window.innerWidth < 1024) sidebar.classList.add('-translate-x-full');}});
+
+            // --- Storage & Sync ---
+            function getLocalStorage(key,dV=[]){try{const sV=localStorage.getItem(key);return sV?JSON.parse(sV):dV;}catch(e){console.error(`Err LSto:"${key}"`,e);return dV;}}
+            function setLocalStorage(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){console.error(`Err LSto:"${key}"`,e);showToast(`Local save fail: ${e.message}`,1);}}
+            function genId(){return `temp_${Date.now()}_${Math.random().toString(36).substr(2,9)}`;}
+            function updateSyncIndicator(){if(!syncStatusIndicator)return;if(isSyncing){syncStatusIndicator.textContent=`Syncing(${syncQueue.length})...`;syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-pending z-[100] shadow-md rounded-md';syncStatusIndicator.classList.remove('hidden');}else if(syncQueue.length>0){syncStatusIndicator.textContent=`${syncQueue.length} pending.`;syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-pending z-[100] shadow-md rounded-md';syncStatusIndicator.classList.remove('hidden');}else{syncStatusIndicator.textContent='Synced';syncStatusIndicator.className='fixed bottom-4 right-4 px-3 py-1.5 text-xs sync-success z-[100] shadow-md rounded-md';setTimeout(()=>{if(syncQueue.length===0&&!isSyncing)syncStatusIndicator.classList.add('hidden');},3000);}}
+            async function addToSyncQ(op){syncQueue.push({...op,id:genId(),retries:0,timestamp:Date.now()});setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,syncQueue);processSyncQ();}
+            
+            async function processSyncQ(isManualOrAutoSync = false) {
+                if (isSyncing || syncQueue.length === 0 || !navigator.onLine) {
+                    updateSyncIndicator();
+                    return;
+                }
+                isSyncing = true;
+                updateSyncIndicator();
+                const op = syncQueue[0];
+                try {
+                    const res = await fetch(op.apiEndpoint, { method: op.method, headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(op.payload) });
+                    if (!res.ok) { const eTxt = await res.text(); throw new Error(`API Err: ${res.status} ${res.statusText}. ${eTxt}`); }
+                    const result = await res.json();
+                    if (result.success) {
+                        syncQueue.shift();
+                        setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY, syncQueue);
+                        if(isManualOrAutoSync) showToast(`${op.type} synced!`, 0);
+                        
+                        let needsUIRefresh = false;
+                        if (op.tempId && result.data) {
+                            if (op.type === 'createItem' && result.data.ItemID) {
+                                const idx = inventory.findIndex(i => String(i.ItemID) === String(op.tempId));
+                                if (idx > -1) { inventory[idx].ItemID = String(result.data.ItemID); inventory[idx] = { ...inventory[idx], ...result.data, ItemID: String(result.data.ItemID), SupplierID: String(result.data.SupplierID || "") }; needsUIRefresh = true;}
+                            } else if (op.type === 'createSupplier' && result.data.SupplierID) {
+                                const idx = suppliers.findIndex(s => String(s.SupplierID) === String(op.tempId));
+                                if (idx > -1) { suppliers[idx].SupplierID = String(result.data.SupplierID); suppliers[idx] = { ...suppliers[idx], ...result.data, SupplierID: String(result.data.SupplierID) };}
+                                populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown(); needsUIRefresh = true;
+                            } else if (op.type === 'createTransaction' && result.data.TransactionID) {
+                                const idx = transactions.findIndex(t => String(t.id) === String(op.tempId));
+                                if (idx > -1) { transactions[idx].id = String(result.data.TransactionID); transactions[idx] = { ...transactions[idx], ...result.data, id: String(result.data.TransactionID), transactionUserID: result.data.UserID ? String(result.data.UserID) : transactions[idx].transactionUserID };}
+                                needsUIRefresh = true;
+                            } else if (op.type === 'createUser' && result.data && result.data.UserID) {
+                                const userIdx = allUsersData.findIndex(u => String(u.UserID) === String(op.tempId));
+                                if (userIdx > -1) { allUsersData[userIdx] = { ...allUsersData[userIdx], ...result.data, UserID: String(result.data.UserID) }; } else { allUsersData.push({ ...result.data, UserID: String(result.data.UserID) }); }
+                                needsUIRefresh = true;
+                            }
+
+                            if(needsUIRefresh){
+                                setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
+                                setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers);
+                                setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
+                                setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData);
+                                refreshCurrentPageUI();
+                            }
+                        }
+                    } else { throw new Error(result.message || 'API op fail.'); }
+                } catch (e) {
+                    console.error(`Sync err ${op.id}(${op.type}):`, e);
+                    op.retries++;
+                    if (op.retries >= MAX_RETRIES) {
+                        if(isManualOrAutoSync) showToast(`Fail ${op.type} sync x${MAX_RETRIES}. Moved to end.`, 1);
+                        syncQueue.shift(); syncQueue.push(op);
+                    } else {
+                        if(isManualOrAutoSync) showToast(`Sync fail ${op.type}(${op.retries}/${MAX_RETRIES}). Retry.`, 1);
+                    }
+                    setLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY, syncQueue);
+                } finally {
+                    isSyncing = false;
+                    updateSyncIndicator();
+                    if (syncQueue.length > 0 && navigator.onLine) {
+                        const delay = syncQueue[0] === op && op.retries > 0 ? Math.min(30000, 2000 * Math.pow(2, op.retries)) : (isManualOrAutoSync ? 100 : 1000);
+                        setTimeout(() => processSyncQ(false), delay);
+                    }
+                }
+            }
+
+            function refreshCurrentPageUI() {
+                const currentPage = document.querySelector('.page-container:not(.hidden)');
+                if (currentPage === overviewPageDiv) renderInteractiveDashboard();
+                else if (currentPage === inventoryAppDiv) renderInventoryTable();
+                else if (currentPage === suppliersPageDiv) renderSupplierList();
+                else if (currentPage === userManagementPageDiv) renderUserList();
+                else if (currentPage === transactionsPageDiv) renderTransactionTable();
+                else updateOverviewStats();
+            }
+
+            async function fetchStoreUsers(force=0){if(!force&&allUsersData.length>0){return;}if(!navigator.onLine && !force) {return;}try{const r=await fetch(USERS_API_ENDPOINT);if(!r.ok){console.error("Fail fetch users:",r.status);showToast("User data load fail.",1);return;}const res=await r.json();if(res.success&&Array.isArray(res.data)){allUsersData=res.data.map(u=>({...u,UserID:String(u.UserID),LoginID:u.LoginID,FullName:u.FullName,ContactNo:u.ContactNo,FirstName:u.FirstName,LastName:u.LastName, Role: u.Role || 'User'}));setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,allUsersData);}else{console.error("Fail parse users:",res.message);showToast("User data parse err.",1);}}catch(e){console.error("Err fetch users:",e);showToast("User data fetch err.",1);}}
+
+            // --- Login & Role-Based UI ---
+            function updateSidebarForRole() {
+                if (loggedInUser && loggedInUser.Role === 'Admin') {
+                    sidebarNavUsersListItem.classList.remove('hidden');
+                } else {
+                    sidebarNavUsersListItem.classList.add('hidden');
+                    if (userManagementPageDiv && !userManagementPageDiv.classList.contains('hidden')) {
+                        showPage(overviewPageDiv, sidebarNavDashboard);
+                    }
+                }
+            }
+
+            function openLoginModal(){loginIdInput.value='';loginPasswordInput.value='';loginErrorText.classList.add('hidden');loginErrorText.textContent='';loginLoadingIndicator.classList.add('hidden');loginSubmitBtn.disabled=false;loginModal.classList.remove('hidden');loginIdInput.focus();}
+            function closeLoginModal(){loginModal.classList.add('hidden');}
+            async function updateUserLastLogin(id){if(!navigator.onLine) return; try{const r=await fetch(USERS_API_ENDPOINT,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:"updateUser",data:{UserID:id,LastLoginDate:new Date().toISOString()}})});const res=await r.json();if(!res.success) console.error("Fail LastLogin:",res.message);}catch(e){console.error("Err LastLogin:",e);}}
+
+            loginForm.addEventListener('submit',async(e)=>{
+                e.preventDefault();
+                if(!navigator.onLine) { showToast("Offline. Cannot log in.", 1); return; }
+                const emailAsLoginId=loginIdInput.value.trim(),pw=loginPasswordInput.value;
+                if(!emailAsLoginId||!pw){loginErrorText.textContent='Email (Login ID) & Password required.';loginErrorText.classList.remove('hidden');return;}
+                loginErrorText.classList.add('hidden');loginLoadingIndicator.classList.remove('hidden');loginSubmitBtn.disabled=true;
+                try{
+                    await fetchStoreUsers(true);
+                    const user=allUsersData.find(u=>u.LoginID.toLowerCase()===emailAsLoginId.toLowerCase());
+                    if(user){
+                        if(user.PasswordHash===pw){
+                            loggedInUser={...user,UserID:String(user.UserID)};
+                            setLocalStorage(LOCAL_STORAGE_LOGGED_IN_USER_KEY,loggedInUser);
+                            updateUserLastLogin(user.UserID);
+                            await fetchAllDataFromAPIsAndStore(true, false);
+                            closeLoginModal();
+                            updateSidebarForRole();
+                            showPage(overviewPageDiv,sidebarNavDashboard);
+                            showToast(`Welcome, ${user.FullName || user.LoginID}!`,0);
+                            processSyncQ(true);
+                            startAutoSync();
+                        }else{loginErrorText.textContent='Invalid Email/Password.';loginErrorText.classList.remove('hidden');}
+                    }else{loginErrorText.textContent='Invalid Email/Password.';loginErrorText.classList.remove('hidden');}
+                }catch(e){console.error("Login err:",e);loginErrorText.textContent=`Login fail: ${e.message}.`;loginErrorText.classList.remove('hidden');}
+                finally{loginLoadingIndicator.classList.add('hidden');loginSubmitBtn.disabled=false;}
+            });
+            if(closeLoginModalBtn)closeLoginModalBtn.addEventListener('click',closeLoginModal);
+
+            function showPage(pageToShow, activeNavLinkEl = null) {
+                const mainHeader = document.getElementById('mainHeader');
+                
+                // Hide all main page containers and modals first
+                [landingPageDiv, overviewPageDiv, inventoryAppDiv, suppliersPageDiv, userManagementPageDiv, transactionsPageDiv, itemFormModal, userFormModal, supplierFormModal].forEach(el => el.classList.add('hidden'));
+
+                // Handle padding and header visibility for landing vs. internal pages
+                if (pageToShow === landingPageDiv) {
+                    pageDisplayArea.classList.remove('p-4', 'md:p-6', 'lg:p-8');
+                    if(mainHeader) mainHeader.classList.add('hidden');
+                } else {
+                    pageDisplayArea.classList.add('p-4', 'md:p-6', 'lg:p-8');
+                     if(mainHeader) mainHeader.classList.remove('hidden');
+                }
+
+                // Security check for admin-only pages
+                if (pageToShow === userManagementPageDiv && (!loggedInUser || loggedInUser.Role !== 'Admin')) {
+                    showToast("Access Denied: Admins only.", true);
+                    pageToShow = overviewPageDiv; // Default to dashboard
+                    activeNavLinkEl = sidebarNavDashboard;
+                }
+
+                // Show the target page
+                if (pageToShow) pageToShow.classList.remove('hidden');
+
+                // --- UI State Reset ---
+                headerPageTitle.textContent = '';
+                [headerAddItemBtnContainer, headerAddSupplierBtnContainer, headerAddUserBtnContainer, headerSyncBtn, sidebar, sidebarLogoutBtn].forEach(el => el && el.classList.add('hidden'));
+                mainContentWrapper.classList.remove('lg:ml-64');
+                document.body.classList.remove('flex');
+
+                // Reset active state on all sidebar links
+                document.querySelectorAll('.sidebar-nav-item').forEach(link => link.classList.remove('active'));
+                updateSidebarForRole();
+
+                // --- Conditional UI Setup ---
+                if (loggedInUser && pageToShow !== landingPageDiv) {
+                    sidebar.classList.remove('hidden');
+                    sidebar.classList.remove('-translate-x-full');
+                    mainContentWrapper.classList.add('lg:ml-64');
+                    document.body.classList.add('flex');
+                    sidebarLogoutBtn.classList.remove('hidden');
+                    headerSyncBtn.classList.remove('hidden');
+
+                    if (activeNavLinkEl) activeNavLinkEl.classList.add('active');
+
+                    const pageConfig = {
+                        [overviewPageDiv.id]: { title: 'Inventory Dashboard', render: renderInteractiveDashboard },
+                        [inventoryAppDiv.id]: { title: 'Full Inventory List', render: renderInventoryTable, show: [headerAddItemBtnContainer] },
+                        [suppliersPageDiv.id]: { title: 'Manage Suppliers', render: renderSupplierList, show: [headerAddSupplierBtnContainer] },
+                        [transactionsPageDiv.id]: { title: 'All Transactions', render: renderTransactionTable },
+                        [userManagementPageDiv.id]: { title: 'Manage Users', render: renderUserList, show: [headerAddUserBtnContainer] }
+                    };
+
+                    const config = pageConfig[pageToShow.id];
+                    if (config) {
+                        headerPageTitle.textContent = config.title;
+                        config.render();
+                        if (config.show) config.show.forEach(el => el.classList.remove('hidden'));
+                    }
+                }
+            }
+
+
+            enterAppBtn.addEventListener('click', openLoginModal);
+            if(sidebarLogoutBtn) sidebarLogoutBtn.addEventListener('click', () => {
+                showConfirm('Logout?', () => {
+                    stopAutoSync();
+                    loggedInUser=null;
+                    localStorage.clear();
+                    inventory=[];suppliers=[];transactions=[];syncQueue=[];allUsersData=[];
+                    updateSidebarForRole();
+                    showPage(landingPageDiv);
+                });
+            });
+            if(sidebarNavDashboard) sidebarNavDashboard.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(overviewPageDiv, sidebarNavDashboard); });
+            if(sidebarNavInventory) sidebarNavInventory.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(inventoryAppDiv, sidebarNavInventory); });
+            if(sidebarNavSuppliers) sidebarNavSuppliers.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(suppliersPageDiv, sidebarNavSuppliers); });
+            if(sidebarNavTransactions) sidebarNavTransactions.addEventListener('click', (e) => { e.preventDefault(); if(loggedInUser) showPage(transactionsPageDiv, sidebarNavTransactions); });
+            if(sidebarNavUsers) sidebarNavUsers.addEventListener('click', (e) => {
+                e.preventDefault();
+                if(loggedInUser && loggedInUser.Role === 'Admin') {
+                    showPage(userManagementPageDiv, sidebarNavUsers);
+                } else if (loggedInUser) {
+                    showToast("Access Denied: Admins only.", true);
+                    showPage(overviewPageDiv, sidebarNavDashboard);
+                }
+            });
+
+            if(viewAllTransactionsLink) {
+                viewAllTransactionsLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if(loggedInUser) showPage(transactionsPageDiv, sidebarNavTransactions);
+                });
+            }
+
+            if(headerAddItemBtn) headerAddItemBtn.addEventListener('click', () => openFormModal('add'));
+            if(headerAddSupplierBtn) headerAddSupplierBtn.addEventListener('click', () => openSupplierFormModal('add'));
+            if(headerAddUserBtn) headerAddUserBtn.addEventListener('click', () => { if (loggedInUser && loggedInUser.Role === 'Admin') openUserFormModal('add'); else showToast("Access Denied: Admins only.", true); });
+            if(headerSyncBtn) headerSyncBtn.addEventListener('click', () => { if (!navigator.onLine) { showToast("Offline. Cannot sync.", 1); return; } showToast("Manual sync initiated...", false, 2000); processSyncQ(true); fetchAllDataFromAPIsAndStore(true, false); });
+
+            // --- Item Modals & Forms ---
+            async function openFormModal(mode='add',itemId=null){resetForm();await populateSupplierDropdownForItemForm();if(mode==='add'){formTitle.textContent='Add New Item';submitButton.textContent='Add Item';currentEditItemId=null;openingStockInput.value='';}else if(mode==='edit'&&itemId){const item=inventory.find(i=>String(i.ItemID)===String(itemId));if(!item){showToast('Item edit err.',1);return;}formTitle.textContent='Edit Item';submitButton.textContent='Update Item';currentEditItemId=String(item.ItemID);itemNameInput.value=item.ItemName;stockQuantityInput.value=item.StockQuantity;openingStockInput.value=item.openingStock!==undefined?item.openingStock:'';reorderLevelInput.value=item.ReorderLevel;priceInput.value=item.Price;supplierInput.value=item.SupplierID||"";}itemFormModal.classList.remove('hidden');itemNameInput.focus();}
+            function closeFormModal(){itemFormModal.classList.add('hidden');resetForm();}
+            if(closeFormModalBtn)closeFormModalBtn.addEventListener('click',closeFormModal);
+            if(cancelButton)cancelButton.addEventListener('click',closeFormModal);
+
+            // --- Data Fetching & Initial Load ---
+            async function fetchAllDataFromAPIsAndStore(force = false, isBackground = false) {
+                if (!navigator.onLine && !force) {
+                    loadDataFromLocalStorage();
+                    return;
+                }
+                if (!force && !isBackground && getLocalStorage(LOCAL_STORAGE_ITEMS_KEY, null) !== null) {
+                    loadDataFromLocalStorage();
+                    await fetchStoreUsers();
+                    if (loggedInUser) refreshCurrentPageUI();
+                    return;
+                }
+
+                if (!isBackground) showToast("Fetching latest data...", 0, 1500);
+                if (inventoryLoadingIndicator && !isBackground) inventoryLoadingIndicator.classList.remove('hidden');
+
+                const oldInventory = [...inventory];
+                const oldSuppliers = [...suppliers];
+                const oldTransactions = [...transactions];
+
+                await fetchStoreUsers(force);
+
+                try {
+                    const [itemsR, suppR, txnsR] = await Promise.all([
+                        fetch(ITEMS_API_ENDPOINT),
+                        fetch(SUPPLIERS_API_ENDPOINT),
+                        fetch(TRANSACTIONS_API_ENDPOINT)
+                    ]);
+
+                    const changes = {
+                        items: { new: 0, updated: 0 },
+                        suppliers: { new: 0 },
+                        transactions: { new: 0 }
+                    };
+
+                    // Process Items
+                    if (!itemsR.ok) throw new Error(`Items API fail:${itemsR.status}`);
+                    const itemsRes = await itemsR.json();
+                    if (itemsRes.success && Array.isArray(itemsRes.data)) {
+                        const newInventory = itemsRes.data.map(i => ({ ...i, ItemID: String(i.ItemID), SupplierID: i.SupplierID ? String(i.SupplierID) : "", openingStock: i.openingStock !== undefined ? Number(i.openingStock) : Number(i.StockQuantity), openingStockDate: i.openingStockDate || i.CreatedAt || new Date().toISOString() }));
+                        const oldInventoryMap = new Map(oldInventory.map(i => [i.ItemID, i]));
+                        newInventory.forEach(newItem => {
+                            const oldItem = oldInventoryMap.get(newItem.ItemID);
+                            if (!oldItem) {
+                                changes.items.new++;
+                            } else {
+                                if (oldItem.StockQuantity !== newItem.StockQuantity) {
+                                    changes.items.updated++;
+                                }
+                            }
+                        });
+                        inventory = newInventory;
+                        setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
+                    } else { throw new Error(itemsRes.message || "Fail fetch items."); }
+
+                    // Process Suppliers
+                    if (!suppR.ok) throw new Error(`Suppliers API fail:${suppR.status}`);
+                    const suppRes = await suppR.json();
+                    if (suppRes.success && Array.isArray(suppRes.data)) {
+                        const newSuppliers = suppRes.data.map(s => ({ ...s, SupplierID: String(s.SupplierID) }));
+                        const oldSupplierIds = new Set(oldSuppliers.map(s => s.SupplierID));
+                        newSuppliers.forEach(newSupplier => {
+                            if (!oldSupplierIds.has(newSupplier.SupplierID)) {
+                                changes.suppliers.new++;
+                            }
+                        });
+                        suppliers = newSuppliers;
+                        setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers);
+                    } else { throw new Error(suppRes.message || "Fail fetch suppliers."); }
+
+                    // Process Transactions
+                    if (!txnsR.ok) throw new Error(`Txns API fail:${txnsR.status}`);
+                    const txnsRes = await txnsR.json();
+                    if (txnsRes.success && Array.isArray(txnsRes.data)) {
+                        // BUG FIX: Get all transaction IDs that are pending deletion from the sync queue
+                        const pendingDeletionTxnIds = new Set(
+                            syncQueue
+                                .filter(op => op.type === 'deleteTransaction')
+                                .map(op => String(op.payload.data.TransactionID))
+                        );
+                        
+                        // Filter out transactions from the server response that are pending deletion
+                        const serverTransactions = txnsRes.data.filter(t => !pendingDeletionTxnIds.has(String(t.TransactionID)));
+
+                        const oldTransactionIds = new Set(oldTransactions.map(t => t.id));
+                        serverTransactions.forEach(newTxn => {
+                            if (!oldTransactionIds.has(String(newTxn.TransactionID))) {
+                                changes.transactions.new++;
+                            }
+                        });
+                        transactions = serverTransactions.map(t => ({ id: String(t.TransactionID), itemId: String(t.ItemID), itemName: t.ItemName, type: t.TransactionType, quantity: t.Quantity, date: t.TransactionDate, remarks: t.Remarks, transactionUserID: t.UserID ? String(t.UserID) : null }));
+                        setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
+                    } else { throw new Error(txnsRes.message || "Fail fetch txns."); }
+                    
+                    if (isBackground) {
+                        let notificationMessages = [];
+                        if(changes.items.new > 0) notificationMessages.push(`${changes.items.new} new item(s)`);
+                        if(changes.items.updated > 0) notificationMessages.push(`${changes.items.updated} item(s) updated`);
+                        if(changes.suppliers.new > 0) notificationMessages.push(`${changes.suppliers.new} new supplier(s)`);
+                        if(changes.transactions.new > 0) notificationMessages.push(`${changes.transactions.new} new transaction(s)`);
+                        
+                        if(notificationMessages.length > 0) {
+                            showToast(`Sync: ${notificationMessages.join(', ')}.`, 0, 5000);
+                        }
+                    } else if (force) {
+                         const totalChanges = changes.items.new + changes.items.updated + changes.suppliers.new + changes.transactions.new;
+                         if (totalChanges === 0) {
+                            showToast("Data is already up to date.", 0);
+                         } else {
+                            showToast("Data refreshed from server.", 0);
+                         }
+                    }
+
+                } catch (e) {
+                    console.error("Err fetch all:", e);
+                    if (!isBackground) showToast(`Fetch err: ${e.message}. Using local.`, 1);
+                    loadDataFromLocalStorage();
+                } finally {
+                    if (inventoryLoadingIndicator && !isBackground) inventoryLoadingIndicator.classList.add('hidden');
+                    populateSupplierDropdownForItemForm();
+                    updateSupplierFilterDropdown();
+                    if (loggedInUser) refreshCurrentPageUI();
+                }
+            }
+            
+            function loadDataFromLocalStorage(){inventory=getLocalStorage(LOCAL_STORAGE_ITEMS_KEY,[]);suppliers=getLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY,[]);transactions=getLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,[]);syncQueue=getLocalStorage(LOCAL_STORAGE_SYNC_QUEUE_KEY,[]);loggedInUser=getLocalStorage(LOCAL_STORAGE_LOGGED_IN_USER_KEY,null);allUsersData=getLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY,[]);console.log("Local data loaded. Items:",inventory.length,"Q:",syncQueue.length);}
+            
+            // --- UI Rendering Functions ---
+            function renderTransactionTable() {
+                const tableBody = document.getElementById('transactionTableBody');
+                if (!tableBody) return;
+
+                const sortedTransactions = [...transactions].sort((a, b) => new Date(b.date || b.TransactionDate) - new Date(a.date || a.TransactionDate));
+
+                if (sortedTransactions.length === 0) {
+                    tableBody.innerHTML = `<tr><td colspan="6" class="py-4 text-center text-gray-500">No transactions recorded yet.</td></tr>`;
+                    return;
+                }
+
+                tableBody.innerHTML = sortedTransactions.map(t => {
+                    const type = t.type || t.TransactionType;
+                    const typeClass = type === 'inward' ? 'bg-green-100 text-green-800' : 'bg-amber-100 text-amber-800';
+                    const typeText = type.charAt(0).toUpperCase() + type.slice(1);
+                    const itemName = getItemNameById(t.itemId || t.ItemID);
+                    const userName = getUserNameById(t.transactionUserID);
+                    const date = formatDate(t.date || t.TransactionDate, true);
+                    const quantity = t.quantity || t.Quantity;
+                    const remarks = t.remarks || t.Remarks || '-';
+
+                    return `
+                        <tr class="hover:bg-gray-50">
+                            <td class="py-2 px-3 text-sm text-gray-700 font-medium">${itemName}</td>
+                            <td class="py-2 px-3 text-sm"><span class="px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${typeClass}">${typeText}</span></td>
+                            <td class="py-2 px-3 text-sm text-gray-700 text-center">${quantity}</td>
+                            <td class="py-2 px-3 text-sm text-gray-700">${remarks}</td>
+                            <td class="py-2 px-3 text-sm text-gray-500">${date}</td>
+                            <td class="py-2 px-3 text-sm text-gray-700">${userName}</td>
+                        </tr>`;
+                }).join('');
+            }
+
+            function updateOverviewStats(){if(!totalItemsStatEl||!lowStockItemsStatEl||!totalQuantityStatEl)return;totalItemsStatEl.textContent=inventory.length;lowStockItemsStatEl.textContent=inventory.filter(i=>Number(i.StockQuantity)<Number(i.ReorderLevel)).length;totalQuantityStatEl.textContent=inventory.reduce((sum,i)=>sum+(Number(i.StockQuantity)||0),0);}
+            function renderInventoryTable(){const filt=getFilteredInventory(),total=filt.length,paged=filt.slice((page-1)*pageSize,page*pageSize);inventoryTableBody.innerHTML='';if(total===0){inventoryTableBody.innerHTML=`<tr><td colspan="11" class="py-4 text-center text-gray-500">No items. ${inventory.length===0?'Add!':''}</td></tr>`;document.getElementById('paginationControls').innerHTML='';if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;return;}paged.forEach(i=>renderInventoryItem(i));renderPagination(total);if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;}
+            
+            function renderInventoryItem(i) {
+                const r = document.createElement('tr'),
+                    low = Number(i.StockQuantity) < Number(i.ReorderLevel);
+                r.className = `border-b hover:bg-gray-50 ${low ? 'bg-red-100 hover:bg-red-200' : 'bg-white'}`;
+                let pF = `₹${(i.Price || 0).toFixed(2)}`,
+                    sP = `₹${((i.Price || 0) * (i.StockQuantity || 0)).toFixed(2)}`,
+                    upF = formatDate(i.LastUpdated, false),
+                    osDF = formatDate(i.openingStockDate, false);
+                const sO = suppliers.find(s => String(s.SupplierID) === String(i.SupplierID)),
+                    sND = sO ? sO.SupplierName : (i.SupplierID ? 'Unk' : 'N/A');
+                r.innerHTML = `<td class="px-2 py-3 text-center"><input type="checkbox" class="bulk-checkbox" data-id="${i.ItemID}"/></td><td class="px-4 py-3 text-sm ${low ? 'text-red-700 font-semibold' : 'text-gray-700'}">${i.ItemName || 'Unnamed'} ${low ? '<span class="text-xs text-red-500">(Low)</span>' : ''}</td><td class="px-4 py-3 text-center text-sm">${i.openingStock ?? 'N/A'}</td><td class="px-4 py-3 text-center text-sm">${osDF}</td><td class="px-4 py-3 text-center text-sm ${low ? 'text-red-700 font-semibold' : 'text-gray-700'}">${i.StockQuantity ?? '0'}</td><td class="px-4 py-3 text-center text-sm">${i.ReorderLevel ?? '0'}</td><td class="px-4 py-3 text-right text-sm">${pF}</td><td class="px-4 py-3 text-right text-sm">${sP}</td><td class="px-4 py-3 text-sm">${sND}</td><td class="px-4 py-3 text-sm">${upF}</td><td class="flex flex-wrap items-center justify-center gap-1 px-4 py-3 text-sm space-x-1"><button data-id="${i.ItemID}" class="inward-btn btn btn-success btn-xs"><i class="ph ph-arrow-down mr-1"></i>In</button><button data-id="${i.ItemID}" class="outward-btn btn btn-warning btn-xs"><i class="ph ph-arrow-up mr-1"></i>Out</button><button data-id="${i.ItemID}" class="edit-btn btn btn-info btn-xs"><i class="ph ph-pencil-simple mr-1"></i>Edit</button><button data-id="${i.ItemID}" data-name="${i.ItemName}" class="delete-btn btn btn-danger btn-xs"><i class="ph ph-trash mr-1"></i>Del</button><button data-id="${i.ItemID}" class="txnlog-btn btn btn-secondary btn-xs"><i class="ph ph-list mr-1"></i>Log</button></td>`;
+                inventoryTableBody.appendChild(r);
+                r.querySelector('.edit-btn').addEventListener('click', () => openFormModal('edit', i.ItemID));
+                r.querySelector('.delete-btn').addEventListener('click', (e) => confirmItemDelete(e.currentTarget.dataset.id, e.currentTarget.dataset.name));
+                r.querySelector('.inward-btn').addEventListener('click', () => openInOutModal(i.ItemID, 'inward'));
+                r.querySelector('.outward-btn').addEventListener('click', () => openInOutModal(i.ItemID, 'outward'));
+                r.querySelector('.txnlog-btn').addEventListener('click', () => showTxnLogModal(i.ItemID));
+            }
+
+            itemForm.addEventListener('submit',async(e)=>{e.preventDefault();itemFormLoadingIndicator.classList.remove('hidden');submitButton.disabled=true;cancelButton.disabled=true;const n=itemNameInput.value.trim(),sQ=parseInt(stockQuantityInput.value),rL=parseInt(reorderLevelInput.value),pr=parseFloat(priceInput.value),sID=supplierInput.value;if(!n||isNaN(sQ)||isNaN(rL)||isNaN(pr)||!sID){showToast('Fill valid data.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}if(sQ<0||rL<0||pr<0){showToast('Nums cannot be neg.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}if(isDupItemName(n, currentEditItemId)){showToast('Name exists.',1);itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;return;}const d=new Date().toISOString(),pL={ItemName:n,StockQuantity:sQ,ReorderLevel:rL,Price:pr,SupplierID:sID,LastUpdated:d};if(currentEditItemId){const idx=inventory.findIndex(i=>String(i.ItemID)===String(currentEditItemId));if(idx>-1){const os=inventory[idx].openingStock,osd=inventory[idx].openingStockDate;inventory[idx]={...inventory[idx],...pL,openingStock:os,openingStockDate:osd};setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast('Item updated.',0);addToSyncQ({type:'updateItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"updateItem",data:{...pL,ItemID:currentEditItemId,openingStock:os,openingStockDate:osd}}});}}else{const tId=genId(),nI={...pL,ItemID:tId,CreatedAt:d,openingStock:sQ,openingStockDate:d};inventory.push(nI);setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast('Item added.',0);addToSyncQ({type:'createItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"createItem",data:{...pL,openingStock:sQ,openingStockDate:d}},tempId:tId});}renderInventoryTable();updateOverviewStats();closeFormModal();itemFormLoadingIndicator.classList.add('hidden');submitButton.disabled=false;cancelButton.disabled=false;});
+            function openInOutModal(id,type='inward'){inOutItemId=String(id);const i=inventory.find(itm=>String(itm.ItemID)===inOutItemId);if(!i){showToast('Item not found.',1);return;}inOutType.value=type;inOutQty.value='';inOutRemarks.value='';inOutModalTitle.textContent=`${type==='inward'?'Add Stock':'Remove Stock'} for ${i.ItemName}`;inOutModal.classList.remove('hidden');inOutQty.focus();}
+            function closeInOutModal(){inOutModal.classList.add('hidden');inOutItemId=null;}
+            if(inOutCancelBtn)inOutCancelBtn.addEventListener('click',closeInOutModal);
+
+            if(inOutForm)inOutForm.addEventListener('submit',async function(e){
+                e.preventDefault();
+                inOutLoadingIndicator.classList.remove('hidden');
+                inOutSubmitBtn.disabled=true; inOutCancelBtn.disabled=true;
+                const qty=parseInt(inOutQty.value),rem=inOutRemarks.value.trim(),type=inOutType.value;
+                const itemIndex=inventory.findIndex(i=>String(i.ItemID)===String(inOutItemId));
+
+                if(itemIndex===-1){showToast('Item not found.',1);inOutLoadingIndicator.classList.add('hidden');inOutSubmitBtn.disabled=false;inOutCancelBtn.disabled=false;return;}
+                let itemForTransaction=inventory[itemIndex];
+                if(isNaN(qty)||qty<=0){showToast('Enter valid positive qty.',1);inOutLoadingIndicator.classList.add('hidden');inOutSubmitBtn.disabled=false;inOutCancelBtn.disabled=false;return;}
+
+                const currentStock=Number(itemForTransaction.StockQuantity)||0;
+                let newStock=type==='inward'?currentStock+qty:currentStock-qty;
+                if(type==='outward'&&qty>currentStock){showToast(`Not enough stock. Current: ${currentStock}.`,1);inOutLoadingIndicator.classList.add('hidden');inOutSubmitBtn.disabled=false;inOutCancelBtn.disabled=false;return;}
+
+                inventory[itemIndex].StockQuantity=newStock;
+                inventory[itemIndex].LastUpdated=new Date().toISOString();
+                setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);
+                addToSyncQ({type:'updateItemStock',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"updateItem",data:{ItemID:itemForTransaction.ItemID,StockQuantity:newStock,LastUpdated:inventory[itemIndex].LastUpdated}}});
+
+                const tempTransactionId=genId();
+                const transactionData={ id:tempTransactionId, itemId:itemForTransaction.ItemID, itemName:itemForTransaction.ItemName, TransactionType:type, Quantity:qty, Remarks:rem, transactionUserID:loggedInUser?.UserID?String(loggedInUser.UserID):null, TransactionDate:new Date().toISOString() };
+                transactions.push(transactionData);
+                setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY,transactions);
+
+                let userIdentifierForSheet = getUserNameById(loggedInUser?.UserID);
+                addToSyncQ({ type:'createTransaction',apiEndpoint:TRANSACTIONS_API_ENDPOINT,method:'POST', payload:{action:"createTransaction",data:{ ItemID:transactionData.itemId, ItemName:transactionData.itemName, TransactionType:transactionData.TransactionType, Quantity:transactionData.Quantity, Remarks:transactionData.Remarks, UserID: userIdentifierForSheet }}, tempId:tempTransactionId });
+
+                showToast('Transaction recorded.',0);renderInventoryTable();updateOverviewStats();closeInOutModal();
+                inOutLoadingIndicator.classList.add('hidden');inOutSubmitBtn.disabled=false;inOutCancelBtn.disabled=false;
+            });
+
+            async function showTxnLogModal(id){
+                if(!txnLogModal||!txnLogList||!txnLogModalTitleEl||!txnLogLoadingIndicator||!txnLogListContainer||!closeTxnLogBtn||!closeTxnLogBtnTop){console.error("Txn Log DOM miss.");showToast("UI err txn log.",1);return;}
+                const item=inventory.find(it=>String(it.ItemID)===String(id));
+                if(!item){showToast('Item log N/F.',1);return;}
+                txnLogModalTitleEl.textContent=`Log for ${item.ItemName}`;
+                txnLogList.innerHTML='';
+                txnLogLoadingIndicator.classList.remove('hidden');
+                txnLogListContainer.classList.add('hidden');
+                txnLogModal.classList.remove('hidden');
+                if(allUsersData.length===0) await fetchStoreUsers();
+                const iTxns=transactions.filter(t=>String(t.itemId || t.ItemID)===String(id)).sort((a,b)=>new Date(b.date||b.TransactionDate)-new Date(a.date||a.TransactionDate));
+                if(iTxns.length===0){
+                    txnLogList.innerHTML='<div class="py-4 text-center text-gray-400">No txns.</div>';
+                } else {
+                    txnLogList.innerHTML=`<table class="min-w-full border-collapse text-xs"><thead class="bg-slate-100"><tr><th class="border px-2 py-1 text-left">Date</th><th class="border px-2 py-1 text-left">Type</th><th class="border px-2 py-1 text-center">Qty</th><th class="border px-2 py-1 text-left">User</th><th class="border px-2 py-1 text-left">Remarks</th><th class="border px-2 py-1 text-center">Status</th></tr></thead>
+                                            <tbody>${iTxns.map(t=>{
+                                                const p=String(t.id).startsWith('temp_');
+                                                const uN = getUserNameById(t.transactionUserID);
+                                                const d=t.date||t.TransactionDate;
+                                                const fD=formatDate(d, true);
+                                                const ty=t.type||t.TransactionType;
+                                                const fT=ty?ty.charAt(0).toUpperCase()+ty.slice(1):'N/A';
+                                                const tC=ty==='inward'?'text-green-600':'text-amber-600';
+                                                return `<tr class="border-b ${p?'opacity-70':''}"><td class="border px-2 py-1">${fD}</td><td class="border px-2 py-1 font-semibold ${tC}">${fT}</td><td class="border px-2 py-1 text-center">${t.quantity||t.Quantity||'0'}</td><td class="border px-2 py-1">${uN}</td><td class="border px-2 py-1">${t.remarks||t.Remarks||'-'}</td><td class="border px-2 py-1 text-center text-xs ${p?'text-amber-600 font-semibold':'text-green-600'}">${p?'Pending':'Synced'}</td></tr>`;
+                                            }).join('')}</tbody>
+                                         </table>`;
+                }
+                txnLogLoadingIndicator.classList.add('hidden');
+                txnLogListContainer.classList.remove('hidden');
+            }
+            if(closeTxnLogBtn)closeTxnLogBtn.addEventListener('click',()=>txnLogModal.classList.add('hidden'));
+            if(closeTxnLogBtnTop)closeTxnLogBtnTop.addEventListener('click',()=>txnLogModal.classList.add('hidden'));
+            function resetForm(){if(itemForm)itemForm.reset();currentEditItemId=null;}
+            
+            /**
+             * [REMOVED/COMMENTED] This function is no longer used as per new requirements.
+             * The logic to delete transactions along with an item has been removed.
+             */
+            /*
+            function deleteItemAndTransactions(id, name) {
+                const txnsToDelete = transactions.filter(t => String(t.itemId || t.ItemID) === String(id));
+                txnsToDelete.forEach(txn => {
+                    const txnIdStr = String(txn.id);
+                    if (!txnIdStr.startsWith('temp_')) {
+                        addToSyncQ({
+                            type: 'deleteTransaction',
+                            apiEndpoint: TRANSACTIONS_API_ENDPOINT,
+                            method: 'POST',
+                            payload: { action: "deleteTransaction", data: { TransactionID: txn.id } }
+                        });
+                    }
+                });
+                transactions = transactions.filter(t => String(t.itemId || t.ItemID) !== String(id));
+                setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
+                deleteItem(id, name); 
+                showToast(`Deleted "${name}" and its transactions.`, 0, 4000);
+            }
+            */
+
+            /**
+             * Initiates the item deletion process.
+             * Now it only confirms and deletes the item, preserving transaction history.
+             * @param {string} id - The ID of the item.
+             * @param {string} name - The name of the item.
+             */
+            function confirmItemDelete(id, name) {
+                showConfirm(`Are you sure you want to delete the item "${name}"? Its transaction history will be kept.`, () => deleteItem(id, name));
+            }
+
+            /**
+             * Deletes an item from local storage and queues the deletion for sync.
+             * Transactions are NOT affected.
+             * @param {string} id - The ID of the item to delete.
+             * @param {string} name - The name of the item for the notification message.
+             */
+            async function deleteItem(id, name) {
+                const idx = inventory.findIndex(i => String(i.ItemID) === String(id));
+                if (idx > -1) {
+                    inventory.splice(idx, 1);
+                    setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
+                    showToast(`Item "${name}" deleted. Its history is kept.`, 0, 4000);
+                    renderInventoryTable();
+                    updateOverviewStats();
+                    if (String(currentEditItemId) === String(id)) closeFormModal();
+                    if (!String(id).startsWith('temp_')) {
+                        addToSyncQ({
+                            type: 'deleteItem',
+                            apiEndpoint: ITEMS_API_ENDPOINT,
+                            method: 'POST',
+                            payload: { action: "deleteItem", data: { ItemID: id } }
+                        });
+                    }
+                } else {
+                    showToast('Item not found for deletion.', true);
+                }
+            }
+
+            async function handleBulkDelete(){const ids=Array.from(document.querySelectorAll('.bulk-checkbox:checked')).map(cb=>cb.dataset.id);if(ids.length===0){showToast('No items selected.',1);return;}showConfirm(`Delete ${ids.length} item(s)? Note: Transaction history for these items will be kept.`,async()=>{let delCt=0;for(const id of ids){const idx=inventory.findIndex(i=>String(i.ItemID)===String(id));if(idx>-1){inventory.splice(idx,1);delCt++;addToSyncQ({type:'deleteItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"deleteItem",data:{ItemID:id}}});}}if(delCt>0){setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast(`${delCt} item(s) deleted.`,0);renderInventoryTable();updateOverviewStats();if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;}});}
+            
+            function isDupItemName(n,exId=null){return inventory.some(i=>i.ItemName.toLowerCase()===n.toLowerCase()&&String(i.ItemID)!==String(exId));}
+            function isDupSupName(n,exId=null){return suppliers.some(s=>s.SupplierName.toLowerCase()===n.toLowerCase()&&String(s.SupplierID)!==String(exId));}
+            function showToast(msg,isErr=0,dur=3000){const cont=document.getElementById('toastContainer');if(!cont)return;const t=document.createElement('div');t.className=`transform translate-x-full opacity-0 rounded-md px-4 py-3 text-sm font-semibold shadow-lg transition-all duration-300 ease-in-out ${isErr?'bg-red-500 text-white':'bg-green-500 text-white'}`;t.textContent=msg;cont.appendChild(t);setTimeout(()=>{t.classList.remove('translate-x-full','opacity-0');t.classList.add('translate-x-0','opacity-100');},10);setTimeout(()=>{t.classList.remove('translate-x-0','opacity-100');t.classList.add('translate-x-full','opacity-0');setTimeout(()=>t.remove(),300);},dur);}
+            function showConfirm(msg,onY,onN=()=>{}){const m=document.getElementById('confirmModal'),txt=document.getElementById('confirmText'),yB=document.getElementById('confirmYesBtn'),nB=document.getElementById('confirmNoBtn');if(!m||!txt||!yB||!nB)return;txt.textContent=msg;m.classList.remove('hidden');const nYB=yB.cloneNode(true);yB.parentNode.replaceChild(nYB,yB);const nNB=nB.cloneNode(true);nB.parentNode.replaceChild(nNB,nB);nYB.onclick=()=>{m.classList.add('hidden');onY();};nNB.onclick=()=>{m.classList.add('hidden');onN();};}
+            
+            // --- Filtering, Sorting, Pagination ---
+            let searchQuery='',filterSupplier='',filterLowStock=0,sortKey='ItemName',sortDir=1,page=1,pageSize=10;
+            function getFilteredInventory(){let filt=[...inventory];if(searchQuery){const lq=searchQuery.toLowerCase();filt=filt.filter(i=>i.ItemName.toLowerCase().includes(lq)||(i.SupplierID&&suppliers.find(s=>String(s.SupplierID)===String(i.SupplierID))?.SupplierName.toLowerCase().includes(lq)));}if(filterSupplier)filt=filt.filter(i=>String(i.SupplierID)===String(filterSupplier));if(filterLowStock)filt=filt.filter(i=>Number(i.StockQuantity)<Number(i.ReorderLevel));if(sortKey){filt.sort((a,b)=>{let vA=a[sortKey],vB=b[sortKey];if(sortKey==='SupplierID'){vA=suppliers.find(s=>String(s.SupplierID)===String(a.SupplierID))?.SupplierName||'';vB=suppliers.find(s=>String(s.SupplierID)===String(b.SupplierID))?.SupplierName||'';}else if(['LastUpdated','CreatedAt','openingStockDate'].includes(sortKey)){vA=new Date(vA||0);vB=new Date(vB||0);}else if(['StockQuantity','ReorderLevel','Price','openingStock'].includes(sortKey)){vA=parseFloat(vA)||0;vB=parseFloat(vB)||0;}else if(typeof vA==='string'){vA=vA.toLowerCase();vB=vB.toLowerCase();}else{vA=String(vA??"").toLowerCase();vB=String(vB??"").toLowerCase();}if(vA<vB)return -1*sortDir;if(vA>vB)return 1*sortDir;return 0;});}return filt;}
+            function renderPagination(total){const totP=Math.ceil(total/pageSize),pC=document.getElementById('paginationControls');if(!pC||totP<=1){if(pC)pC.innerHTML='';return;}let h='<div class="flex items-center space-x-1">';h+=`<button class="btn btn-secondary btn-sm ${page===1?'opacity-50 cursor-not-allowed':''}" data-page="${page-1}" ${page===1?'disabled':''}>Prev</button>`;let sP=Math.max(1,page-2),eP=Math.min(totP,page+2);if(sP>1){h+=`<button class="btn btn-secondary btn-sm" data-page="1">1</button>`;if(sP>2)h+=`<span class="px-2 text-gray-500">...</span>`;}for(let i=sP;i<=eP;i++){h+=`<button class="btn btn-sm ${i===page?'btn-primary':'btn-secondary'}" data-page="${i}">${i}</button>`;}if(eP<totP){if(eP<totP-1)h+=`<span class="px-2 text-gray-500">...</span>`;h+=`<button class="btn btn-secondary btn-sm" data-page="${totP}">${totP}</button>`;}h+=`<button class="btn btn-secondary btn-sm ${page===totP?'opacity-50 cursor-not-allowed':''}" data-page="${page+1}" ${page===totP?'disabled':''}>Next</button></div>`;pC.innerHTML=h;pC.querySelectorAll('button[data-page]').forEach(b=>{b.addEventListener('click',()=>{page=Number(b.dataset.page);renderInventoryTable();});});}
+            function initializeInventoryControls(){
+                const cont=document.getElementById('inventoryTableSection')?.parentNode;
+                if(!cont)return;
+                let div=document.getElementById('inventoryTableControls');
+                if(!div){
+                    div=document.createElement('div');
+                    div.id='inventoryTableControls';
+                    div.className='mb-4 flex flex-wrap items-center gap-2 rounded-xl bg-gray-50 p-4 shadow';
+                    // REMOVED Import/Export buttons from this innerHTML string
+                    div.innerHTML = `<input id="searchInput" type="text" placeholder="Search..." class="input-field flex-grow md:flex-grow-0"/>
+                                     <select id="supplierFilter" class="input-field"><option value="">All Suppliers</option></select>
+                                     <label class="flex items-center gap-1.5"><input type="checkbox" id="lowStockFilter"/>Low Stock</label>
+                                     <button id="bulkDeleteBtn" class="btn btn-danger btn-sm"><i class="ph ph-trash mr-1"></i>Del Sel</button>`;
+                    const iS=document.getElementById('inventoryTableSection');
+                    if(iS) iS.parentNode.insertBefore(div,iS);
+                    else cont.appendChild(div);
+                }
+                
+                // REMOVED event listeners for import/export
+                document.getElementById('bulkDeleteBtn')?.addEventListener('click',handleBulkDelete);
+                document.getElementById('searchInput')?.addEventListener('input',e=>{searchQuery=e.target.value;page=1;renderInventoryTable();});
+                document.getElementById('lowStockFilter')?.addEventListener('change',e=>{filterLowStock=e.target.checked;page=1;renderInventoryTable();});
+                document.getElementById('supplierFilter')?.addEventListener('change',e=>{filterSupplier=e.target.value;page=1;renderInventoryTable();});
+                document.getElementById('bulkSelectAll')?.addEventListener('change',e=>{document.querySelectorAll('.bulk-checkbox').forEach(cb=>cb.checked=e.target.checked);});
+                updateSupplierFilterDropdown();
+            }
+
+            function updateSupplierFilterDropdown(){const s=document.getElementById('supplierFilter');if(!s)return;const v=s.value;s.innerHTML='<option value="">All Suppliers</option>';suppliers.sort((a,b)=>a.SupplierName.localeCompare(b.SupplierName)).forEach(sup=>{s.innerHTML+=`<option value="${sup.SupplierID}">${sup.SupplierName}</option>`;});s.value=v;}
+            async function populateSupplierDropdownForItemForm(){const s=document.getElementById('supplier');if(!s)return;const v=s.value;s.innerHTML='<option value="">Select Supplier</option>';suppliers.sort((a,b)=>a.SupplierName.localeCompare(b.SupplierName)).forEach(sup=>{s.innerHTML+=`<option value="${sup.SupplierID}">${sup.SupplierName}</option>`;});s.value=v;}
+
+            // --- Supplier Page & Modal Logic ---
+            function openSupplierFormModal(mode = 'add', supplierIdToEdit = null) {
+                currentEditSupplierId = supplierIdToEdit;
+                resetSupplierFormModal();
+                if (mode === 'add') {
+                    supplierFormModalTitle.textContent = 'Add New Supplier';
+                    saveSupplierModalBtn.textContent = 'Add Supplier';
+                } else if (mode === 'edit' && supplierIdToEdit) {
+                    const supplier = suppliers.find(s => String(s.SupplierID) === String(supplierIdToEdit));
+                    if (supplier) {
+                        supplierFormModalTitle.textContent = 'Edit Supplier';
+                        saveSupplierModalBtn.textContent = 'Update Supplier';
+                        supplierNameInputModal.value = supplier.SupplierName;
+                        supplierEditIdModalInput.value = supplier.SupplierID;
+                    } else {
+                        showToast('Supplier not found for editing.', true); return;
+                    }
+                }
+                supplierFormModal.classList.remove('hidden');
+                supplierNameInputModal.focus();
+            }
+
+            function closeSupplierFormModal() {
+                supplierFormModal.classList.add('hidden');
+                resetSupplierFormModal();
+            }
+            if(closeSupplierFormModalBtn) closeSupplierFormModalBtn.addEventListener('click', closeSupplierFormModal);
+            if(cancelSupplierEditModalBtn) cancelSupplierEditModalBtn.addEventListener('click', closeSupplierFormModal);
+
+            function renderSupplierList() {
+                if(!supplierListBody) return; supplierListBody.innerHTML = '';
+                if (suppliers.length === 0) { supplierListBody.innerHTML = '<tr><td colspan="2" class="py-3 text-center text-gray-500">No suppliers. Click "Add Supplier" to begin.</td></tr>'; return; }
+                const sortedSuppliers = [...suppliers].sort((a, b) => a.SupplierName.localeCompare(b.SupplierName));
+                sortedSuppliers.forEach(supplier => {
+                    const row = supplierListBody.insertRow(); row.className = "hover:bg-gray-50";
+                    row.innerHTML = `<td class="py-2 px-3 text-sm text-gray-700">${supplier.SupplierName}</td>
+                        <td class="py-2 px-3 text-sm text-center space-x-2">
+                            <button data-id="${supplier.SupplierID}" class="edit-supplier-btn text-blue-500 hover:text-blue-700"><i class="ph ph-pencil-simple"></i> Edit</button>
+                            <button data-id="${supplier.SupplierID}" data-name="${supplier.SupplierName}" class="delete-supplier-btn text-red-500 hover:text-red-700"><i class="ph ph-trash"></i> Delete</button>
+                        </td>`;
+                    row.querySelector('.edit-supplier-btn').addEventListener('click', () => openSupplierFormModal('edit', supplier.SupplierID));
+                    row.querySelector('.delete-supplier-btn').addEventListener('click', (e) => confirmDeleteSupplier(e.currentTarget.dataset.id, e.currentTarget.dataset.name));
+                });
+            }
+            if(supplierFormEl_Modal) supplierFormEl_Modal.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                supplierFormModalLoadingIndicator.classList.remove('hidden');
+                saveSupplierModalBtn.disabled = true; cancelSupplierEditModalBtn.disabled = true;
+                const name = supplierNameInputModal.value.trim();
+                const editId = supplierEditIdModalInput.value;
+                if (!name) { showToast('Supplier name empty.', true); supplierFormModalLoadingIndicator.classList.add('hidden'); saveSupplierModalBtn.disabled = false; cancelSupplierEditModalBtn.disabled = false; return; }
+                if (isDupSupName(name, editId)) { showToast('Supplier name exists.', true); supplierFormModalLoadingIndicator.classList.add('hidden'); saveSupplierModalBtn.disabled = false; cancelSupplierEditModalBtn.disabled = false; return; }
+                const payload = { SupplierName: name };
+                currentEditSupplierId = editId;
+                if (currentEditSupplierId) {
+                    const idx = suppliers.findIndex(s => String(s.SupplierID) === String(currentEditSupplierId));
+                    if (idx > -1) { suppliers[idx] = { ...suppliers[idx], ...payload }; setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers); showToast('Supplier updated.',0); addToSyncQ({ type: 'updateSupplier', apiEndpoint: SUPPLIERS_API_ENDPOINT, method: 'POST', payload: { action: "updateSupplier", data: { ...payload, SupplierID: currentEditSupplierId }}}); }
+                } else {
+                    const tempId = genId(); suppliers.push({ ...payload, SupplierID: tempId }); setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers); showToast('Supplier added.',0); addToSyncQ({ type: 'createSupplier', apiEndpoint: SUPPLIERS_API_ENDPOINT, method: 'POST', payload: { action: "createSupplier", data: payload }, tempId: tempId });
+                }
+                renderSupplierList(); closeFormModal(); populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown();
+                supplierFormModalLoadingIndicator.classList.add('hidden'); saveSupplierModalBtn.disabled = false; cancelSupplierEditModalBtn.disabled = false;
+            });
+
+            function resetSupplierFormModal() {
+                if(supplierFormEl_Modal) supplierFormEl_Modal.reset();
+                if(supplierEditIdModalInput) supplierEditIdModalInput.value = '';
+                currentEditSupplierId = null;
+                if(saveSupplierModalBtn) saveSupplierModalBtn.textContent = 'Add Supplier';
+                if(supplierFormModalTitle) supplierFormModalTitle.textContent = 'Add New Supplier';
+            }
+
+            async function confirmDeleteSupplier(id, name) {
+                const itemsUsed = inventory.filter(i => String(i.SupplierID) === String(id)); let msg = `Delete "${name}"?`; if (itemsUsed.length > 0) msg += ` ${itemsUsed.length} item(s) will be unassigned.`;
+                showConfirm(msg, async () => {
+                    const idx = suppliers.findIndex(s => String(s.SupplierID) === String(id)); if (idx > -1) suppliers.splice(idx, 1);
+                    itemsUsed.forEach(item => { const iIdx = inventory.findIndex(i => String(i.ItemID) === String(item.ItemID)); if (iIdx > -1) inventory[iIdx].SupplierID = ""; });
+                    setLocalStorage(LOCAL_STORAGE_SUPPLIERS_KEY, suppliers); setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory); showToast(`"${name}" deleted. Items unassigned.`,0);
+                    renderSupplierList();
+                    if (inventoryAppDiv && !inventoryAppDiv.classList.contains('hidden')) renderInventoryTable();
+                    populateSupplierDropdownForItemForm(); updateSupplierFilterDropdown();
+                    addToSyncQ({ type: 'deleteSupplier', apiEndpoint: SUPPLIERS_API_ENDPOINT, method: 'POST', payload: { action: "deleteSupplier", data: { SupplierID: id } } });
+                });
+            }
+
+            // --- User Management Modal Logic ---
+            function openUserFormModal(mode = 'add', userIdToEdit = null) {
+                currentEditUserId = userIdToEdit;
+                resetUserFormModal();
+                if (mode === 'add') {
+                    userFormModalTitle.textContent = 'Add New User';
+                    saveUserModalBtn.textContent = 'Save User';
+                    passwordInputUserFormModal.placeholder = "Enter password (required)";
+                    confirmPasswordInputUserFormModal.placeholder = "Confirm password";
+                } else if (mode === 'edit' && userIdToEdit) {
+                    const user = allUsersData.find(u => String(u.UserID) === String(userIdToEdit));
+                    if (user) {
+                        userFormModalTitle.textContent = 'Edit User';
+                        saveUserModalBtn.textContent = 'Update User';
+                        firstNameInputUserFormModal.value = user.FirstName || '';
+                        lastNameInputUserFormModal.value = user.LastName || '';
+                        emailIdInputUserFormModal.value = user.LoginID || '';
+                        contactNoInputUserFormModal.value = user.ContactNo || '';
+                        roleInputUserFormModal.value = user.Role || 'User';
+                        passwordInputUserFormModal.placeholder = "New password (optional)";
+                        confirmPasswordInputUserFormModal.placeholder = "Confirm new password";
+                        userEditIdInputModal.value = user.UserID;
+                    } else {
+                        showToast('User not found for editing.', true); return;
+                    }
+                }
+                userFormModal.classList.remove('hidden');
+                firstNameInputUserFormModal.focus();
+            }
+
+            function closeUserFormModal() {
+                userFormModal.classList.add('hidden');
+                resetUserFormModal();
+            }
+            if(closeUserFormModalBtn) closeUserFormModalBtn.addEventListener('click', closeUserFormModal);
+            if(cancelUserEditModalBtn) cancelUserEditModalBtn.addEventListener('click', closeUserFormModal);
+
+            function renderUserList() {
+                if (!userListBody) return;
+                userListBody.innerHTML = '';
+                userListLoadingIndicator.classList.remove('hidden');
+                if (allUsersData.length === 0) {
+                    userListBody.innerHTML = '<tr><td colspan="7" class="py-3 text-center text-gray-500">No users. Click "Add User".</td></tr>';
+                    userListLoadingIndicator.classList.add('hidden');
+                    return;
+                }
+                const sortedUsers = [...allUsersData].sort((a, b) => (a.FullName || a.LoginID || "").localeCompare(b.FullName || b.LoginID || ""));
+                sortedUsers.forEach(user => {
+                    const row = userListBody.insertRow(); row.className = "hover:bg-gray-50";
+                    const lastLoginDisplay = formatLastLoginTime(user.LastLoginDate);
+                    const displayPasswordPlaceholder = '********';
+
+                    row.innerHTML = `<td class="py-2 px-3 text-sm text-gray-700">${user.FullName || (user.FirstName && user.LastName ? `${user.FirstName} ${user.LastName}`: 'N/A')}</td><td class="py-2 px-3 text-sm text-gray-700">${user.LoginID || 'N/A'}</td><td class="py-2 px-3 text-sm text-gray-700">${user.ContactNo || 'N/A'}</td><td class="py-2 px-3 text-sm text-gray-700">${user.Role || 'User'}</td><td class="py-2 px-3 text-sm text-gray-500">${displayPasswordPlaceholder}</td><td class="py-2 px-3 text-sm text-gray-500">${lastLoginDisplay}</td><td class="py-2 px-3 text-sm text-center space-x-2"><button data-id="${user.UserID}" class="edit-user-btn text-blue-500 hover:text-blue-700"><i class="ph ph-pencil-simple"></i> Edit</button><button data-id="${user.UserID}" data-loginid="${user.LoginID}" class="delete-user-btn text-red-500 hover:text-red-700 ${loggedInUser && String(loggedInUser.UserID) === String(user.UserID) ? 'opacity-50 cursor-not-allowed' : ''}" ${loggedInUser && String(loggedInUser.UserID) === String(user.UserID) ? 'disabled' : ''}><i class="ph ph-trash"></i> Delete</button></td>`;
+                    row.querySelector('.edit-user-btn').addEventListener('click', () => openUserFormModal('edit', user.UserID));
+                    const deleteBtn = row.querySelector('.delete-user-btn');
+                    if (deleteBtn && !deleteBtn.disabled) {
+                        deleteBtn.addEventListener('click', (e) => confirmDeleteUser(e.currentTarget.dataset.id, e.currentTarget.dataset.loginid));
+                    }
+                });
+                userListLoadingIndicator.classList.add('hidden');
+            }
+
+            if (userFormEl_Modal) {
+                userFormEl_Modal.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    userFormModalLoadingIndicator.classList.remove('hidden');
+                    saveUserModalBtn.disabled = true; cancelUserEditModalBtn.disabled = true;
+                    const firstName = firstNameInputUserFormModal.value.trim();
+                    const lastName = lastNameInputUserFormModal.value.trim();
+                    const emailId = emailIdInputUserFormModal.value.trim();
+                    const contactNo = contactNoInputUserFormModal.value.trim();
+                    const password = passwordInputUserFormModal.value;
+                    const confirmPassword = confirmPasswordInputUserFormModal.value;
+                    const role = roleInputUserFormModal.value;
+                    const editId = userEditIdInputModal.value;
+                    currentEditUserId = editId;
+
+                    if (!firstName || !lastName || !emailId || !contactNo || !role) {
+                        showToast('All fields except password (for edit) are required.', true);
+                        userFormModalLoadingIndicator.classList.add('hidden'); saveUserModalBtn.disabled = false; cancelUserEditModalBtn.disabled = false; return;
+                    }
+                    if (allUsersData.some(u => u.LoginID.toLowerCase() === emailId.toLowerCase() && String(u.UserID) !== String(currentEditUserId))) {
+                        showToast('This Email ID (Login ID) is already in use.', true);
+                        userFormModalLoadingIndicator.classList.add('hidden'); saveUserModalBtn.disabled = false; cancelUserEditModalBtn.disabled = false; return;
+                    }
+
+                    let actionType = currentEditUserId ? "updateUser" : "createUser";
+
+                    if (password || actionType === "createUser") {
+                        if (password !== confirmPassword) {
+                            showToast('Passwords do not match.', true);
+                            userFormModalLoadingIndicator.classList.add('hidden'); saveUserModalBtn.disabled = false; cancelUserEditModalBtn.disabled = false; return;
+                        }
+                        if (password.length < 6) {
+                            showToast('Password must be at least 6 characters long.', true);
+                            userFormModalLoadingIndicator.classList.add('hidden'); saveUserModalBtn.disabled = false; cancelUserEditModalBtn.disabled = false; return;
+                        }
+                    }
+                     if (actionType === "createUser" && !password) {
+                        showToast('Password is required for new users.', true);
+                        userFormModalLoadingIndicator.classList.add('hidden'); saveUserModalBtn.disabled = false; cancelUserEditModalBtn.disabled = false; return;
+                    }
+
+                    let payloadData = { FirstName: firstName, LastName: lastName, FullName: `${firstName} ${lastName}`, LoginID: emailId, ContactNo: contactNo, Role: role };
+                    if (password) payloadData.Password = password;
+
+                    if (currentEditUserId) {
+                        payloadData.UserID = currentEditUserId;
+                        const userIndex = allUsersData.findIndex(u => String(u.UserID) === String(currentEditUserId));
+                        if (userIndex > -1) { allUsersData[userIndex] = { ...allUsersData[userIndex], ...payloadData, PasswordHash: password ? password : allUsersData[userIndex].PasswordHash }; }
+                    } else {
+                        const tempUserId = genId();
+                        payloadData.UserID = tempUserId;
+                        const newUserOptimistic = { UserID: tempUserId, ...payloadData, LastLoginDate: null, PasswordHash: password };
+                        allUsersData.push(newUserOptimistic);
+                    }
+
+                    setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData);
+                    renderUserList();
+
+                    addToSyncQ({ type: actionType, apiEndpoint: USERS_API_ENDPOINT, method: 'POST', payload: { action: actionType, data: payloadData }, tempId: actionType === "createUser" ? payloadData.UserID : null });
+
+                    showToast(`User ${currentEditUserId ? 'updated' : 'added'} locally. Syncing...`, false);
+                    closeUserFormModal();
+                    userFormModalLoadingIndicator.classList.add('hidden'); saveUserModalBtn.disabled = false; cancelUserEditModalBtn.disabled = false;
+                });
+            }
+
+            function resetUserFormModal() {
+                if(userFormEl_Modal) userFormEl_Modal.reset();
+                userFormModalTitle.textContent = 'Add New User';
+                saveUserModalBtn.textContent = 'Save User';
+                passwordInputUserFormModal.placeholder = "Enter password (required for new user)";
+                confirmPasswordInputUserFormModal.placeholder = "Confirm password";
+                roleInputUserFormModal.value = 'User';
+                userEditIdInputModal.value = '';
+                currentEditUserId = null;
+            }
+
+            async function confirmDeleteUser(userId, loginId) {
+                if (loggedInUser && String(loggedInUser.UserID) === String(userId)) {
+                    showToast("You cannot delete your own account.", true); return;
+                }
+                showConfirm(`Delete user "${loginId || 'N/A'}"? This is irreversible.`, async () => {
+                    const userIndex = allUsersData.findIndex(u => String(u.UserID) === String(userId));
+                    if (userIndex > -1) {
+                        allUsersData.splice(userIndex, 1);
+                        setLocalStorage(LOCAL_STORAGE_ALL_USERS_KEY, allUsersData);
+                        renderUserList();
+                        showToast(`User "${loginId}" deleted locally. Syncing...`, false);
+                    } else {
+                         showToast(`User "${loginId}" not found locally for deletion.`, true);
+                    }
+                    addToSyncQ({ type: 'deleteUser', apiEndpoint: USERS_API_ENDPOINT, method: 'POST', payload: { action: "deleteUser", data: { UserID: userId } } });
+                });
+            }
+
+            // --- Charts & Dashboard ---
+            function renderRecentActivityFeed() {
+                if (!recentActivityFeed) return;
+                recentActivityFeed.innerHTML = '';
+
+                // Create a Set of existing item IDs for quick lookup
+                const existingItemIds = new Set(inventory.map(i => String(i.ItemID)));
+
+                const sortedTransactions = [...transactions]
+                    .sort((a, b) => new Date(b.date || b.TransactionDate) - new Date(a.date || a.TransactionDate));
+                
+                // Filter transactions to only include those with existing items
+                const visibleTransactions = sortedTransactions.filter(t => existingItemIds.has(String(t.itemId || t.ItemID)));
+
+                const recent = visibleTransactions.slice(0, DASHBOARD_FEED_LIMIT);
+
+                if (recent.length === 0) {
+                    recentActivityFeed.innerHTML = '<p class="text-gray-500">No recent activity for existing items.</p>';
+                    return;
+                }
+
+                recent.forEach(t => {
+                    // We already know the item exists from the filter above, so we can be more confident here.
+                    const item = inventory.find(i => String(i.ItemID) === String(t.itemId || t.ItemID));
+                    const activityUserName = getUserNameById(t.transactionUserID);
+                    const typeClass = (t.type === 'inward' || t.TransactionType === 'inward') ? 'text-green-600' : 'text-amber-600';
+                    const typeIcon = (t.type === 'inward' || t.TransactionType === 'inward') ? '<i class="ph ph-arrow-down text-green-500 mr-1"></i>' : '<i class="ph ph-arrow-up text-amber-500 mr-1"></i>';
+                    const quantityDisplay = t.quantity || t.Quantity || 0;
+                    const dateDisplay = t.date || t.TransactionDate;
+
+                    const div = document.createElement('div');
+                    div.className = 'dashboard-feed-item';
+                    // The item name should always be found now, but we keep the fallback just in case of data inconsistencies.
+                    div.innerHTML = `<div class="flex justify-between items-center"><span class="font-medium">${item ? item.ItemName : (t.itemName || 'Unknown Item')}</span><span class="${typeClass} font-semibold">${typeIcon} ${quantityDisplay} units</span></div><div class="text-xs text-gray-500"><span>By: ${activityUserName}</span> | <span>${formatLastLoginTime(dateDisplay)}</span></div>`;
+                    recentActivityFeed.appendChild(div);
+                });
+            }
+
+
+            function renderTotalStockValue() {
+                if (!totalStockValueDisplay) return;
+                const totalValue = inventory.reduce((sum, item) => sum + ((Number(item.StockQuantity) || 0) * (Number(item.Price) || 0)), 0);
+                totalStockValueDisplay.textContent = `₹${totalValue.toFixed(2)}`;
+            }
+
+            function renderImportantAnnouncements() {
+                if (!importantAnnouncementList) return;
+                importantAnnouncementList.innerHTML = '';
+                const lowStockItems = inventory.filter(item => Number(item.StockQuantity) < Number(item.ReorderLevel));
+
+                if (lowStockItems.length === 0) {
+                    importantAnnouncementList.innerHTML = '<p class="text-gray-500">All stock levels are normal.</p>';
+                    return;
+                }
+                lowStockItems.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'p-2 rounded-md bg-amber-100 border border-amber-200';
+                    div.innerHTML = `<p class="font-semibold text-amber-800">${item.ItemName}</p><p class="text-xs text-amber-700">Current stock: ${item.StockQuantity}. Reorder level is ${item.ReorderLevel}.</p>`;
+                    importantAnnouncementList.appendChild(div);
+                });
+            }
+
+            function renderTopMovers() {
+                if (!topInwardItemsList || !topOutwardItemsList) return;
+                topInwardItemsList.innerHTML = ''; 
+                topOutwardItemsList.innerHTML = '';
+                
+                // Create a Set of existing item IDs for quick lookup.
+                const existingItemIds = new Set(inventory.map(i => String(i.ItemID)));
+
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+                // Filter recent transactions for only those items that still exist.
+                const recentTransactions = transactions.filter(t => 
+                    new Date(t.date || t.TransactionDate) >= thirtyDaysAgo && 
+                    existingItemIds.has(String(t.itemId || t.ItemID))
+                );
+
+                const itemMovements = {};
+                recentTransactions.forEach(t => {
+                    const itemId = String(t.itemId || t.ItemID);
+                    // The item is guaranteed to exist due to the filter above, but we find it again to get the name.
+                    const itemInfo = inventory.find(i => String(i.ItemID) === itemId);
+                    
+                    if (!itemMovements[itemId]) {
+                        // We use the confirmed item name. The fallback is less likely to be needed.
+                        itemMovements[itemId] = { inward: 0, outward: 0, name: itemInfo ? itemInfo.ItemName : (t.itemName || 'Unknown Item') };
+                    }
+
+                    const transactionType = t.type || t.TransactionType;
+                    const quantity = Number(t.quantity || t.Quantity) || 0;
+                    if (transactionType === 'inward') {
+                        itemMovements[itemId].inward += quantity;
+                    } else if (transactionType === 'outward') {
+                        itemMovements[itemId].outward += quantity;
+                    }
+                });
+
+                const allMovers = Object.values(itemMovements);
+                const topInward = [...allMovers].sort((a, b) => b.inward - a.inward).slice(0, DASHBOARD_FEED_LIMIT);
+                const topOutward = [...allMovers].sort((a, b) => b.outward - a.outward).slice(0, DASHBOARD_FEED_LIMIT);
+
+                topInwardItemsList.innerHTML = topInward.length === 0 || topInward.every(i => i.inward === 0) 
+                    ? '<li class="text-gray-500">No inward movement for existing items.</li>' 
+                    : topInward.filter(i => i.inward > 0).map(i => `<li>${i.name}: ${i.inward} units</li>`).join('');
+                    
+                topOutwardItemsList.innerHTML = topOutward.length === 0 || topOutward.every(i => i.outward === 0) 
+                    ? '<li class="text-gray-500">No outward movement for existing items.</li>' 
+                    : topOutward.filter(i => i.outward > 0).map(i => `<li>${i.name}: ${i.outward} units</li>`).join('');
+            }
+
+            function renderStockChart(){const d=document.getElementById('stockChartDiv');if(!d||overviewPageDiv.classList.contains('hidden'))return;const i=inventory.filter(it=>(Number(it.StockQuantity)||0)>0).sort((a,b)=>(Number(b.StockQuantity)||0)-(Number(a.StockQuantity)||0)).slice(0,10),tC='#374151',bC='#3b82f6',vC='#2563eb';if(i.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Top Stock</h3><div class="py-8 text-center text-gray-400">No stock.</div>`;return;}const mS=Math.max(...i.map(it=>(Number(it.StockQuantity)||0)),0),bH=20,cH=i.length*(bH+10)+30,lW=150,bAW=d.offsetWidth>450?d.offsetWidth-lW-70:230,vO=5;let h=`<h3 class="mb-4 text-center text-lg font-semibold" style="color:${tC};">Top Stocked</h3><svg width="100%" height="${cH}" viewBox="0 0 ${lW+bAW+50} ${cH}" class="font-sans">`;i.forEach((it,idx)=>{const y=idx*(bH+10)+15,s=Number(it.StockQuantity)||0,bW=mS>0?(s/mS)*bAW:0,nD=it.ItemName.length>20?it.ItemName.slice(0,18)+'...':it.ItemName;h+=`<text x="0" y="${y+bH/2+4}" font-size="12" fill="${tC}">${nD}</text><rect x="${lW}" y="${y}" width="${bW}" height="${bH}" fill="${bC}" rx="3" class="chart-bar" data-name="${it.ItemName}" data-stock="${s}"/><text x="${lW+bW+vO}" y="${y+bH/2+4}" font-size="12" fill="${vC}" font-weight="500">${s}</text>`;});h+='</svg>';d.innerHTML=h;d.querySelectorAll('.chart-bar').forEach(b=>{b.addEventListener('mouseenter',(e)=>showToast(`${e.target.dataset.name}:${e.target.dataset.stock} units`));});}
+            function renderPieChart(){const d=document.getElementById('pieChartDiv');if(!d||overviewPageDiv.classList.contains('hidden'))return;const tC='#1f2937',lTC='#4b5563',clrs=['#4f46e5','#10b981','#f59e0b','#3b82f6','#a855f7','#06b6d4','#64748b'];if(inventory.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="py-8 text-center text-gray-400">No data.</div>`;return;}const sS={};inventory.forEach(i=>{const s=suppliers.find(sp=>String(sp.SupplierID)===String(i.SupplierID)),sN=s?s.SupplierName:(i.SupplierID&&i.SupplierID!==""?'Unk':'Unassigned');sS[sN]=(sS[sN]||0)+(Number(i.StockQuantity)||0);});const srtdS=Object.entries(sS).filter(([,stk])=>stk>0).sort(([,a],[,b])=>b-a);if(srtdS.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="py-8 text-center text-gray-400">No stock.</div>`;return;}const tN=5,cD=srtdS.slice(0,tN),oS=srtdS.slice(tN).reduce((sum,[,stk])=>sum+stk,0);if(oS>0)cD.push(['Other',oS]);const totS=cD.reduce((sum,[,stk])=>sum+stk,0);if(totS===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="py-8 text-center text-gray-400">No stock.</div>`;return;}let acA=-90;const r=80,cX=100,cY=100;const pths=cD.map(([n,s],idx)=>{const prc=s/totS,ang=prc*360,x1=cX+r*Math.cos(Math.PI/180*acA),y1=cY+r*Math.sin(Math.PI/180*acA);acA+=ang;const x2=cX+r*Math.cos(Math.PI/180*acA),y2=cY+r*Math.sin(Math.PI/180*acA),lAF=ang>180?1:0;if(ang<0.1)return'';return`<path d="M${cX},${cY} L${x1},${y1} A${r},${r} 0 ${lAF},1 ${x2},${y2} Z" fill="${clrs[idx%clrs.length]}" class="chart-slice" data-name="${n}" data-stock="${s}" data-percent="${(prc*100).toFixed(1)}%"/>`;}).join('');const leg=cD.map(([n,s],idx)=>`<div class="mb-1.5 flex items-center gap-2 text-xs"><span style="background-color:${clrs[idx%clrs.length]};width:12px;height:12px;border-radius:3px;display:inline-block;"></span><span style="color:${lTC};">${n}:${s}(${(s/totS*100).toFixed(1)}%)</span></div>`).join('');d.innerHTML=`<h3 class="mb-4 text-center text-lg font-semibold" style="color:${tC};">Stock by Supplier</h3><div class="flex flex-col items-center justify-center gap-x-8 gap-y-4 p-2 md:flex-row"><svg width="200" height="200" viewBox="0 0 200 200" class="font-sans flex-shrink-0">${pths}</svg><div class="text-sm">${leg}</div></div>`;d.querySelectorAll('.chart-slice').forEach(s=>{s.addEventListener('mouseenter',(e)=>showToast(`${e.target.dataset.name}:${e.target.dataset.stock} units(${e.target.dataset.percent})`));});}
+            
+            function setupOverviewDashboard(){const crds=[{el:overviewPageDiv.querySelector('.overview-card-new:nth-child(1)'),filt:'all',tst:'All items'},{el:overviewPageDiv.querySelector('.overview-card-new:nth-child(2)'),filt:'lowStock',tst:'Low stock items'},{el:overviewPageDiv.querySelector('.overview-card-new:nth-child(3)'),filt:'totalQuantity',tst:'Sorted by stock'}];crds.forEach(cI=>{if(cI.el&&!cI.el.classList.contains('db-bound')){cI.el.classList.add('cursor-pointer','db-bound');cI.el.addEventListener('click',()=>{showPage(inventoryAppDiv,sidebarNavInventory);searchQuery='';filterSupplier='';if(document.getElementById('searchInput'))document.getElementById('searchInput').value='';if(document.getElementById('supplierFilter'))document.getElementById('supplierFilter').value='';if(cI.filt==='all'){filterLowStock=false;if(document.getElementById('lowStockFilter'))document.getElementById('lowStockFilter').checked=false;sortKey='ItemName';sortDir=1;}else if(cI.filt==='lowStock'){filterLowStock=true;if(document.getElementById('lowStockFilter'))document.getElementById('lowStockFilter').checked=true;sortKey='ItemName';sortDir=1;}else if(cI.filt==='totalQuantity'){filterLowStock=false;if(document.getElementById('lowStockFilter'))document.getElementById('lowStockFilter').checked=false;sortKey='StockQuantity';sortDir=-1;}page=1;renderInventoryTable();showToast(cI.tst);});}});}
+
+            function renderInteractiveDashboard(){
+                updateOverviewStats();
+                setupOverviewDashboard();
+                renderStockChart();
+                renderPieChart();
+                renderRecentActivityFeed();
+                renderTotalStockValue();
+                renderImportantAnnouncements();
+                renderTopMovers();
+            }
+
+            // --- Auto Sync Logic ---
+            async function backgroundAutoSync() {
+                if (!navigator.onLine || (isSyncing && syncQueue.length > 0)) return;
+                console.log("Auto-sync: Starting...");
+                if (syncQueue.length > 0) await processSyncQ(true); 
+                await fetchAllDataFromAPIsAndStore(true, true);
+                if (loggedInUser) refreshCurrentPageUI();
+                updateSyncIndicator(); 
+            }
+
+            function startAutoSync() {
+                if (autoSyncIntervalId) clearInterval(autoSyncIntervalId);
+                if (loggedInUser && navigator.onLine) autoSyncIntervalId = setInterval(backgroundAutoSync, AUTO_SYNC_INTERVAL);
+            }
+
+            function stopAutoSync() {
+                if (autoSyncIntervalId) { clearInterval(autoSyncIntervalId); autoSyncIntervalId = null; }
+            }
+
+            // --- App Initialization ---
+            async function initializeApp() {
+                loadDataFromLocalStorage();
+                initializeInventoryControls();
+                if (loggedInUser) {
+                    showToast("Welcome back!", 0);
+                    await fetchStoreUsers(true); 
+                    await fetchAllDataFromAPIsAndStore(true, false);
+                    updateSidebarForRole();
+                    showPage(overviewPageDiv, sidebarNavDashboard);
+                    startAutoSync(); 
+                } else {
+                    updateSidebarForRole();
+                    showPage(landingPageDiv);
+                    stopAutoSync(); 
+                }
+                processSyncQ(false); 
+                updateSyncIndicator();
+                
+                window.addEventListener('online', () => { showToast("Online. Syncing...",0); fetchStoreUsers(true); processSyncQ(true); if(loggedInUser) startAutoSync(); });
+                window.addEventListener('offline', () => { showToast("Offline. Changes saved locally.",1,5000); stopAutoSync(); });
+            }
+
+            initializeApp();
+        });
+    </script>
+</body>
+</html>
