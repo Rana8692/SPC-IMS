@@ -8,15 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/phosphor-icons/1.4.2/css/phosphor.min.css" rel="stylesheet">
     <style>
+        /* Base Styles */
         body {
             font-family: 'Inter', sans-serif;
             color: #1f2937; /* text-gray-800 */
         }
+
+        /* Table Header Styles */
         .table-header th {
             background-color: #f9fafb; /* bg-gray-50 */
             color: #6b7280; /* text-gray-500 */
             border-bottom: 2px solid #e5e7eb; /* border-gray-200 */
         }
+
+        /* Button Base Styles */
         .btn {
             padding: 0.75rem 1.5rem;
             border-radius: 0.375rem;
@@ -32,8 +37,68 @@
         .btn svg { margin-right: 0.5rem; }
         .btn:active { transform: translateY(1px); }
 
-        .btn-primary { background-color: #4f46e5; color: white; }
-        .btn-primary:hover { background-color: #4338ca; box-shadow: 0 4px 14px 0 rgba(79,70,229,0.39); }
+        /* --- THEME COLOR UPDATES START --- */
+
+        /* Primary Button with new theme color */
+        .btn-primary { background-color: #2d3e50; color: white; }
+        .btn-primary:hover { background-color: #212f3c; box-shadow: 0 4px 14px 0 rgba(45, 62, 80, 0.39); }
+        
+        /* Sidebar Styles with new theme color */
+        #sidebar { background-color: #2d3e50; }
+        #sidebar .border-b { border-color: #34495e; }
+        #sidebar .border-t { border-color: #34495e; }
+        .sidebar-nav-item.active { background-color: #34495e; color: white; font-weight: 600; }
+        .sidebar-nav-item.active i { color: white; }
+        .sidebar-nav-item i { color: #95a5a6; }
+        .sidebar-nav-item:hover { background-color: #34495e; }
+        .sidebar-nav-item:hover i { color: white; }
+        #sidebarLogoLink i { color: #95a5a6; }
+
+        /* Header Styles with new theme color */
+        #headerPageTitle { color: #2d3e50; }
+
+        /* Modal & Form Styles with new theme color */
+        .login-modal h2, .supplier-form-modal h2, .user-form-modal h2 { color: #2d3e50; }
+
+        /* Input Field Focus State with new theme color */
+        .input-field:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            border-color: #2d3e50;
+            box-shadow: 0 0 0 3px rgba(45, 62, 80, 0.5);
+        }
+
+        /* Loader Animation with new theme color */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #2d3e50;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        .small-loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2d3e50;
+            width: 20px;
+            height: 20px;
+        }
+        
+        /* Landing Page Gradient and Button with new theme */
+        .landing-page {
+            /* Updated with animated gradient */
+            background: linear-gradient(135deg, #7f8c8d 0%, #34495e 50%, #2d3e50 100%);
+            background-size: 200% 200%;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            animation: animated-gradient 15s ease infinite;
+        }
+        #enterAppBtn { color: #2d3e50; }
+
+        /* --- THEME COLOR UPDATES END --- */
+
+        /* Other Button Styles */
         .btn-secondary { background-color: #e5e7eb; color: #374151; }
         .btn-secondary:hover { background-color: #d1d5db; }
         .btn-success { background-color: #10b981; color: white; }
@@ -48,6 +113,7 @@
         .btn-xs { padding: 0.25rem 0.5rem; font-size: 0.75rem; }
         .btn-xs svg { margin-right: 0.25rem; }
 
+        /* Section & Card Styles */
         .dashboard-section, .inventory-section-bg, .overview-card-new, .chart-container, .suppliers-section-bg, .users-section-bg {
             background-color: white;
             border: 1px solid #e2e8f0;
@@ -60,79 +126,90 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
 
-        /* Hide scrollbars for WebKit browsers */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-        /* For Firefox */
-        html {
-            scrollbar-width: none;
-        }
-        /* For IE and Edge */
-        body {
-            -ms-overflow-style: none;
-        }
+        /* Scrollbar Hiding */
+        ::-webkit-scrollbar { display: none; }
+        html { scrollbar-width: none; }
+        body { -ms-overflow-style: none; }
 
+        /* Modal Styles */
         .modal-backdrop { background-color: rgba(0,0,0,0.5); }
-        .landing-page {
-            background: linear-gradient(135deg, #67e8f9 0%, #0ea5e9 100%);
-            color: white;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .overview-card-new .stat-value { font-size: 2.5rem; line-height: 2.75rem; font-weight: 700; }
-        .overview-card-new .stat-label { font-size: 0.9rem; color: #475569; margin-top: 0.25rem; }
-        .overview-card-new .stat-icon { font-size: 3rem; margin-bottom: 0.75rem; opacity: 0.8; }
-
         .form-modal, .login-modal, .user-form-modal, .supplier-form-modal {
             background-color: white;
             border-radius: 0.5rem;
             box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
             max-height: 90vh;
-            overflow-y: auto; /* Keep auto for content scroll within modal, but browser scrollbar is hidden */
+            overflow-y: auto;
         }
 
+        /* Overview Card Stats */
+        .overview-card-new .stat-value { font-size: 2.5rem; line-height: 2.75rem; font-weight: 700; }
+        .overview-card-new .stat-label { font-size: 0.9rem; color: #475569; margin-top: 0.25rem; }
+        .overview-card-new .stat-icon { font-size: 3rem; margin-bottom: 0.75rem; opacity: 0.8; }
+
+        /* Table Styles */
         .supplier-table th, .supplier-table td, .user-table th, .user-table td { padding: 0.5rem 0.75rem; text-align: left; }
 
-        .loader {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #4f46e5;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        .small-loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #4f46e5;
-            width: 20px;
-            height: 20px;
-        }
-
+        /* Animation */
         @keyframes spin {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        @keyframes animated-gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Animation for Hero Text */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in-down {
+            animation: fadeInDown 1s ease-out forwards;
+        }
+        .animate-fade-in-up {
+            animation: fadeInUp 1s ease-out 0.5s forwards;
+            opacity: 0; /* Start hidden for animation */
+        }
+
+        /* Feature Card Styles */
+        .feature-card {
+            background-color: rgba(255, 255, 255, 0.05); /* Semi-transparent white */
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 2rem; /* p-8 */
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sync Indicator */
         #syncStatusIndicator {
             transition: opacity 0.3s ease-in-out, background-color 0.3s ease-in-out;
         }
         .sync-success { background-color: #10b981; color: white; }
         .sync-pending { background-color: #f59e0b; color: white; }
         .sync-error   { background-color: #ef4444; color: white; }
-
-        .sidebar-nav-item.active {
-            background-color: #3730a3;
-            color: white;
-            font-weight: 600;
+        
+        /* Layout */
+        #landingPage { 
+            height: 100vh; /* Changed from min-height to height */
+            overflow: hidden; /* Prevent scrolling within the landing page */
         }
-        .sidebar-nav-item.active i { color: white; }
-        .sidebar-nav-item i { color: #a5b4fc; }
-        .sidebar-nav-item:hover i { color: white; }
-
-        #landingPage { min-height: calc(100vh - 4rem); }
         .page-container { flex-grow: 1; }
         .content-wrapper { flex-grow: 1; }
+        
+        /* Input Field Base */
         .input-field {
             width: 100%;
             padding: 0.5rem 0.75rem;
@@ -140,12 +217,8 @@
             border-radius: 0.375rem;
             box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
         }
-        .input-field:focus {
-            outline: 2px solid transparent;
-            outline-offset: 2px;
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.5);
-        }
+        
+        /* Dashboard Feed */
         .dashboard-feed-item {
             border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
             padding-bottom: 0.5rem; /* pb-2 */
@@ -155,33 +228,35 @@
             border-bottom: none;
             margin-bottom: 0;
         }
-
     </style>
 </head>
 <body class="bg-gray-100">
 
-    <nav id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col overflow-y-auto bg-indigo-700 text-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 hidden">
-        <div class="p-4 border-b border-indigo-600">
+    <!-- Sidebar -->
+    <nav id="sidebar" class="fixed inset-y-0 left-0 z-30 flex h-full w-64 flex-col overflow-y-auto text-white shadow-lg transition-transform duration-300 ease-in-out lg:translate-x-0 hidden">
+        <div class="p-4 border-b">
             <a href="#" id="sidebarLogoLink" class="flex items-center text-2xl font-semibold">
-                <i class="ph ph-scroll text-3xl mr-2 text-indigo-300"></i> Subh Paper Co.
+                <i class="ph ph-scroll text-3xl mr-2"></i> Subh Paper Co.
             </a>
         </div>
         <ul class="mt-4 flex-grow space-y-1 px-2">
-            <li><a href="#" id="sidebarNavDashboard" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-gauge mr-3 text-lg"></i>Dashboard</a></li>
-            <li><a href="#" id="sidebarNavInventory" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-list-bullets mr-3 text-lg"></i>Inventory</a></li>
-            <li><a href="#" id="sidebarNavSuppliers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-users-three mr-3 text-lg"></i>Suppliers</a></li>
-            <li><a href="#" id="sidebarNavTransactions" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-arrow-left-right mr-3 text-lg"></i>Transactions</a></li>
-            <li id="sidebarNavUsersListItem" class="hidden"><a href="#" id="sidebarNavUsers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium hover:bg-indigo-600"><i class="ph ph-users-four mr-3 text-lg"></i>Manage Users</a></li>
+            <li><a href="#" id="sidebarNavDashboard" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-gauge mr-3 text-lg"></i>Dashboard</a></li>
+            <li><a href="#" id="sidebarNavInventory" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-list-bullets mr-3 text-lg"></i>Inventory</a></li>
+            <li><a href="#" id="sidebarNavSuppliers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-users-three mr-3 text-lg"></i>Suppliers</a></li>
+            <li><a href="#" id="sidebarNavTransactions" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-arrow-left-right mr-3 text-lg"></i>Transactions</a></li>
+            <li id="sidebarNavUsersListItem" class="hidden"><a href="#" id="sidebarNavUsers" class="sidebar-nav-item group flex items-center rounded-md px-3 py-2.5 text-sm font-medium"><i class="ph ph-users-four mr-3 text-lg"></i>Manage Users</a></li>
         </ul>
-        <div class="p-4 mt-auto border-t border-indigo-600">
+        <div class="p-4 mt-auto border-t">
             <button id="sidebarLogoutBtn" class="w-full btn btn-danger btn-sm flex items-center justify-center hidden">
                 <i class="ph ph-sign-out mr-2"></i> Logout
             </button>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <div id="mainContentWrapper" class="flex flex-1 flex-col w-full">
-        <header class="sticky top-0 z-20 h-16 bg-white shadow-md">
+        <!-- Header -->
+        <header id="mainHeader" class="sticky top-0 z-20 h-16 bg-white shadow-md">
             <div class="mx-auto flex h-full items-center justify-between px-4 sm:px-6 lg:px-8">
                 <div class="lg:hidden">
                     <button id="sidebarToggleBtn" aria-label="Open sidebar" class="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -189,7 +264,7 @@
                     </button>
                 </div>
                 <div class="flex flex-grow items-center justify-center lg:justify-start">
-                    <h1 id="headerPageTitle" class="text-xl font-semibold text-indigo-700"></h1>
+                    <h1 id="headerPageTitle" class="text-xl font-semibold"></h1>
                 </div>
                 <div class="flex items-center space-x-3">
                     <div id="headerAddItemBtnContainer" class="hidden">
@@ -208,13 +283,53 @@
             </div>
         </header>
 
-        <main id="pageDisplayArea" class="flex-grow overflow-y-auto bg-gray-100 p-4 md:p-6 lg:p-8">
-            <div id="landingPage" class="flex h-full flex-col items-center justify-center p-8 text-center">
-                <div class="max-w-2xl"><i class="ph-bold ph-scroll mb-6 text-6xl opacity-80 md:text-8xl"></i><h1 class="mb-6 text-4xl font-bold md:text-6xl">Welcome to Subh Paper Company</h1><p class="mb-10 leading-relaxed text-lg md:text-xl">Efficiently manage your paper company's inventory.</p><button id="enterAppBtn" class="transform text-lg font-bold text-sky-600 shadow-lg transition-transform hover:scale-105 hover:bg-sky-50 rounded-lg bg-white py-3 px-8"><i class="ph ph-arrow-circle-right mr-2"></i>Get Started</button><p class="mt-12 text-sm opacity-70">Streamlined stock management.</p></div>
+        <!-- Page Display Area -->
+        <main id="pageDisplayArea" class="flex-grow overflow-y-auto bg-gray-100">
+            <!-- Landing Page -->
+            <div id="landingPage" class="landing-page flex flex-col items-center justify-center text-center">
+                <!-- Hero Section -->
+                <div class="flex-grow flex flex-col items-center justify-center w-full max-w-4xl mx-auto px-4">
+                     <h1 class="animate-fade-in-down mb-4 text-4xl font-bold md:text-6xl">Welcome to Your Command Center.</h1>
+                     <p class="animate-fade-in-up mb-8 text-lg md:text-xl opacity-90">The Subh Paper Co. inventory platform.</p>
+                     <button id="enterAppBtn" class="transform text-lg font-bold shadow-lg transition-transform hover:scale-105 hover:bg-sky-50 rounded-lg bg-white py-3 px-8">
+                        <i class="ph ph-arrow-circle-right mr-2"></i>Get Started
+                     </button>
+                </div>
+    
+                <!-- Feature Cards Section -->
+                <div class="w-full max-w-6xl mx-auto py-12 lg:py-16 px-4 flex-shrink-0">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        <!-- Card 1: Dashboard -->
+                        <div class="feature-card">
+                            <i class="ph ph-gauge text-4xl text-sky-300 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2 text-white">Real-Time Dashboard</h3>
+                            <p class="text-gray-300">Make informed purchasing decisions with a live overview of all stock levels.</p>
+                        </div>
+                        <!-- Card 2: Transactions -->
+                        <div class="feature-card">
+                            <i class="ph ph-arrow-left-right text-4xl text-sky-300 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2 text-white">Effortless Transactions</h3>
+                            <p class="text-gray-300">Reduce errors and save time by logging stock movements instantly from any device.</p>
+                        </div>
+                        <!-- Card 3: Suppliers -->
+                        <div class="feature-card">
+                            <i class="ph ph-users-three text-4xl text-sky-300 mb-4"></i>
+                            <h3 class="text-xl font-semibold mb-2 text-white">Supplier Directory</h3>
+                            <p class="text-gray-300">Keep all your supplier contacts and details organized in one place.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <footer class="w-full py-4 text-center text-xs text-white/50 flex-shrink-0">
+                    © 2025 Subh Paper Co. All Rights Reserved.
+                </footer>
             </div>
 
+            <!-- Overview/Dashboard Page -->
             <div id="overviewPage" class="page-container hidden">
                 <div class="container mx-auto space-y-8">
+                    <!-- Stat Cards -->
                     <section>
                         <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                             <div class="overview-card-new flex flex-col items-center justify-center p-6 text-center">
@@ -240,6 +355,7 @@
                         </div>
                     </section>
 
+                    <!-- Dashboard Sections -->
                     <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="lg:col-span-1 space-y-6">
                             <div id="recentActivitySection" class="dashboard-section p-6 h-full">
@@ -281,6 +397,7 @@
                         </div>
                     </section>
 
+                    <!-- Charts Section -->
                     <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="chart-container p-4">
                             <div id="stockChartDiv"></div>
@@ -289,15 +406,16 @@
                             <div id="pieChartDiv"></div>
                         </div>
                     </section>
-
                 </div>
             </div>
 
+            <!-- Inventory Page -->
             <div id="inventoryApp" class="page-container content-wrapper hidden"><div class="container mx-auto"><div id="inventoryLoadingIndicator" class="my-4 hidden"><div class="loader"></div><p>Loading...</p></div><section id="inventoryTableSection" class="inventory-section-bg"><div class="overflow-x-auto"><table class="min-w-full divide-y divide-gray-200"><thead class="table-header"><tr><th class="px-2 py-3 text-center"><input type="checkbox" id="bulkSelectAll"/></th><th class="px-4 py-3 text-left text-xs" data-key="ItemName">Name</th><th class="px-4 py-3 text-center text-xs" data-key="openingStock">Opening Stock</th><th class="px-4 py-3 text-center text-xs" data-key="openingStockDate">Opening Date</th><th class="px-4 py-3 text-center text-xs" data-key="StockQuantity">Current Stock</th><th class="px-4 py-3 text-center text-xs" data-key="ReorderLevel">Reorder Lvl</th><th class="px-4 py-3 text-right text-xs" data-key="Price">Price</th><th class="px-4 py-3 text-right text-xs">Stock Price</th><th class="px-4 py-3 text-left text-xs" data-key="SupplierID">Supplier</th><th class="px-4 py-3 text-left text-xs" data-key="LastUpdated">Last Updated</th><th class="px-4 py-3 text-center text-xs">Actions</th></tr></thead><tbody id="inventoryTableBody"></tbody></table></div><div id="paginationControls" class="mt-4 flex justify-center"></div></section></div></div>
 
+            <!-- Suppliers Page -->
             <div id="suppliersPage" class="page-container content-wrapper hidden">
                 <div class="container mx-auto">
-                    <section id="supplierListSection" class="suppliers-section-bg">
+                    <section id="supplierListSection" class="suppliers-section-bg p-6">
                         <h3 class="text-xl font-semibold text-gray-700 mb-4">Existing Suppliers</h3>
                         <div id="supplierListLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p>Loading...</p></div>
                         <div id="supplierListContainer" class="max-h-96 overflow-y-auto border rounded-md">
@@ -310,9 +428,10 @@
                 </div>
             </div>
 
+            <!-- User Management Page -->
             <div id="userManagementPage" class="page-container content-wrapper hidden">
                 <div class="container mx-auto">
-                    <section id="userListSection" class="users-section-bg">
+                    <section id="userListSection" class="users-section-bg p-6">
                         <h3 class="text-xl font-semibold text-gray-700 mb-4">Existing Users</h3>
                         <div id="userListLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p>Loading Users...</p></div>
                         <div id="userListTableContainer" class="overflow-x-auto border rounded-md">
@@ -335,6 +454,7 @@
                 </div>
             </div>
             
+            <!-- Transactions Page -->
             <div id="transactionsPage" class="page-container content-wrapper hidden">
                 <div class="container mx-auto">
                     <section class="users-section-bg p-6">
@@ -363,84 +483,24 @@
         </main>
     </div>
 
+    <!-- Modals -->
     <div id="messageModal" class="fixed inset-0 z-[60] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold text-gray-700">Notification</h3><p id="messageText" class="mb-4 text-sm text-gray-600"></p><button id="closeMessageButton" class="btn btn-primary w-full">OK</button></div></div>
-    <div id="loginModal" class="fixed inset-0 z-[80] hidden flex items-center justify-center modal-backdrop"><div class="login-modal mx-4 w-full max-w-md p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 class="text-xl font-semibold text-indigo-600 md:text-2xl">Login Required</h2><button id="closeLoginModalBtn"><i class="ph ph-x text-2xl"></i></button></div><form id="loginForm" class="space-y-4"><div><label for="loginIdInput" class="mb-1 block text-sm font-medium">Email ID</label><input type="email" id="loginIdInput" required class="w-full input-field" placeholder="Enter your Email ID"></div><div><label for="loginPasswordInput" class="mb-1 block text-sm font-medium">Password</label><input type="password" id="loginPasswordInput" required class="w-full input-field" placeholder="Password"></div><p id="loginErrorText" class="hidden text-sm text-red-600"></p><div id="loginLoadingIndicator" class="my-2 hidden"><div class="loader"></div><p>Authenticating...</p></div><div class="flex items-center justify-end pt-2"><button type="submit" id="loginSubmitBtn" class="btn btn-primary">Login</button></div></form></div></div>
+    <div id="loginModal" class="fixed inset-0 z-[80] hidden flex items-center justify-center modal-backdrop"><div class="login-modal mx-4 w-full max-w-md p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 class="text-xl font-semibold md:text-2xl">Login Required</h2><button id="closeLoginModalBtn"><i class="ph ph-x text-2xl"></i></button></div><form id="loginForm" class="space-y-4"><div><label for="loginIdInput" class="mb-1 block text-sm font-medium">Email ID</label><input type="email" id="loginIdInput" required class="w-full input-field" placeholder="Enter your Email ID"></div><div><label for="loginPasswordInput" class="mb-1 block text-sm font-medium">Password</label><input type="password" id="loginPasswordInput" required class="w-full input-field" placeholder="Password"></div><p id="loginErrorText" class="hidden text-sm text-red-600"></p><div id="loginLoadingIndicator" class="my-2 hidden"><div class="loader"></div><p>Authenticating...</p></div><div class="flex items-center justify-end pt-2"><button type="submit" id="loginSubmitBtn" class="btn btn-primary">Login</button></div></form></div></div>
     <div id="itemFormModal" class="fixed inset-0 z-50 hidden flex items-center justify-center modal-backdrop"><div class="form-modal mx-4 w-full max-w-2xl p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 id="formTitle" class="text-xl font-semibold">Add Item</h2><button id="closeFormModalBtn"><i class="ph ph-x text-2xl"></i></button></div><form id="itemForm" class="space-y-4"><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="itemName">Name</label><input type="text" id="itemName" required class="input-field"></div><div><label for="stockQuantity">Stock Qty</label><input type="number" id="stockQuantity" required min="0" class="input-field"></div></div><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="openingStock">Opening Stock</label><input type="number" id="openingStock" readonly class="input-field bg-gray-100"></div><div><label for="reorderLevel">Reorder Lvl</label><input type="number" id="reorderLevel" required min="0" class="input-field"></div></div><div class="grid grid-cols-1 gap-4 md:grid-cols-2"><div><label for="price">Price</label><input type="number" id="price" step="0.01" required min="0" class="input-field"></div><div><label for="supplier">Supplier</label><select id="supplier" required class="input-field"><option value="">Select</option></select></div></div><div id="itemFormLoadingIndicator" class="hidden"><div class="loader small"></div><p>Saving...</p></div><div class="flex justify-end space-x-3 pt-2"><button type="button" id="cancelButton" class="btn btn-secondary">Cancel</button><button type="submit" id="submitButton" class="btn btn-primary">Add Item</button></div></form></div></div>
     <div id="inOutModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 id="inOutModalTitle" class="mb-4 text-lg font-semibold">Transaction</h3><form id="inOutForm" class="space-y-3"><div><label>Type</label><select id="inOutType" class="input-field"><option value="inward">Inward</option><option value="outward">Outward</option></select></div><div><label>Quantity</label><input type="number" id="inOutQty" min="1" required class="input-field"></div><div><label>Remarks</label><input type="text" id="inOutRemarks" class="input-field" placeholder="Optional"></div><div id="inOutLoadingIndicator" class="hidden"><div class="loader small"></div><p>Processing...</p></div><div class="flex gap-2 pt-2"><button type="button" id="inOutCancelBtn" class="btn btn-secondary flex-1">Cancel</button><button type="submit" id="inOutSubmitBtn" class="btn btn-primary flex-1">Submit</button></div></form></div></div>
     <div id="txnLogModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-2xl rounded-lg bg-white p-6 shadow-xl"><div class="mb-4 flex items-center justify-between"><h3 id="txnLogModalTitle" class="text-lg font-semibold">Log</h3><button id="closeTxnLogBtnTop"><i class="ph ph-x text-2xl"></i></button></div><div id="txnLogLoadingIndicator" class="hidden"><div class="loader small"></div><p>Loading...</p></div><div id="txnLogListContainer"><div id="txnLogList" class="max-h-80 overflow-y-auto"></div></div><button id="closeTxnLogBtn" class="btn btn-primary mt-4 w-full">Close</button></div></div>
     <div id="confirmModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-sm rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold">Are you sure?</h3><p id="confirmText" class="mb-4 text-sm"></p><div class="flex space-x-3"><button id="confirmYesBtn" class="btn btn-danger w-full">Yes</button><button id="confirmNoBtn" class="btn btn-secondary w-full">No</button></div></div></div>
-
-    <!-- New Modal for Delete Item Options -->
-    <div id="deleteItemOptionsModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop">
-        <div class="mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-xl">
-            <h3 class="mb-2 text-lg font-semibold">Delete Item Options</h3>
-            <p id="deleteItemOptionsText" class="mb-4 text-sm"></p>
-            <div class="flex flex-col space-y-2">
-                <button id="deleteItemAndTransactionsBtn" class="btn btn-danger w-full">Yes, Delete Item & Transactions</button>
-                <button id="deleteItemOnlyBtn" class="btn btn-warning w-full">No, Delete Item Only</button>
-                <button id="cancelDeleteItemBtn" class="btn btn-secondary w-full">Cancel</button>
-            </div>
-        </div>
-    </div>
-
-
-    <div id="supplierFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop">
-        <div class="supplier-form-modal mx-4 w-full max-w-lg p-6 md:p-8">
-            <div class="mb-6 flex items-center justify-between">
-                <h2 id="supplierFormModalTitle" class="text-xl md:text-2xl font-semibold text-indigo-600">Add Supplier</h2>
-                <button id="closeSupplierFormModalBtn" class="text-gray-400 hover:text-gray-600"><i class="ph ph-x text-2xl"></i></button>
-            </div>
-            <form id="supplierFormModal_form" class="space-y-4">
-                <div>
-                    <label for="supplierNameInputModal" class="block text-sm font-medium text-gray-700 mb-1">Supplier Name</label>
-                    <input type="text" id="supplierNameInputModal" required class="input-field" placeholder="Enter supplier name">
-                </div>
-                <input type="hidden" id="supplierEditIdModal">
-                <div id="supplierFormModalLoadingIndicator" class="hidden my-2">
-                     <div class="loader small-loader"></div>
-                     <p class="text-sm text-center text-gray-500 mt-1">Saving...</p>
-                </div>
-                <div class="flex space-x-3 pt-2">
-                    <button type="submit" id="saveSupplierModalBtn" class="btn btn-primary">Add Supplier</button>
-                    <button type="button" id="cancelSupplierEditModalBtn" class="btn btn-secondary">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="userFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop">
-        <div class="user-form-modal mx-4 w-full max-w-xl p-6 md:p-8">
-             <div class="mb-6 flex items-center justify-between">
-                <h2 id="userFormModalTitle" class="text-xl md:text-2xl font-semibold text-indigo-600">Add New User</h2>
-                <button id="closeUserFormModalBtn" class="text-gray-400 hover:text-gray-600"><i class="ph ph-x text-2xl"></i></button>
-            </div>
-            <form id="userFormModal_form" class="space-y-4">
-                <input type="hidden" id="userEditIdInputModal">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div><label for="firstNameInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">First Name</label><input type="text" id="firstNameInputUserFormModal" required class="input-field" placeholder="First name"></div>
-                    <div><label for="lastNameInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label><input type="text" id="lastNameInputUserFormModal" required class="input-field" placeholder="Last name"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div><label for="emailIdInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Email ID (Login ID)</label><input type="email" id="emailIdInputUserFormModal" required class="input-field" placeholder="Email address"></div>
-                    <div><label for="contactNoInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Contact No.</label><input type="tel" id="contactNoInputUserFormModal" required class="input-field" placeholder="Contact number"></div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div><label for="passwordInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Password</label><input type="password" id="passwordInputUserFormModal" class="input-field" placeholder="Password"><p class="text-xs text-gray-500 mt-1">Min 6 chars. Required for new.</p></div>
-                    <div><label for="confirmPasswordInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label><input type="password" id="confirmPasswordInputUserFormModal" class="input-field" placeholder="Confirm password"></div>
-                </div>
-                <div><label for="roleInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Role</label><select id="roleInputUserFormModal" required class="input-field"><option value="User">User</option><option value="Admin">Admin</option></select></div>
-                <div id="userFormModalLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p>Saving...</p></div>
-                <div class="flex space-x-3 pt-2">
-                    <button type="submit" id="saveUserModalBtn" class="btn btn-primary">Save User</button>
-                    <button type="button" id="cancelUserEditModalBtn" class="btn btn-secondary">Cancel</button>
-                </div>
-            </form>
-        </div>
-    </div>
+    <div id="deleteItemOptionsModal" class="fixed inset-0 z-[70] hidden flex items-center justify-center modal-backdrop"><div class="mx-4 w-full max-w-md rounded-lg bg-white p-6 shadow-xl"><h3 class="mb-2 text-lg font-semibold">Delete Item Options</h3><p id="deleteItemOptionsText" class="mb-4 text-sm"></p><div class="flex flex-col space-y-2"><button id="deleteItemAndTransactionsBtn" class="btn btn-danger w-full">Yes, Delete Item & Transactions</button><button id="deleteItemOnlyBtn" class="btn btn-warning w-full">No, Delete Item Only</button><button id="cancelDeleteItemBtn" class="btn btn-secondary w-full">Cancel</button></div></div></div>
+    <div id="supplierFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop"><div class="supplier-form-modal mx-4 w-full max-w-lg p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 id="supplierFormModalTitle" class="text-xl md:text-2xl font-semibold">Add Supplier</h2><button id="closeSupplierFormModalBtn" class="text-gray-400 hover:text-gray-600"><i class="ph ph-x text-2xl"></i></button></div><form id="supplierFormModal_form" class="space-y-4"><div><label for="supplierNameInputModal" class="block text-sm font-medium text-gray-700 mb-1">Supplier Name</label><input type="text" id="supplierNameInputModal" required class="input-field" placeholder="Enter supplier name"></div><input type="hidden" id="supplierEditIdModal"><div id="supplierFormModalLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p class="text-sm text-center text-gray-500 mt-1">Saving...</p></div><div class="flex space-x-3 pt-2"><button type="submit" id="saveSupplierModalBtn" class="btn btn-primary">Add Supplier</button><button type="button" id="cancelSupplierEditModalBtn" class="btn btn-secondary">Cancel</button></div></form></div></div>
+    <div id="userFormModal" class="fixed inset-0 z-[75] hidden flex items-center justify-center modal-backdrop"><div class="user-form-modal mx-4 w-full max-w-xl p-6 md:p-8"><div class="mb-6 flex items-center justify-between"><h2 id="userFormModalTitle" class="text-xl md:text-2xl font-semibold">Add New User</h2><button id="closeUserFormModalBtn" class="text-gray-400 hover:text-gray-600"><i class="ph ph-x text-2xl"></i></button></div><form id="userFormModal_form" class="space-y-4"><input type="hidden" id="userEditIdInputModal"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="firstNameInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">First Name</label><input type="text" id="firstNameInputUserFormModal" required class="input-field" placeholder="First name"></div><div><label for="lastNameInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label><input type="text" id="lastNameInputUserFormModal" required class="input-field" placeholder="Last name"></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="emailIdInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Email ID (Login ID)</label><input type="email" id="emailIdInputUserFormModal" required class="input-field" placeholder="Email address"></div><div><label for="contactNoInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Contact No.</label><input type="tel" id="contactNoInputUserFormModal" required class="input-field" placeholder="Contact number"></div></div><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div><label for="passwordInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Password</label><input type="password" id="passwordInputUserFormModal" class="input-field" placeholder="Password"><p class="text-xs text-gray-500 mt-1">Min 6 chars. Required for new.</p></div><div><label for="confirmPasswordInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label><input type="password" id="confirmPasswordInputUserFormModal" class="input-field" placeholder="Confirm password"></div></div><div><label for="roleInputUserFormModal" class="block text-sm font-medium text-gray-700 mb-1">Role</label><select id="roleInputUserFormModal" required class="input-field"><option value="User">User</option><option value="Admin">Admin</option></select></div><div id="userFormModalLoadingIndicator" class="hidden my-2"><div class="loader small-loader"></div><p>Saving...</p></div><div class="flex space-x-3 pt-2"><button type="submit" id="saveUserModalBtn" class="btn btn-primary">Save User</button><button type="button" id="cancelUserEditModalBtn" class="btn btn-secondary">Cancel</button></div></form></div></div>
+    
+    <!-- Toast & Sync Indicators -->
     <div id="toastContainer" class="fixed right-6 top-6 z-[90] space-y-2"></div>
     <div id="syncStatusIndicator" class="fixed bottom-4 right-4 z-[100] hidden rounded-md px-3 py-1.5 text-xs font-medium shadow-md">Syncing...</div>
 
     <script>
+        // All JavaScript logic remains the same.
+        // The script handles API interactions, local storage, UI logic, etc.
         document.addEventListener('DOMContentLoaded', () => {
             // --- API Endpoints & Local Storage Keys ---
             const USERS_API_ENDPOINT = "https://script.google.com/macros/s/AKfycbwvbtXJXPp0Mr6tYWpZbNUFzaNvgswE9g-TjzyaCod3F_qiOSeT13Ffxv9lDlOhwWu4ng/exec";
@@ -794,8 +854,19 @@
             if(closeLoginModalBtn)closeLoginModalBtn.addEventListener('click',closeLoginModal);
 
             function showPage(pageToShow, activeNavLinkEl = null) {
+                const mainHeader = document.getElementById('mainHeader');
+                
                 // Hide all main page containers and modals first
                 [landingPageDiv, overviewPageDiv, inventoryAppDiv, suppliersPageDiv, userManagementPageDiv, transactionsPageDiv, itemFormModal, userFormModal, supplierFormModal].forEach(el => el.classList.add('hidden'));
+
+                // Handle padding and header visibility for landing vs. internal pages
+                if (pageToShow === landingPageDiv) {
+                    pageDisplayArea.classList.remove('p-4', 'md:p-6', 'lg:p-8');
+                    if(mainHeader) mainHeader.classList.add('hidden');
+                } else {
+                    pageDisplayArea.classList.add('p-4', 'md:p-6', 'lg:p-8');
+                     if(mainHeader) mainHeader.classList.remove('hidden');
+                }
 
                 // Security check for admin-only pages
                 if (pageToShow === userManagementPageDiv && (!loggedInUser || loggedInUser.Role !== 'Admin')) {
@@ -808,29 +879,26 @@
                 if (pageToShow) pageToShow.classList.remove('hidden');
 
                 // --- UI State Reset ---
-                // Start by setting the UI to the "logged out" or "landing page" state
                 headerPageTitle.textContent = '';
                 [headerAddItemBtnContainer, headerAddSupplierBtnContainer, headerAddUserBtnContainer, headerSyncBtn, sidebar, sidebarLogoutBtn].forEach(el => el && el.classList.add('hidden'));
                 mainContentWrapper.classList.remove('lg:ml-64');
-                document.body.classList.remove('flex'); // Remove flex layout for full-width main content
+                document.body.classList.remove('flex');
 
                 // Reset active state on all sidebar links
                 document.querySelectorAll('.sidebar-nav-item').forEach(link => link.classList.remove('active'));
-                updateSidebarForRole(); // Update visibility of admin-only links
+                updateSidebarForRole();
 
                 // --- Conditional UI Setup ---
-                // If logged in and on an internal page, enable the sidebar and related layout
                 if (loggedInUser && pageToShow !== landingPageDiv) {
                     sidebar.classList.remove('hidden');
                     sidebar.classList.remove('-translate-x-full');
                     mainContentWrapper.classList.add('lg:ml-64');
-                    document.body.classList.add('flex'); // Re-apply flex layout
+                    document.body.classList.add('flex');
                     sidebarLogoutBtn.classList.remove('hidden');
                     headerSyncBtn.classList.remove('hidden');
 
                     if (activeNavLinkEl) activeNavLinkEl.classList.add('active');
 
-                    // Configure page-specific titles, buttons, and render functions
                     const pageConfig = {
                         [overviewPageDiv.id]: { title: 'Inventory Dashboard', render: renderInteractiveDashboard },
                         [inventoryAppDiv.id]: { title: 'Full Inventory List', render: renderInventoryTable, show: [headerAddItemBtnContainer] },
@@ -846,8 +914,8 @@
                         if (config.show) config.show.forEach(el => el.classList.remove('hidden'));
                     }
                 }
-                // If not logged in, or if on the landing page, the UI remains in the reset (no-sidebar) state.
             }
+
 
             enterAppBtn.addEventListener('click', openLoginModal);
             if(sidebarLogoutBtn) sidebarLogoutBtn.addEventListener('click', () => {
@@ -966,14 +1034,23 @@
                     if (!txnsR.ok) throw new Error(`Txns API fail:${txnsR.status}`);
                     const txnsRes = await txnsR.json();
                     if (txnsRes.success && Array.isArray(txnsRes.data)) {
-                        const newTransactions = txnsRes.data.map(t => ({ id: String(t.TransactionID), itemId: String(t.ItemID), itemName: t.ItemName, type: t.TransactionType, quantity: t.Quantity, date: t.TransactionDate, remarks: t.Remarks, transactionUserID: t.UserID ? String(t.UserID) : null }));
+                        // BUG FIX: Get all transaction IDs that are pending deletion from the sync queue
+                        const pendingDeletionTxnIds = new Set(
+                            syncQueue
+                                .filter(op => op.type === 'deleteTransaction')
+                                .map(op => String(op.payload.data.TransactionID))
+                        );
+                        
+                        // Filter out transactions from the server response that are pending deletion
+                        const serverTransactions = txnsRes.data.filter(t => !pendingDeletionTxnIds.has(String(t.TransactionID)));
+
                         const oldTransactionIds = new Set(oldTransactions.map(t => t.id));
-                        newTransactions.forEach(newTxn => {
-                            if (!oldTransactionIds.has(newTxn.id)) {
+                        serverTransactions.forEach(newTxn => {
+                            if (!oldTransactionIds.has(String(newTxn.TransactionID))) {
                                 changes.transactions.new++;
                             }
                         });
-                        transactions = newTransactions;
+                        transactions = serverTransactions.map(t => ({ id: String(t.TransactionID), itemId: String(t.ItemID), itemName: t.ItemName, type: t.TransactionType, quantity: t.Quantity, date: t.TransactionDate, remarks: t.Remarks, transactionUserID: t.UserID ? String(t.UserID) : null }));
                         setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
                     } else { throw new Error(txnsRes.message || "Fail fetch txns."); }
                     
@@ -1060,7 +1137,6 @@
                 r.innerHTML = `<td class="px-2 py-3 text-center"><input type="checkbox" class="bulk-checkbox" data-id="${i.ItemID}"/></td><td class="px-4 py-3 text-sm ${low ? 'text-red-700 font-semibold' : 'text-gray-700'}">${i.ItemName || 'Unnamed'} ${low ? '<span class="text-xs text-red-500">(Low)</span>' : ''}</td><td class="px-4 py-3 text-center text-sm">${i.openingStock ?? 'N/A'}</td><td class="px-4 py-3 text-center text-sm">${osDF}</td><td class="px-4 py-3 text-center text-sm ${low ? 'text-red-700 font-semibold' : 'text-gray-700'}">${i.StockQuantity ?? '0'}</td><td class="px-4 py-3 text-center text-sm">${i.ReorderLevel ?? '0'}</td><td class="px-4 py-3 text-right text-sm">${pF}</td><td class="px-4 py-3 text-right text-sm">${sP}</td><td class="px-4 py-3 text-sm">${sND}</td><td class="px-4 py-3 text-sm">${upF}</td><td class="flex flex-wrap items-center justify-center gap-1 px-4 py-3 text-sm space-x-1"><button data-id="${i.ItemID}" class="inward-btn btn btn-success btn-xs"><i class="ph ph-arrow-down mr-1"></i>In</button><button data-id="${i.ItemID}" class="outward-btn btn btn-warning btn-xs"><i class="ph ph-arrow-up mr-1"></i>Out</button><button data-id="${i.ItemID}" class="edit-btn btn btn-info btn-xs"><i class="ph ph-pencil-simple mr-1"></i>Edit</button><button data-id="${i.ItemID}" data-name="${i.ItemName}" class="delete-btn btn btn-danger btn-xs"><i class="ph ph-trash mr-1"></i>Del</button><button data-id="${i.ItemID}" class="txnlog-btn btn btn-secondary btn-xs"><i class="ph ph-list mr-1"></i>Log</button></td>`;
                 inventoryTableBody.appendChild(r);
                 r.querySelector('.edit-btn').addEventListener('click', () => openFormModal('edit', i.ItemID));
-                // Updated delete button event listener
                 r.querySelector('.delete-btn').addEventListener('click', (e) => confirmItemDelete(e.currentTarget.dataset.id, e.currentTarget.dataset.name));
                 r.querySelector('.inward-btn').addEventListener('click', () => openInOutModal(i.ItemID, 'inward'));
                 r.querySelector('.outward-btn').addEventListener('click', () => openInOutModal(i.ItemID, 'outward'));
@@ -1139,84 +1215,68 @@
             function resetForm(){if(itemForm)itemForm.reset();currentEditItemId=null;}
             
             /**
-             * Handles the final deletion of an item and its associated transactions.
-             * @param {string} id - The ID of the item to delete.
-             * @param {string} name - The name of the item.
+             * [REMOVED/COMMENTED] This function is no longer used as per new requirements.
+             * The logic to delete transactions along with an item has been removed.
              */
-            async function deleteItemAndTransactions(id, name) {
-                // Find transactions related to the item
+            /*
+            function deleteItemAndTransactions(id, name) {
                 const txnsToDelete = transactions.filter(t => String(t.itemId || t.ItemID) === String(id));
-                
-                // Queue up the deletion of each transaction for sync
                 txnsToDelete.forEach(txn => {
-                    // Only queue deletion for synced transactions (those without 'temp_' prefix)
-                    if (!String(txn.id).startsWith('temp_')) {
+                    const txnIdStr = String(txn.id);
+                    if (!txnIdStr.startsWith('temp_')) {
                         addToSyncQ({
                             type: 'deleteTransaction',
                             apiEndpoint: TRANSACTIONS_API_ENDPOINT,
                             method: 'POST',
-                            payload: {
-                                action: "deleteTransaction",
-                                data: { TransactionID: txn.id }
-                            }
+                            payload: { action: "deleteTransaction", data: { TransactionID: txn.id } }
                         });
                     }
                 });
-                
-                // Optimistically update the local transactions array
                 transactions = transactions.filter(t => String(t.itemId || t.ItemID) !== String(id));
                 setLocalStorage(LOCAL_STORAGE_TRANSACTIONS_KEY, transactions);
-
-                // Now, delete the item itself
-                deleteItem(id, name, true); // Pass a flag to indicate transactions were handled
+                deleteItem(id, name); 
                 showToast(`Deleted "${name}" and its transactions.`, 0, 4000);
             }
+            */
 
             /**
-             * Initiates the item deletion process, checking for transactions first.
+             * Initiates the item deletion process.
+             * Now it only confirms and deletes the item, preserving transaction history.
              * @param {string} id - The ID of the item.
              * @param {string} name - The name of the item.
              */
             function confirmItemDelete(id, name) {
-                const hasTransactions = transactions.some(t => String(t.itemId || t.ItemID) === String(id));
+                showConfirm(`Are you sure you want to delete the item "${name}"? Its transaction history will be kept.`, () => deleteItem(id, name));
+            }
 
-                if (hasTransactions) {
-                    // Item has transactions, show the options modal
-                    deleteItemOptionsText.textContent = `"${name}" has existing transactions. Do you want to delete its transaction history as well?`;
-                    
-                    // Clone and replace buttons to ensure fresh event listeners
-                    const cleanDeleteItemAndTxnBtn = deleteItemAndTransactionsBtn.cloneNode(true);
-                    deleteItemAndTransactionsBtn.parentNode.replaceChild(cleanDeleteItemAndTxnBtn, deleteItemAndTransactionsBtn);
-                    
-                    const cleanDeleteItemOnlyBtn = deleteItemOnlyBtn.cloneNode(true);
-                    deleteItemOnlyBtn.parentNode.replaceChild(cleanDeleteItemOnlyBtn, deleteItemOnlyBtn);
-
-                    const cleanCancelBtn = cancelDeleteItemBtn.cloneNode(true);
-                    cancelDeleteItemBtn.parentNode.replaceChild(cleanCancelBtn, cancelDeleteItemBtn);
-                    
-                    cleanDeleteItemAndTxnBtn.addEventListener('click', () => {
-                        deleteItemAndTransactions(id, name);
-                        deleteItemOptionsModal.classList.add('hidden');
-                    });
-                    
-                    cleanDeleteItemOnlyBtn.addEventListener('click', () => {
-                        deleteItem(id, name);
-                        deleteItemOptionsModal.classList.add('hidden');
-                    });
-
-                    cleanCancelBtn.addEventListener('click', () => {
-                        deleteItemOptionsModal.classList.add('hidden');
-                    });
-
-                    deleteItemOptionsModal.classList.remove('hidden');
+            /**
+             * Deletes an item from local storage and queues the deletion for sync.
+             * Transactions are NOT affected.
+             * @param {string} id - The ID of the item to delete.
+             * @param {string} name - The name of the item for the notification message.
+             */
+            async function deleteItem(id, name) {
+                const idx = inventory.findIndex(i => String(i.ItemID) === String(id));
+                if (idx > -1) {
+                    inventory.splice(idx, 1);
+                    setLocalStorage(LOCAL_STORAGE_ITEMS_KEY, inventory);
+                    showToast(`Item "${name}" deleted. Its history is kept.`, 0, 4000);
+                    renderInventoryTable();
+                    updateOverviewStats();
+                    if (String(currentEditItemId) === String(id)) closeFormModal();
+                    if (!String(id).startsWith('temp_')) {
+                        addToSyncQ({
+                            type: 'deleteItem',
+                            apiEndpoint: ITEMS_API_ENDPOINT,
+                            method: 'POST',
+                            payload: { action: "deleteItem", data: { ItemID: id } }
+                        });
+                    }
                 } else {
-                    // No transactions, show a simple confirm modal
-                    showConfirm(`Are you sure you want to delete "${name}"?`, () => deleteItem(id, name));
+                    showToast('Item not found for deletion.', true);
                 }
             }
 
-
-            async function deleteItem(id,name, txnsHandled = false){const idx=inventory.findIndex(i=>String(i.ItemID)===String(id));if(idx>-1){inventory.splice(idx,1);setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);if(!txnsHandled){showToast(`"${name}" deleted.`,0);}renderInventoryTable();updateOverviewStats();if(String(currentEditItemId)===String(id))closeFormModal();if(!String(id).startsWith('temp_')){addToSyncQ({type:'deleteItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"deleteItem",data:{ItemID:id}}});}}else{showToast('Item not found for deletion.',1);}}
             async function handleBulkDelete(){const ids=Array.from(document.querySelectorAll('.bulk-checkbox:checked')).map(cb=>cb.dataset.id);if(ids.length===0){showToast('No items selected.',1);return;}showConfirm(`Delete ${ids.length} item(s)? Note: Transaction history for these items will be kept.`,async()=>{let delCt=0;for(const id of ids){const idx=inventory.findIndex(i=>String(i.ItemID)===String(id));if(idx>-1){inventory.splice(idx,1);delCt++;addToSyncQ({type:'deleteItem',apiEndpoint:ITEMS_API_ENDPOINT,method:'POST',payload:{action:"deleteItem",data:{ItemID:id}}});}}if(delCt>0){setLocalStorage(LOCAL_STORAGE_ITEMS_KEY,inventory);showToast(`${delCt} item(s) deleted.`,0);renderInventoryTable();updateOverviewStats();if(document.getElementById('bulkSelectAll'))document.getElementById('bulkSelectAll').checked=false;}});}
             
             function isDupItemName(n,exId=null){return inventory.some(i=>i.ItemName.toLowerCase()===n.toLowerCase()&&String(i.ItemID)!==String(exId));}
@@ -1228,7 +1288,33 @@
             let searchQuery='',filterSupplier='',filterLowStock=0,sortKey='ItemName',sortDir=1,page=1,pageSize=10;
             function getFilteredInventory(){let filt=[...inventory];if(searchQuery){const lq=searchQuery.toLowerCase();filt=filt.filter(i=>i.ItemName.toLowerCase().includes(lq)||(i.SupplierID&&suppliers.find(s=>String(s.SupplierID)===String(i.SupplierID))?.SupplierName.toLowerCase().includes(lq)));}if(filterSupplier)filt=filt.filter(i=>String(i.SupplierID)===String(filterSupplier));if(filterLowStock)filt=filt.filter(i=>Number(i.StockQuantity)<Number(i.ReorderLevel));if(sortKey){filt.sort((a,b)=>{let vA=a[sortKey],vB=b[sortKey];if(sortKey==='SupplierID'){vA=suppliers.find(s=>String(s.SupplierID)===String(a.SupplierID))?.SupplierName||'';vB=suppliers.find(s=>String(s.SupplierID)===String(b.SupplierID))?.SupplierName||'';}else if(['LastUpdated','CreatedAt','openingStockDate'].includes(sortKey)){vA=new Date(vA||0);vB=new Date(vB||0);}else if(['StockQuantity','ReorderLevel','Price','openingStock'].includes(sortKey)){vA=parseFloat(vA)||0;vB=parseFloat(vB)||0;}else if(typeof vA==='string'){vA=vA.toLowerCase();vB=vB.toLowerCase();}else{vA=String(vA??"").toLowerCase();vB=String(vB??"").toLowerCase();}if(vA<vB)return -1*sortDir;if(vA>vB)return 1*sortDir;return 0;});}return filt;}
             function renderPagination(total){const totP=Math.ceil(total/pageSize),pC=document.getElementById('paginationControls');if(!pC||totP<=1){if(pC)pC.innerHTML='';return;}let h='<div class="flex items-center space-x-1">';h+=`<button class="btn btn-secondary btn-sm ${page===1?'opacity-50 cursor-not-allowed':''}" data-page="${page-1}" ${page===1?'disabled':''}>Prev</button>`;let sP=Math.max(1,page-2),eP=Math.min(totP,page+2);if(sP>1){h+=`<button class="btn btn-secondary btn-sm" data-page="1">1</button>`;if(sP>2)h+=`<span class="px-2 text-gray-500">...</span>`;}for(let i=sP;i<=eP;i++){h+=`<button class="btn btn-sm ${i===page?'btn-primary':'btn-secondary'}" data-page="${i}">${i}</button>`;}if(eP<totP){if(eP<totP-1)h+=`<span class="px-2 text-gray-500">...</span>`;h+=`<button class="btn btn-secondary btn-sm" data-page="${totP}">${totP}</button>`;}h+=`<button class="btn btn-secondary btn-sm ${page===totP?'opacity-50 cursor-not-allowed':''}" data-page="${page+1}" ${page===totP?'disabled':''}>Next</button></div>`;pC.innerHTML=h;pC.querySelectorAll('button[data-page]').forEach(b=>{b.addEventListener('click',()=>{page=Number(b.dataset.page);renderInventoryTable();});});}
-            function initializeInventoryControls(){const cont=document.getElementById('inventoryTableSection')?.parentNode;if(!cont)return;let div=document.getElementById('inventoryTableControls');if(!div){div=document.createElement('div');div.id='inventoryTableControls';div.className='mb-4 flex flex-wrap items-center gap-2 rounded-xl bg-gray-50 p-4 shadow';div.innerHTML=`<input id="searchInput" type="text" placeholder="Search..." class="input-field flex-grow md:flex-grow-0"/><select id="supplierFilter" class="input-field"><option value="">All Suppliers</option></select><label class="flex items-center gap-1.5"><input type="checkbox" id="lowStockFilter"/>Low Stock</label><button id="exportCSVBtn" class="btn btn-success btn-sm"><i class="ph ph-download mr-1"></i>Export</button><label class="btn btn-success btn-sm cursor-pointer"><i class="ph ph-upload mr-1"></i>Import<input id="importCSVInput" type="file" accept=".csv" class="hidden"/></label><button id="bulkDeleteBtn" class="btn btn-danger btn-sm"><i class="ph ph-trash mr-1"></i>Del Sel</button>`;const iS=document.getElementById('inventoryTableSection');if(iS)iS.parentNode.insertBefore(div,iS);else cont.appendChild(div);}document.getElementById('exportCSVBtn')?.addEventListener('click',exportCSV);document.getElementById('importCSVInput')?.addEventListener('change',e=>importCSV(e.target.files[0]));document.getElementById('bulkDeleteBtn')?.addEventListener('click',handleBulkDelete);document.getElementById('searchInput')?.addEventListener('input',e=>{searchQuery=e.target.value;page=1;renderInventoryTable();});document.getElementById('lowStockFilter')?.addEventListener('change',e=>{filterLowStock=e.target.checked;page=1;renderInventoryTable();});document.getElementById('supplierFilter')?.addEventListener('change',e=>{filterSupplier=e.target.value;page=1;renderInventoryTable();});document.getElementById('bulkSelectAll')?.addEventListener('change',e=>{document.querySelectorAll('.bulk-checkbox').forEach(cb=>cb.checked=e.target.checked);});updateSupplierFilterDropdown();}
+            function initializeInventoryControls(){
+                const cont=document.getElementById('inventoryTableSection')?.parentNode;
+                if(!cont)return;
+                let div=document.getElementById('inventoryTableControls');
+                if(!div){
+                    div=document.createElement('div');
+                    div.id='inventoryTableControls';
+                    div.className='mb-4 flex flex-wrap items-center gap-2 rounded-xl bg-gray-50 p-4 shadow';
+                    // REMOVED Import/Export buttons from this innerHTML string
+                    div.innerHTML = `<input id="searchInput" type="text" placeholder="Search..." class="input-field flex-grow md:flex-grow-0"/>
+                                     <select id="supplierFilter" class="input-field"><option value="">All Suppliers</option></select>
+                                     <label class="flex items-center gap-1.5"><input type="checkbox" id="lowStockFilter"/>Low Stock</label>
+                                     <button id="bulkDeleteBtn" class="btn btn-danger btn-sm"><i class="ph ph-trash mr-1"></i>Del Sel</button>`;
+                    const iS=document.getElementById('inventoryTableSection');
+                    if(iS) iS.parentNode.insertBefore(div,iS);
+                    else cont.appendChild(div);
+                }
+                
+                // REMOVED event listeners for import/export
+                document.getElementById('bulkDeleteBtn')?.addEventListener('click',handleBulkDelete);
+                document.getElementById('searchInput')?.addEventListener('input',e=>{searchQuery=e.target.value;page=1;renderInventoryTable();});
+                document.getElementById('lowStockFilter')?.addEventListener('change',e=>{filterLowStock=e.target.checked;page=1;renderInventoryTable();});
+                document.getElementById('supplierFilter')?.addEventListener('change',e=>{filterSupplier=e.target.value;page=1;renderInventoryTable();});
+                document.getElementById('bulkSelectAll')?.addEventListener('change',e=>{document.querySelectorAll('.bulk-checkbox').forEach(cb=>cb.checked=e.target.checked);});
+                updateSupplierFilterDropdown();
+            }
+
             function updateSupplierFilterDropdown(){const s=document.getElementById('supplierFilter');if(!s)return;const v=s.value;s.innerHTML='<option value="">All Suppliers</option>';suppliers.sort((a,b)=>a.SupplierName.localeCompare(b.SupplierName)).forEach(sup=>{s.innerHTML+=`<option value="${sup.SupplierID}">${sup.SupplierName}</option>`;});s.value=v;}
             async function populateSupplierDropdownForItemForm(){const s=document.getElementById('supplier');if(!s)return;const v=s.value;s.innerHTML='<option value="">Select Supplier</option>';suppliers.sort((a,b)=>a.SupplierName.localeCompare(b.SupplierName)).forEach(sup=>{s.innerHTML+=`<option value="${sup.SupplierID}">${sup.SupplierName}</option>`;});s.value=v;}
 
@@ -1478,14 +1564,25 @@
             function renderRecentActivityFeed() {
                 if (!recentActivityFeed) return;
                 recentActivityFeed.innerHTML = '';
-                const sortedTransactions = [...transactions].sort((a,b) => new Date(b.date || b.TransactionDate) - new Date(a.date || a.TransactionDate));
-                const recent = sortedTransactions.slice(0, DASHBOARD_FEED_LIMIT);
+
+                // Create a Set of existing item IDs for quick lookup
+                const existingItemIds = new Set(inventory.map(i => String(i.ItemID)));
+
+                const sortedTransactions = [...transactions]
+                    .sort((a, b) => new Date(b.date || b.TransactionDate) - new Date(a.date || a.TransactionDate));
+                
+                // Filter transactions to only include those with existing items
+                const visibleTransactions = sortedTransactions.filter(t => existingItemIds.has(String(t.itemId || t.ItemID)));
+
+                const recent = visibleTransactions.slice(0, DASHBOARD_FEED_LIMIT);
 
                 if (recent.length === 0) {
-                    recentActivityFeed.innerHTML = '<p class="text-gray-500">No recent activity.</p>';
+                    recentActivityFeed.innerHTML = '<p class="text-gray-500">No recent activity for existing items.</p>';
                     return;
                 }
+
                 recent.forEach(t => {
+                    // We already know the item exists from the filter above, so we can be more confident here.
                     const item = inventory.find(i => String(i.ItemID) === String(t.itemId || t.ItemID));
                     const activityUserName = getUserNameById(t.transactionUserID);
                     const typeClass = (t.type === 'inward' || t.TransactionType === 'inward') ? 'text-green-600' : 'text-amber-600';
@@ -1495,10 +1592,12 @@
 
                     const div = document.createElement('div');
                     div.className = 'dashboard-feed-item';
+                    // The item name should always be found now, but we keep the fallback just in case of data inconsistencies.
                     div.innerHTML = `<div class="flex justify-between items-center"><span class="font-medium">${item ? item.ItemName : (t.itemName || 'Unknown Item')}</span><span class="${typeClass} font-semibold">${typeIcon} ${quantityDisplay} units</span></div><div class="text-xs text-gray-500"><span>By: ${activityUserName}</span> | <span>${formatLastLoginTime(dateDisplay)}</span></div>`;
                     recentActivityFeed.appendChild(div);
                 });
             }
+
 
             function renderTotalStockValue() {
                 if (!totalStockValueDisplay) return;
@@ -1525,28 +1624,52 @@
 
             function renderTopMovers() {
                 if (!topInwardItemsList || !topOutwardItemsList) return;
-                topInwardItemsList.innerHTML = ''; topOutwardItemsList.innerHTML = '';
+                topInwardItemsList.innerHTML = ''; 
+                topOutwardItemsList.innerHTML = '';
+                
+                // Create a Set of existing item IDs for quick lookup.
+                const existingItemIds = new Set(inventory.map(i => String(i.ItemID)));
+
                 const thirtyDaysAgo = new Date();
                 thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-                const recentTransactions = transactions.filter(t => new Date(t.date || t.TransactionDate) >= thirtyDaysAgo);
+
+                // Filter recent transactions for only those items that still exist.
+                const recentTransactions = transactions.filter(t => 
+                    new Date(t.date || t.TransactionDate) >= thirtyDaysAgo && 
+                    existingItemIds.has(String(t.itemId || t.ItemID))
+                );
+
                 const itemMovements = {};
                 recentTransactions.forEach(t => {
                     const itemId = String(t.itemId || t.ItemID);
+                    // The item is guaranteed to exist due to the filter above, but we find it again to get the name.
+                    const itemInfo = inventory.find(i => String(i.ItemID) === itemId);
+                    
                     if (!itemMovements[itemId]) {
-                        const itemInfo = inventory.find(i => String(i.ItemID) === itemId);
+                        // We use the confirmed item name. The fallback is less likely to be needed.
                         itemMovements[itemId] = { inward: 0, outward: 0, name: itemInfo ? itemInfo.ItemName : (t.itemName || 'Unknown Item') };
                     }
+
                     const transactionType = t.type || t.TransactionType;
                     const quantity = Number(t.quantity || t.Quantity) || 0;
-                    if (transactionType === 'inward') itemMovements[itemId].inward += quantity;
-                    else if (transactionType === 'outward') itemMovements[itemId].outward += quantity;
+                    if (transactionType === 'inward') {
+                        itemMovements[itemId].inward += quantity;
+                    } else if (transactionType === 'outward') {
+                        itemMovements[itemId].outward += quantity;
+                    }
                 });
-                const allMovers = Object.values(itemMovements);
-                const topInward = [...allMovers].sort((a,b) => b.inward - a.inward).slice(0, DASHBOARD_FEED_LIMIT);
-                const topOutward = [...allMovers].sort((a,b) => b.outward - a.outward).slice(0, DASHBOARD_FEED_LIMIT);
 
-                topInwardItemsList.innerHTML = topInward.length === 0 || topInward.every(i => i.inward === 0) ? '<li class="text-gray-500">No inward movement.</li>' : topInward.filter(i => i.inward > 0).map(i => `<li>${i.name}: ${i.inward} units</li>`).join('');
-                topOutwardItemsList.innerHTML = topOutward.length === 0 || topOutward.every(i => i.outward === 0) ? '<li class="text-gray-500">No outward movement.</li>' : topOutward.filter(i => i.outward > 0).map(i => `<li>${i.name}: ${i.outward} units</li>`).join('');
+                const allMovers = Object.values(itemMovements);
+                const topInward = [...allMovers].sort((a, b) => b.inward - a.inward).slice(0, DASHBOARD_FEED_LIMIT);
+                const topOutward = [...allMovers].sort((a, b) => b.outward - a.outward).slice(0, DASHBOARD_FEED_LIMIT);
+
+                topInwardItemsList.innerHTML = topInward.length === 0 || topInward.every(i => i.inward === 0) 
+                    ? '<li class="text-gray-500">No inward movement for existing items.</li>' 
+                    : topInward.filter(i => i.inward > 0).map(i => `<li>${i.name}: ${i.inward} units</li>`).join('');
+                    
+                topOutwardItemsList.innerHTML = topOutward.length === 0 || topOutward.every(i => i.outward === 0) 
+                    ? '<li class="text-gray-500">No outward movement for existing items.</li>' 
+                    : topOutward.filter(i => i.outward > 0).map(i => `<li>${i.name}: ${i.outward} units</li>`).join('');
             }
 
             function renderStockChart(){const d=document.getElementById('stockChartDiv');if(!d||overviewPageDiv.classList.contains('hidden'))return;const i=inventory.filter(it=>(Number(it.StockQuantity)||0)>0).sort((a,b)=>(Number(b.StockQuantity)||0)-(Number(a.StockQuantity)||0)).slice(0,10),tC='#374151',bC='#3b82f6',vC='#2563eb';if(i.length===0){d.innerHTML=`<h3 class="mb-3 text-center text-lg font-semibold" style="color:${tC};">Top Stock</h3><div class="py-8 text-center text-gray-400">No stock.</div>`;return;}const mS=Math.max(...i.map(it=>(Number(it.StockQuantity)||0)),0),bH=20,cH=i.length*(bH+10)+30,lW=150,bAW=d.offsetWidth>450?d.offsetWidth-lW-70:230,vO=5;let h=`<h3 class="mb-4 text-center text-lg font-semibold" style="color:${tC};">Top Stocked</h3><svg width="100%" height="${cH}" viewBox="0 0 ${lW+bAW+50} ${cH}" class="font-sans">`;i.forEach((it,idx)=>{const y=idx*(bH+10)+15,s=Number(it.StockQuantity)||0,bW=mS>0?(s/mS)*bAW:0,nD=it.ItemName.length>20?it.ItemName.slice(0,18)+'...':it.ItemName;h+=`<text x="0" y="${y+bH/2+4}" font-size="12" fill="${tC}">${nD}</text><rect x="${lW}" y="${y}" width="${bW}" height="${bH}" fill="${bC}" rx="3" class="chart-bar" data-name="${it.ItemName}" data-stock="${s}"/><text x="${lW+bW+vO}" y="${y+bH/2+4}" font-size="12" fill="${vC}" font-weight="500">${s}</text>`;});h+='</svg>';d.innerHTML=h;d.querySelectorAll('.chart-bar').forEach(b=>{b.addEventListener('mouseenter',(e)=>showToast(`${e.target.dataset.name}:${e.target.dataset.stock} units`));});}
@@ -1609,5 +1732,6 @@
 
             initializeApp();
         });
-    </script></body>
+    </script>
+</body>
 </html>
